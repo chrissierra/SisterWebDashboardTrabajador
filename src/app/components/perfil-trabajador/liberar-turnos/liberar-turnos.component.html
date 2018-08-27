@@ -1,0 +1,37 @@
+<div class="container" style="margin-top:50px;padding:35px;">
+
+    <form #forma='ngForm' (ngSubmit)="guardar(forma)" #forma="ngForm">
+
+        <div class="form-group" *ngFor="let datos_para_generar_formulario of datos_para_generar_formulario; let i = index">
+            <div *ngIf="datos_para_generar_formulario!== null">
+                <label *ngIf="i > 6 && llaves_datos_para_generar_formulario[i].length == 3">
+                {{ llaves_datos_para_generar_formulario[i] | entradaosalida }}
+                {{ llaves_datos_para_generar_formulario[i] | slice:0:2  |  nombreDelDiaDelMes: mes:anio}}
+                {{ llaves_datos_para_generar_formulario[i] | slice:0:2 }}/{{ mes }}/{{ anio  }}
+            </label>
+
+                <label *ngIf="i > 6 && llaves_datos_para_generar_formulario[i].length == 2">
+              {{ llaves_datos_para_generar_formulario[i] | entradaosalida }}
+              {{ llaves_datos_para_generar_formulario[i] | slice:0:1  |  nombreDelDiaDelMes: mes:anio}}
+              {{ llaves_datos_para_generar_formulario[i] | slice:0:1 }}/{{ mes }}/{{ anio }}
+            </label>
+
+                <input *ngIf="i > 6 " type="time" class="form-control" [name]="llaves_datos_para_generar_formulario[i]" [ngModel]="datos_para_generar_formulario">
+            </div>
+        </div>
+
+
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="check" #check="ngModel" ngModel>
+            <label class="form-check-label">Estoy plenamente seguro de liberar el sueldo de mi trabajador tal cuál como se muestra. Una vez liberado no puede revertirse.</label>
+        </div>
+
+
+        <br>
+
+        <button (click)="Actualizar(forma)" class="btn btn-danger">Actualizar</button>
+        <button *ngIf="check.value" type="submit" class="btn btn-primary">Enviar</button>
+        <button *ngIf="!check.value" type="submit" class="btn btn-primary" disabled>Enviar</button>
+    </form>
+
+</div>

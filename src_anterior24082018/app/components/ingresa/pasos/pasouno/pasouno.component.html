@@ -1,0 +1,29 @@
+<div class="container" style="margin-top:100px">
+
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h2>Ingreso personal: </h2>
+            <p> Podrás desde el siguiente formulario ingresar a un trabajador. Si ya tienes el contrato o quieres hacerlo por otro método y luego subirlo opcionalmente a la plataforma deberás elegir opción 2. Si quieres generar el contrato desde la plataforma
+                selecciona opción 1. </p>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Selecciona tipo de ingreso:</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                                          <option [routerLink]="">1.- Generación automática de contrato</option>
+                                          <option>2.- Solo datos, contrato se subirá como pdf o imagen</option>
+                                    </select>
+                    <small id="emailHelp" class="form-text text-muted">Si no tienes el contrato, usa generación automática y se generará en PDF.</small>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-block" (click)="funcion_paso2()">Continuar</button>
+            </form>
+        </div>
+    </div>
+
+</div>

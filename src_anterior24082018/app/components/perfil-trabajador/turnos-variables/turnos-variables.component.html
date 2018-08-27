@@ -1,0 +1,65 @@
+<div class="container" style="margin-top:50px;padding:35px;">
+		  
+		  <div class="form-group">
+			    <label for="exampleFormControlSelect1">Meses pendientes de turnos: </label>
+			    <select class="form-control" [(ngModel)]="meses_select" #heroInput="ngModel">
+			     
+			      <option *ngFor="let meses_pendienes_de_hacer_turnos of meses_pendienes_de_hacer_turnos; let i = index" [value]="meses_pendienes_de_hacer_turnos">{{meses_pendienes_de_hacer_turnos}}</option>
+			   
+			    </select>
+			    <br>
+			    <button type="button" class="btn btn-outline-primary  btn-block" (click)="hacer_turno()">Generar turno</button>
+		  </div>
+
+		  <div *ngIf="estatus_mes_actual == 0" class="alert alert-danger" role="alert">
+		 	 Tu trabajador no tiene el horario del mes en curso listo
+		  </div>
+
+
+<form #forma='ngForm' (ngSubmit)="guardar(forma)" #forma="ngForm">
+
+
+  <div  *ngFor="let dias_a_mostrar of dias_a_mostrar; let i = index"   class="form-group">
+    <label for="exampleInputEmail1">Entrada {{ dias_a_mostrar }} {{ i+1 }}/{{mes}}/{{ anio }}</label>
+    
+    <input 
+    type="time" 
+    class="form-control" 
+    name="{{i+1}}e" 
+    ngModel
+    id="{{i+1}}e"
+    
+    >
+    
+<br>
+        <label for="exampleInputEmail1">Salida {{ dias_a_mostrar }} {{ i+1 }}/{{mes}}/{{ anio }}</label>
+    <input 
+    type="time" 
+    class="form-control" 
+    name="{{i+1}}s" 
+    ngModel
+
+    >
+
+   <!--  {{ (forma.value[ (i+1) + 'e']  | slice:0:2) }}   {{ forma.value[ (i+1) + 's']  | slice:0:2}} -->
+  
+   <input type="hidden" [value]="forma.value[ (i+1) + 'e']">
+    <small class="form-text text-muted">Horario del día.   </small>
+    <hr>
+    <br>
+  </div>
+
+
+		<input type="hidden" name="mes" [ngModel]="mes">
+		<input type="hidden" name="anio" [ngModel]="anio">
+		<input type="hidden" name="trabajador_id" [ngModel]="id_parent">
+
+  <button type="submit" class="btn btn-primary">Guarda el horario</button>
+</form>
+
+
+
+</div>
+
+
+

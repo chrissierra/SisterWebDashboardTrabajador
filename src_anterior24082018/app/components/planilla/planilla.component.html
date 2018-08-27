@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<div class="container" style="margin-top:50px;padding:35px;">
+
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Busca un trabajador</span>
+        </div>
+
+        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="name" #ctrl="ngModel">
+    </div>
+
+    <!-- <div class="input-group mb-3 row justify-content-center"><button type="button" class="btn btn-outline-primary">Buscar</button></div>
+     <p>Value: {{ name }}</p> <p>Valid: {{ ctrl.dirty }}</p>
+   -->
+
+    <table class="table table-hover table-responsive-lg table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Puesto</th>
+                <th scope="col">Isapre</th>
+            </tr>
+        </thead>
+
+        <tbody *ngIf="ctrl.dirty == false || name.length == 0">
+
+            <tr *ngFor="let empleados of empleados">
+
+                <th [routerLink]="['/PerfilTrabajador', empleados.id]" scope="row" style="cursor:pointer">{{ empleados.nombre }}</th>
+                <td>{{ empleados.apellido }}</td>
+                <td>{{ empleados.puesto }}</td>
+                <td>{{ empleados.isapre }}</td>
+
+            </tr>
+
+        </tbody>
+
+        <tbody *ngIf="ctrl.dirty == true && name.length > 0">
+
+            <tr *ngFor="let empleados of empleados">
+
+                <th [routerLink]="['/PerfilTrabajador', empleados.id]" *ngIf="empleados.nombre.toLowerCase().search(name.toLowerCase()) >= 0 || empleados.apellido.toLowerCase().search(name.toLowerCase()) >= 0" scope="row">{{ empleados.nombre }}</th>
+                <td *ngIf="empleados.nombre.toLowerCase().search(name.toLowerCase()) >= 0 || empleados.apellido.toLowerCase().search(name.toLowerCase()) >= 0">{{ empleados.apellido }}</td>
+                <td *ngIf="empleados.nombre.toLowerCase().search(name.toLowerCase()) >= 0 || empleados.apellido.toLowerCase().search(name.toLowerCase()) >= 0">{{ empleados.puesto }}</td>
+                <td *ngIf="empleados.nombre.toLowerCase().search(name.toLowerCase()) >= 0 || empleados.apellido.toLowerCase().search(name.toLowerCase()) >= 0">{{ empleados.isapre }}mdo</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

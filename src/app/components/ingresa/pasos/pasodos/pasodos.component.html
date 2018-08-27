@@ -1,0 +1,53 @@
+<div class="container" style="margin-top:50px;padding:50px">
+
+    <div class="row justify-content-center">
+        <h3>Ingreso datos generales </h3>
+    </div>
+
+
+    <div class="row justify-content-center">
+        <h3><small class="text-muted">Los siguientes campos serán los oficiales para tu trabajador.</small></h3>
+    </div>
+
+
+
+    <br>
+
+    <div class="row justify-content-center">
+        <div class="col-8">
+
+            <form [formGroup]="forma" (ngSubmit)="onSubmit(forma)">
+                <div class="form-group" *ngFor="let s of Empleado">
+                    <label for="exampleInputEmail1">{{ s.name }}</label>
+                    <div *ngIf="!s.select">
+                        <input [type]="s.tipo" class="form-control" [formControlName]="s.name">
+                        <small *ngIf="s?.info" class="form-text text-muted">{{s.info}}.</small>
+                    </div>
+
+                    <div *ngIf="s.select">
+                        <select name="" id="" class="form-control" [formControlName]="s.name">
+                        <option [value]="s.name" *ngFor="let o of s.opciones">{{ o }}</option>
+                </select>
+                    </div>
+
+                    <div  class="alert alert-success" role="alert" *ngIf="forma.controls[s.name].invalid && !forma.controls[s.name].pristine">
+                        <small class="text-muted">Debes completar el campo</small>
+                    </div>
+
+                </div>
+<!--[disabled]="!forma.valid"-->
+                <button   type="submit" class="btn btn-outline-primary">Ingresar </button>
+                <hr>
+                <div *ngIf="!forma.valid" class="alert alert-danger" role="alert">
+                    El formulario no está completo
+                </div>
+                <div *ngIf="forma.valid" class="alert alert-success" role="alert">
+                    El formulario es válido
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
