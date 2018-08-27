@@ -24,12 +24,20 @@ export class IngresoUsuarioServidorService {
 
 
 actualizar_turnos(data, id, mes) {
-
+console.log(this.rutasService_.rutas['ActualizarTurnos'] )
 
 data['id'] = id;
 data['mes'] = mes;
 
   return this.http.post( this.rutasService_.rutas['ActualizarTurnos'] , JSON.stringify(data) );
+}
+
+
+liberar_turno(data, id, mes) {
+data['id'] = id;
+data['mes'] = mes;
+
+  return this.http.post( this.rutasService_.rutas['LiberarDefinitivoTurnos'] , JSON.stringify(data) );	
 }
 
 }

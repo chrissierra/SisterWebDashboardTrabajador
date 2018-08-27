@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PerfilTrabajadorServiceService } from '../../../services/perfil-trabajador-service.service';
 import { Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html'
@@ -14,8 +17,8 @@ export class PerfilComponent {
     boleano_boton:any;
     turnos_sin_liberar:any;
 
-constructor(private perfilServicio_ : PerfilTrabajadorServiceService, private param: ActivatedRoute, private router : Router) { 
-    
+constructor(private snackBar: MatSnackBar, private perfilServicio_ : PerfilTrabajadorServiceService, private param: ActivatedRoute, private router : Router) { 
+    let snackBarRef = snackBar.open('Message archived');
     this.id_parent = this.param.parent.snapshot.paramMap.get('id');
 
     this.perfilServicio_.getTurnosSinLiberacion(this.id_parent).then(data=>{

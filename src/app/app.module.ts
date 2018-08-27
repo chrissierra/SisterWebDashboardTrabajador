@@ -4,6 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
+// Angular material
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+
 // rutas:
 import { peo } from './app.routes';
 
@@ -65,7 +70,9 @@ import { NombreDelDiaDelMesPipe } from './pipes/nombre-del-dia-del-mes.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpModule
+    HttpModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [EmpleadoService,
               IngresoUsuarioServidorService,

@@ -53,8 +53,8 @@ export class LiberarTurnosComponent  {
 
 
                guardar(forma) {
-                this.servicio_.actualizar_turnos(forma.value, this.id, this.mes).subscribe(data => {
-
+                this.servicio_.liberar_turno(forma.value, this.id, this.mes).subscribe(data => {
+                        this.router.navigate(['../PerfilTrabajador/'+this.param.parent.snapshot.paramMap.get('id')+'/Perfil/']);
                 });
 
                }
@@ -62,8 +62,9 @@ export class LiberarTurnosComponent  {
 
 
                Actualizar(forma) {
+                 console.log("asdfasdasdfpeo en actrulziar")
                 this.servicio_.actualizar_turnos(forma.value, this.id, this.mes).subscribe(data => {
-
+                    this.router.navigate(['../PerfilTrabajador/'+this.param.parent.snapshot.paramMap.get('id')+'/Perfil/']);
                 });
                }
 

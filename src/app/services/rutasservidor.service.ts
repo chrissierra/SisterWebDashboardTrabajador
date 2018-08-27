@@ -14,7 +14,8 @@ export class RutasservidorService {
     'InsertTurnoVariable': 'http://127.0.0.1/api/TurnosVariables/',
     'TurnosSinLiberar': 'http://127.0.0.1/TurnosSinLiberar/',
     'LiberarTurnos': 'http://127.0.0.1/LiberarTurnos/',
-    'ActualizarTurnos': 'http://127.0.0.1/api/ActualizarTurnosVariables/'
+    'ActualizarTurnos': 'http://127.0.0.1/api/ActualizarTurnosVariables/',
+    'LiberarDefinitivoTurnos': 'http://127.0.0.1/api/LiberarDefinitivoTurnos/'
   };
 
 }
