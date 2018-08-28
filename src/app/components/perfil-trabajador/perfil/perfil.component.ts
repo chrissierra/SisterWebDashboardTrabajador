@@ -11,14 +11,20 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class PerfilComponent {
 
-    empleado_ :any;
-  	datos_perfil_empleado:any;
-  	id_parent:string;
-    boleano_boton:any;
-    turnos_sin_liberar:any;
+    empleado_:any;
+  	datos_perfil_empleado: any;
+  	id_parent: string;
+    boleano_boton: any;
+    turnos_sin_liberar: any;
 
-constructor(private snackBar: MatSnackBar, private perfilServicio_ : PerfilTrabajadorServiceService, private param: ActivatedRoute, private router : Router) { 
-    let snackBarRef = snackBar.open('Message archived');
+constructor(private snackBar: MatSnackBar, 
+            private perfilServicio_ : PerfilTrabajadorServiceService, 
+            private param: ActivatedRoute, 
+            private router : Router) { 
+
+    const snackBarRef = snackBar.open('Message archived', 'OK', {
+      duration: 3000
+    });
     this.id_parent = this.param.parent.snapshot.paramMap.get('id');
 
     this.perfilServicio_.getTurnosSinLiberacion(this.id_parent).then(data=>{

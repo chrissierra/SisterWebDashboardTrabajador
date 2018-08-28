@@ -29,7 +29,10 @@ import { TurnosFijosComponent } from './components/perfil-trabajador/turnos-fijo
 import { PerfilComponent } from './components/perfil-trabajador/perfil/perfil.component';
 import { HistorialTurnosComponent } from './components/perfil-trabajador/historial-turnos/historial-turnos.component';
 import { LiberarTurnosComponent } from './components/perfil-trabajador/liberar-turnos/liberar-turnos.component';
-
+import { DashBoardComponent } from './components/dashboard/dash-board/dash-board.component';
+import { PerfilEmpleadorComponent } from './components/dashboard/perfil-empleador/perfil-empleador.component';
+import { IngresoSucursalComponent } from './components/dashboard/ingreso-sucursal/ingreso-sucursal.component';
+import { ReportesComponent } from './components/dashboard/reportes/reportes.component';
 
 // servicios
 import { EmpleadoService } from './components/ingresa/interfaces/empleado.service';
@@ -41,6 +44,7 @@ import { PerfilTrabajadorServiceService } from './services/perfil-trabajador-ser
 import { LiberarTurnosService } from './services/liberar-turnos.service';
 import { EntradaosalidaPipe } from './pipes/entradaosalida.pipe';
 import { NombreDelDiaDelMesPipe } from './pipes/nombre-del-dia-del-mes.pipe';
+
 
 
 
@@ -62,7 +66,11 @@ import { NombreDelDiaDelMesPipe } from './pipes/nombre-del-dia-del-mes.pipe';
     HistorialTurnosComponent,
     LiberarTurnosComponent,
     EntradaosalidaPipe,
-    NombreDelDiaDelMesPipe
+    NombreDelDiaDelMesPipe,
+    DashBoardComponent,
+    PerfilEmpleadorComponent,
+    IngresoSucursalComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,

@@ -17,8 +17,24 @@ import { PerfilComponent } from './components/perfil-trabajador/perfil/perfil.co
 import { HistorialTurnosComponent } from './components/perfil-trabajador/historial-turnos/historial-turnos.component';
 import { LiberarTurnosComponent } from './components/perfil-trabajador/liberar-turnos/liberar-turnos.component';
 
+
+
+import { DashBoardComponent } from './components/dashboard/dash-board/dash-board.component';
+import { PerfilEmpleadorComponent } from './components/dashboard/perfil-empleador/perfil-empleador.component';
+import { IngresoSucursalComponent } from './components/dashboard/ingreso-sucursal/ingreso-sucursal.component';
+import { ReportesComponent } from './components/dashboard/reportes/reportes.component';
+
+
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
+  { path: 'DashBoard', component: DashBoardComponent, children: [
+   
+    { path: 'PerfilEmpleador' , component: PerfilEmpleadorComponent},
+    { path: 'IngresoSucursal' , component: IngresoSucursalComponent},
+    { path: 'Reportes' , component: ReportesComponent},
+    { path: '**', component: PerfilEmpleadorComponent }
+
+  ] },
   { path: 'Planilla', component: PlanillaComponent },
   { path: 'PerfilTrabajador/:id', component: PerfilTrabajadorComponent, children:[
   		{ path: 'Perfil' , component: PerfilComponent},
