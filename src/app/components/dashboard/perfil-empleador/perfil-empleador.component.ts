@@ -6,7 +6,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilEmpleadorComponent implements OnInit {
 
-  constructor() { }
+
+  nombre:string;
+  constructor() {
+     this.nombre = localStorage.getItem('nombre_rep');
+
+   }
 
   ngOnInit() {
   }

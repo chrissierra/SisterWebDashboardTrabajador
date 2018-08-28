@@ -9,6 +9,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
+//Angular maps
+import { AgmCoreModule } from '@agm/core';
+
 // rutas:
 import { peo } from './app.routes';
 
@@ -80,7 +83,10 @@ import { NombreDelDiaDelMesPipe } from './pipes/nombre-del-dia-del-mes.pipe';
     HttpClientModule,
     HttpModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyA4_hMMkk76AWB7GgXu7mUg1i2QPzNjwTg'
+    })
   ],
   providers: [EmpleadoService,
               IngresoUsuarioServidorService,
