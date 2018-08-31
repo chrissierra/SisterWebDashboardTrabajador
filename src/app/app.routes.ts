@@ -23,7 +23,7 @@ import { DashBoardComponent } from './components/dashboard/dash-board/dash-board
 import { PerfilEmpleadorComponent } from './components/dashboard/perfil-empleador/perfil-empleador.component';
 import { IngresoSucursalComponent } from './components/dashboard/ingreso-sucursal/ingreso-sucursal.component';
 import { ReportesComponent } from './components/dashboard/reportes/reportes.component';
-
+import { MarcajeComponent } from './components/perfil-trabajador/marcaje/marcaje.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
@@ -40,6 +40,7 @@ const routes: Routes = [
   		{ path: 'Perfil' , component: PerfilComponent},
 		  { path: 'TurnosVariables' , component: TurnosVariablesComponent},
 		  { path: 'TurnosFijos' , component: TurnosFijosComponent},
+      { path: 'Marcaje' , component: MarcajeComponent},
       { path: 'HistorialTurnos' , component: HistorialTurnosComponent},
       { path: 'LiberarTurnos/:mes/:anio' , component: LiberarTurnosComponent},
   ] },

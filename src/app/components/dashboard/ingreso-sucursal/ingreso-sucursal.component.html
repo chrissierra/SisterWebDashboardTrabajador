@@ -1,6 +1,78 @@
-<p>
-  ingreso-sucursal works! sdfafd
-</p>
-<agm-map [latitude]="lat" [longitude]="lng" style="height:300px">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+
+<agm-map style="height:300px;" [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom" [disableDefaultUI]="true" [zoomControl]="true" [(fitBounds)]='location.viewport'>
+  <agm-marker [(latitude)]="location.marker.lat" [(longitude)]="location.marker.lng" [markerDraggable]="location.marker.draggable" (dragEnd)='markerDragEnd($event)'></agm-marker>
 </agm-map>
+
+
+<div class="container">
+  <div class='row'>
+    <div class="form-group">
+      <label >Address Line 1</label>
+      <input type='text' [(ngModel)]='location.address_level_1' class="form-control" placeholder='Dirección'>
+    </div>
+    <div class="form-group">
+      <label >Address Line 2</label>
+      <input [(ngModel)]='location.address_level_2' class='form-control' placeholder='Comuna'/>
+    </div>
+ 
+    <div class="form-group">
+      <label >Región</label>
+      <input   [(ngModel)]='location.address_state' class='form-control' placeholder='Región'>
+    </div>
+ 
+    <div class="form-group">
+      <label >País</label>
+      <input   [(ngModel)]='location.address_country' class='form-control' placeholder='País'>
+    </div>
+ 
+    <div class="form-group">
+      <label >Código postal</label>
+      <input   [(ngModel)]='location.address_zip' class='form-control' placeholder='No obligatorio'>
+    </div>
+ <br>
+ 	<div class="form-group">
+ 		<br>
+    	<button (click)='updateOnMap()' type="submit" class="btn btn-warning btn-sm">Buscar</button>
+    </div>
+  </div>
+
+
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Guardar Sucursal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Guardar sucursal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+       ¿ Estás seguro de guardar {{ location.address_level_1 }} comuna de {{location.address_level_2}} ?
+
+
+       Si es así guarda el nombre de la sucursal:
+
+        <div class="form-group">
+          <label for="exampleInputEmail1"></label>
+          <input [(ngModel)]='nombreDescriptivoSucursal' #InputGuardarSucursal="ngModel"  type="email" class="form-control" name="InputGuardarSucursal" aria-describedby="emailHelp" placeholder="Nombre descriptivo sucursal">
+          <small id="emailHelp" class="form-text text-muted">Escribe un nombre descriptivo de tu sucursal.</small>
+        </div>
+
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button data-dismiss="modal" *ngIf="!InputGuardarSucursal.pristine && InputGuardarSucursal.model?.length > 0  " (click)="guardar_sucursal()" type="button" class="btn btn-primary" >Guardar</button>
+        <button *ngIf="InputGuardarSucursal.pristine || InputGuardarSucursal.model?.length === 0  " (click)="guardar_sucursal()" type="button" class="btn btn-primary" disabled>Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
