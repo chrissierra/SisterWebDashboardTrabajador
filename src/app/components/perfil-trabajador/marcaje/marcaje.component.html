@@ -1,3 +1,18 @@
-<p>
-  marcaje works!
-</p>
+<div class="container" style="margin-top:30px;">
+
+    <div *ngIf="trabaja_dia_en_curso == 1" class="row">
+
+        <div class="col-2"></div>
+        <div class="col-4">
+            <button (click)="marcar_movimiento('entrada')" *ngIf="entrada == 0" class="btn btn-success">Marcar Entrada</button>
+            <button *ngIf="entrada !== 0" class="btn btn-success" disabled>Entrada realizada</button>
+        </div>
+        <div class="col-4">
+            <button (click)="marcar_movimiento('salida')" *ngIf="salida == 0" class="btn btn-danger">Marcar Salida</button>
+            <button *ngIf="salida !== 0" class="btn btn-danger" disabled>Salida realizada</button>
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+
+</div>

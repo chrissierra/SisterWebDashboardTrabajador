@@ -13,16 +13,15 @@ import { IngresoUsuarioServidorService } from './../../../services/ingreso-usuar
 export class TurnosVariablesComponent implements OnInit {
 	  hola:any[];
 	  mes:any;
-    anio:any;
-    meses_pendienes_de_hacer_turnos:any[];
-  	datos_perfil_empleado:any;
+      anio:any;
+      meses_pendienes_de_hacer_turnos:any[];
+  	  datos_perfil_empleado:any;
 	  id_parent:string;
-    estatus_mes_actual:any;
-    estatus_proximo_mes:any;
+      estatus_mes_actual:any;
+      estatus_proximo_mes:any;
 	  dias_a_mostrar:string[];
 	  mes_a_mostrar:any[];
 	  anio_a_mostrar:any[];
-
 	  meses_select:any;
 
 constructor(private perfilServicio_: PerfilTrabajadorServiceService,
@@ -115,7 +114,7 @@ meses_pendiente_de_hacer_turnos(){
 
 } //  Fin funcion meses_pendiente_de_hacer_turnos
 
-hacer_turno(){
+hacer_turno() {
 
     let meses_select_array = this.meses_select.split('/');
 

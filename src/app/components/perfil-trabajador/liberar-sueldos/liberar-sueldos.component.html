@@ -1,0 +1,57 @@
+<!--  
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLinkActive]="['active']" [routerLink]="['../Resumen']">Resumen</a></li>
+            <li class="breadcrumb-item"><a [routerLinkActive]="['active']" [routerLink]="['../LiberarSueldos']">Haberes Imponibles</a></li>
+            <li class="breadcrumb-item"><a [routerLinkActive]="['active']" [routerLink]="['../HaberNoImponible']">Haberes No Imponibles</a></li>
+            <li class="breadcrumb-item"><a [routerLinkActive]="['active']" [routerLink]="['../Descuentos']">Descuentos</a></li>
+        </ol>
+    </nav>
+-->
+
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+    <mat-tab label="Haberes Imponibles">
+        <div class="container" style="margin-top:30px;">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-5">Generación de pago </h1>
+                    <p class="lead">En el siguiente formulario deberás armar los haberes para tu trabajador.</p>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Escribe la glosa del Haber Imponible que quieras agregar</label>
+                        <input [(ngModel)]="GlosaHaber" type="text" class="form-control" placeholder="Ejemplo: Bono Ventas">
+                        <small id="emailHelp" class="form-text text-muted">Glosa de haber imponible.</small>
+                    </div>
+                    <button (click)="agregar_haberes(GlosaHaber)" class="btn btn-warning ">Agregar Haberes</button>
+                </div>
+            </div>
+
+
+
+            <form #forma='ngForm' (ngSubmit)="guardar(forma)" #forma="ngForm">
+
+
+                <div *ngFor="let HaberesImponibles of HaberesImponibles; let i = index" class="form-group">
+                    <label> {{ HaberesImponibles }} </label>
+
+                    <input type="text" class="form-control" name="{{HaberesImponibles}}" ngModel>
+                    <hr>
+                    <br>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar Haberes</button>
+            </form>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Haberes no  imponibles">
+        <app-haber-no-imponible></app-haber-no-imponible>
+    </mat-tab>
+
+    <mat-tab label="Descuentos">
+        <app-descuentos></app-descuentos>
+    </mat-tab>
+
+    <mat-tab label="Resumen">
+        <app-resumen></app-resumen>
+    </mat-tab>
+</mat-tab-group>

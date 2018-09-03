@@ -7,9 +7,12 @@ import { HttpModule } from '@angular/http';
 // Angular material
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
-//Angular maps
+
+// Angular maps
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 // rutas:
@@ -37,6 +40,9 @@ import { PerfilEmpleadorComponent } from './components/dashboard/perfil-empleado
 import { IngresoSucursalComponent } from './components/dashboard/ingreso-sucursal/ingreso-sucursal.component';
 import { ReportesComponent } from './components/dashboard/reportes/reportes.component';
 import { MarcajeComponent } from './components/perfil-trabajador/marcaje/marcaje.component';
+import { SueldosComponent } from './components/dashboard/sueldos/sueldos.component';
+import { LiberarSueldosComponent } from './components/perfil-trabajador/liberar-sueldos/liberar-sueldos.component';
+
 
 // servicios
 import { EmpleadoService } from './components/ingresa/interfaces/empleado.service';
@@ -50,6 +56,11 @@ import { EntradaosalidaPipe } from './pipes/entradaosalida.pipe';
 import { NombreDelDiaDelMesPipe } from './pipes/nombre-del-dia-del-mes.pipe';
 import { GuardarSucursalService } from './services/guardar-sucursal.service';
 import { MarcajeServiceService } from './services/marcaje-service.service';
+import { AppService } from './app.service';
+import { HaberNoImponibleComponent } from './components/perfil-trabajador/haber-no-imponible/haber-no-imponible.component';
+import { DescuentosComponent } from './components/perfil-trabajador/descuentos/descuentos.component';
+import { ResumenComponent } from './components/perfil-trabajador/resumen/resumen.component';
+
 
 
 
@@ -77,7 +88,12 @@ import { MarcajeServiceService } from './services/marcaje-service.service';
     PerfilEmpleadorComponent,
     IngresoSucursalComponent,
     ReportesComponent,
-    MarcajeComponent
+    MarcajeComponent,
+    SueldosComponent,
+    LiberarSueldosComponent,
+    HaberNoImponibleComponent,
+    DescuentosComponent,
+    ResumenComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +103,8 @@ import { MarcajeServiceService } from './services/marcaje-service.service';
     HttpClientModule,
     HttpModule,
     BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    MatTabsModule,
     MatSnackBarModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAdXTtlsdlutwezrknwZowxSwHV0r__pnE'
@@ -101,7 +119,8 @@ import { MarcajeServiceService } from './services/marcaje-service.service';
               LiberarTurnosService,
               GoogleMapsAPIWrapper,
               GuardarSucursalService,
-              MarcajeServiceService],
+              MarcajeServiceService,
+              AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

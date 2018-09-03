@@ -17,7 +17,8 @@ export class RutasservidorService {
     'ActualizarTurnos': 'http://127.0.0.1/api/ActualizarTurnosVariables/',
     'LiberarDefinitivoTurnos': 'http://127.0.0.1/api/LiberarDefinitivoTurnos/',
     'GuardarSucursal':'http://127.0.0.1/api/GuardarSucursal/',
-    'SituacionMarcaje':'http://127.0.0.1/api/SituacionMarcaje/'
+    'SituacionMarcaje':'http://127.0.0.1/api/SituacionMarcaje/',  
+    'MarcarMovimiento': 'http://127.0.0.1/api/MarcarMovimiento/'
   };
 
 }

@@ -24,6 +24,12 @@ import { PerfilEmpleadorComponent } from './components/dashboard/perfil-empleado
 import { IngresoSucursalComponent } from './components/dashboard/ingreso-sucursal/ingreso-sucursal.component';
 import { ReportesComponent } from './components/dashboard/reportes/reportes.component';
 import { MarcajeComponent } from './components/perfil-trabajador/marcaje/marcaje.component';
+import { SueldosComponent } from './components/dashboard/sueldos/sueldos.component';
+import { LiberarSueldosComponent } from './components/perfil-trabajador/liberar-sueldos/liberar-sueldos.component';
+
+import { HaberNoImponibleComponent } from './components/perfil-trabajador/haber-no-imponible/haber-no-imponible.component';
+import { DescuentosComponent } from './components/perfil-trabajador/descuentos/descuentos.component';
+import { ResumenComponent } from './components/perfil-trabajador/resumen/resumen.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
@@ -31,6 +37,7 @@ const routes: Routes = [
    
     { path: 'PerfilEmpleador' , component: PerfilEmpleadorComponent},
     { path: 'IngresoSucursal' , component: IngresoSucursalComponent},
+    { path: 'SueldosComponent' , component: SueldosComponent},
     { path: 'Reportes' , component: ReportesComponent},
     { path: '**', component: PerfilEmpleadorComponent }
 
@@ -41,6 +48,12 @@ const routes: Routes = [
 		  { path: 'TurnosVariables' , component: TurnosVariablesComponent},
 		  { path: 'TurnosFijos' , component: TurnosFijosComponent},
       { path: 'Marcaje' , component: MarcajeComponent},
+
+      { path: 'HaberNoImponible' , component: HaberNoImponibleComponent},
+		  { path: 'Descuentos' , component: DescuentosComponent},
+      { path: 'Resumen' , component: ResumenComponent},
+
+      { path: 'LiberarSueldos' , component: LiberarSueldosComponent},
       { path: 'HistorialTurnos' , component: HistorialTurnosComponent},
       { path: 'LiberarTurnos/:mes/:anio' , component: LiberarTurnosComponent},
   ] },

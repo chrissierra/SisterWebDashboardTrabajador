@@ -1,9 +1,13 @@
 <div class="container" style="margin-top:50px;padding:35px;">
 
+    <div>
+        <button class="btn btn-danger" [routerLink]="['../LiberarSueldos/']">Liberar Sueldos</button>
+    </div>
 
-<div>
-    <button class="btn btn-danger"  [routerLink]="['../Marcaje/']"  >Marcar asistencia</button>
-</div>
+
+    <div>
+        <button class="btn btn-danger" [routerLink]="['../Marcaje/']">Marcar asistencia</button>
+    </div>
 
     <div *ngIf="boleano_boton == 'Turnos'">
         <button [routerLink]="['../TurnosVariables/']" class="btn btn-primary" type="submit">Ir a turnos</button>
@@ -21,6 +25,26 @@
 
     </ul>
 
+
+
+    <div *ngIf="entrada !== 0">
+
+        <h2> Resumen Asistencia del día: </h2>
+        <div class="card">
+            <div class="card-body">
+                <p>Hora Entrada: {{entrada}}</p>
+                <p>Estatus Movimiento: {{ statusEntrada }} </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <p>Hora Salida: {{salida}}</p>
+                <p>Estatus Movimiento: {{ statusSalida }} </p>
+            </div>
+        </div>
+
+    </div>
 
 
 

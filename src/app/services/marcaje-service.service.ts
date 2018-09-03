@@ -7,10 +7,17 @@ export class MarcajeServiceService {
   constructor(private http: HttpClient, private rutasService_: RutasservidorService) { }
 
 
-situacion_marcaje(id){
+situacion_marcaje(id) {
+
+  return this.http.post(this.rutasService_.rutas['SituacionMarcaje'], id);
+
+}
 
 
-	return this.http.post(this.rutasService_.rutas['SituacionMarcaje'], id);
+realizarMarcaje(id) {
+
+  return this.http.post(this.rutasService_.rutas['MarcarMovimiento'], id);
+
 }
 
 }
