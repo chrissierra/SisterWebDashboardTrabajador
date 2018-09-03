@@ -42,7 +42,9 @@ import { ReportesComponent } from './components/dashboard/reportes/reportes.comp
 import { MarcajeComponent } from './components/perfil-trabajador/marcaje/marcaje.component';
 import { SueldosComponent } from './components/dashboard/sueldos/sueldos.component';
 import { LiberarSueldosComponent } from './components/perfil-trabajador/liberar-sueldos/liberar-sueldos.component';
-
+import { HaberNoImponibleComponent } from './components/perfil-trabajador/haber-no-imponible/haber-no-imponible.component';
+import { DescuentosComponent } from './components/perfil-trabajador/descuentos/descuentos.component';
+import { ResumenComponent } from './components/perfil-trabajador/resumen/resumen.component';
 
 // servicios
 import { EmpleadoService } from './components/ingresa/interfaces/empleado.service';
@@ -57,9 +59,7 @@ import { NombreDelDiaDelMesPipe } from './pipes/nombre-del-dia-del-mes.pipe';
 import { GuardarSucursalService } from './services/guardar-sucursal.service';
 import { MarcajeServiceService } from './services/marcaje-service.service';
 import { AppService } from './app.service';
-import { HaberNoImponibleComponent } from './components/perfil-trabajador/haber-no-imponible/haber-no-imponible.component';
-import { DescuentosComponent } from './components/perfil-trabajador/descuentos/descuentos.component';
-import { ResumenComponent } from './components/perfil-trabajador/resumen/resumen.component';
+import { SueldosService } from './services/sueldos.service';
 
 
 
@@ -120,7 +120,8 @@ import { ResumenComponent } from './components/perfil-trabajador/resumen/resumen
               GoogleMapsAPIWrapper,
               GuardarSucursalService,
               MarcajeServiceService,
-              AppService],
+              AppService,
+              SueldosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
