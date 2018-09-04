@@ -8,37 +8,41 @@ import { MarcajeServiceService } from '../../../services/marcaje-service.service
   selector: 'app-liberar-sueldos',
   templateUrl: './liberar-sueldos.component.html'
 })
-export class LiberarSueldosComponent implements OnChanges {
+export class LiberarSueldosComponent  {
+// tslint:disable
 
-
-  HaberesImponibles: any[] = [];
+  HaberesImponibles: any[] = [];  // Necesario para usar push
+  ValorHaberes:number[] = [];
   GlosaHaber: any;
-  DatosTrabajador:any;
-  ComisionAfp:any;
+  DatosTrabajador: any;
+  ComisionAfp: any;
+  TotalHaberImponible:number;
+  TotalHaberImponible_temp:number;
   
   constructor(private SueldoServicio_: SueldosService,
               public PerfilTrabajador: PerfilTrabajadorServiceService,
               private snackBar: MatSnackBar, 
-              private MarcajeServiceService: MarcajeServiceService,
+              private MarcajeServiceService_: MarcajeServiceService,
               private param: ActivatedRoute, 
               private router : Router) {
     
     
- this.PerfilTrabajador.getPerfil(this.param.parent.snapshot.paramMap.get('id')).subscribe(data => {
-             console.log(data);
-             this.DatosTrabajador = data[0];
-
-             this.SueldoServicio_.getComisionAfp(this.DatosTrabajador.afp).subscribe(data => {
-                 this.ComisionAfp = data[0].monto;
-             })
+ this.PerfilTrabajador.getPerfil(this.param.parent.snapshot.paramMap.get('id')).subscribe(data_perfil => {
+             console.log(data_perfil);
+             this.DatosTrabajador = data_perfil[0];
+             
+             
+             this.SueldoServicio_.getComisionAfp(this.DatosTrabajador.afp).subscribe( data_afp => {
+                 this.ComisionAfp = data_afp[0].monto;
+                // this.TotalHaberImponible = (( this.ComisionAfp + 7 / 100 ) + 1 ) * data_perfil[0].sueldo;
+                this.TotalHaberImponible_temp =  (((  (this.ComisionAfp*1) + 7 ) / 100)+1)* data_perfil[0].sueldo;
+              });
     });
     
 
    }
 
-ngOnChanges(changes: SimpleChanges){
-   
-}
+
 
   guardar(forma) {
    console.log(forma.value);
@@ -47,8 +51,20 @@ ngOnChanges(changes: SimpleChanges){
 
   agregar_haberes(a) {
 
+     
      this.HaberesImponibles.push(a);
      
+  }
+
+  onSearchChange(e){
+    let element = 0;
+   for (let index = 0; index < this.ValorHaberes.length; index++) {
+      element =  (this.ValorHaberes[index]*1) + element;
+     
+   }
+
+   this.TotalHaberImponible = element + this.TotalHaberImponible_temp;
+  console.log(this.ValorHaberes)
   }
 
 }

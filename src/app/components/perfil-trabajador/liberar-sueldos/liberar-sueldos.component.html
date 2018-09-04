@@ -25,15 +25,15 @@
                 </div>
             </div>
 
-{{DatosTrabajador?.nombre}} AFP con  {{ComisionAfp?}}
-
+            {{DatosTrabajador?.nombre}} AFP con {{ComisionAfp}} || El sueldo liquido: {{ DatosTrabajador?.sueldo }} El ngModel del input: {{ValorHaberes[0]}} ||||||
+            <br>{{ TotalHaberImponible }}
             <form #forma='ngForm' (ngSubmit)="guardar(forma)" #forma="ngForm">
 
 
-                <div *ngFor="let HaberesImponibles of HaberesImponibles; let i = index" class="form-group">
-                    <label> {{ HaberesImponibles }} </label>
+                <div *ngFor="let HaberesImponibles_ of HaberesImponibles; let i = index" class="form-group">
+                    <label> {{ HaberesImponibles_ }} </label>
 
-                    <input type="text" class="form-control" name="{{HaberesImponibles}}" ngModel>
+                    <input (input)="onSearchChange($event.target.value)" type="number" class="form-control" name="{{HaberesImponibles_}}" [(ngModel)]="ValorHaberes[i]">
                     <hr>
                     <br>
                 </div>
