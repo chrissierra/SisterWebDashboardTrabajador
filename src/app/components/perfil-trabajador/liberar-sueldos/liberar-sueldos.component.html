@@ -15,6 +15,7 @@
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
                     <h1 class="display-5">Generación de pago </h1>
+                   
                     <p class="lead">En el siguiente formulario deberás armar los haberes para tu trabajador.</p>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Escribe la glosa del Haber Imponible que quieras agregar</label>
@@ -25,8 +26,26 @@
                 </div>
             </div>
 
-            {{DatosTrabajador?.nombre}} AFP con {{ComisionAfp}} || El sueldo liquido: {{ DatosTrabajador?.sueldo }} El ngModel del input: {{ValorHaberes[0]}} ||||||
-            <br>{{ TotalHaberImponible }}
+            {{DatosTrabajador?.nombre}} AFP con {{ComisionAfp}} || El sueldo liquido: {{ DatosTrabajador?.sueldo }} El ngModel del input1: {{ValorHaberes[0]}} ||||||
+            <br>{{ TotalHaberImponible }} // Isapre 7% {{  TotalHaberImponible * 0.07}}
+
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <mat-list role="list">
+          <mat-list-item role="listitem">Sueldo a Pagar   {{ SueldoPagar }}</mat-list-item>
+          <mat-list-item role="listitem">Descuento AFP:   {{ total_afp }}</mat-list-item>
+          <mat-list-item role="listitem">Descuento ISAPRE:   {{ total_isapre }}</mat-list-item>
+    </mat-list>
+</mat-grid-tile>
+
+  <mat-grid-tile>2</mat-grid-tile>
+  <mat-grid-tile>3</mat-grid-tile>
+  <mat-grid-tile>4</mat-grid-tile>
+</mat-grid-list>
+
+
+
             <form #forma='ngForm' (ngSubmit)="guardar(forma)" #forma="ngForm">
 
 

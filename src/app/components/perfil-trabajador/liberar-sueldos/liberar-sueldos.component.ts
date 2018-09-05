@@ -12,12 +12,17 @@ export class LiberarSueldosComponent  {
 // tslint:disable
 
   HaberesImponibles: any[] = [];  // Necesario para usar push
-  ValorHaberes:number[] = [];
+  ValorHaberes:number[] = [];  // Se usa en ngFor
   GlosaHaber: any;
   DatosTrabajador: any;
   ComisionAfp: any;
   TotalHaberImponible:number;
   TotalHaberImponible_temp:number;
+  SueldoPagar:number;
+  gratificacion:number;
+  total_afp:number;
+  total_isapre:number;
+
   
   constructor(private SueldoServicio_: SueldosService,
               public PerfilTrabajador: PerfilTrabajadorServiceService,
@@ -30,17 +35,20 @@ export class LiberarSueldosComponent  {
  this.PerfilTrabajador.getPerfil(this.param.parent.snapshot.paramMap.get('id')).subscribe(data_perfil => {
              console.log(data_perfil);
              this.DatosTrabajador = data_perfil[0];
-             
+             this.gratificacion = 20000;
              
              this.SueldoServicio_.getComisionAfp(this.DatosTrabajador.afp).subscribe( data_afp => {
-                 this.ComisionAfp = data_afp[0].monto;
+                
+                this.ComisionAfp = data_afp[0].monto;
                 // this.TotalHaberImponible = (( this.ComisionAfp + 7 / 100 ) + 1 ) * data_perfil[0].sueldo;
                 this.TotalHaberImponible_temp =  (((  (this.ComisionAfp*1) + 7 ) / 100)+1)* data_perfil[0].sueldo;
+                this.TotalHaberImponible = this.TotalHaberImponible_temp;
+                console.log("Viendo porq no muestra la variable",this.TotalHaberImponible)
               });
     });
     
 
-   }
+   } // FIn constructor
 
 
 
@@ -64,8 +72,16 @@ export class LiberarSueldosComponent  {
    }
 
    this.TotalHaberImponible = element + this.TotalHaberImponible_temp;
+
   console.log(this.ValorHaberes)
-  }
+  this.total_afp = this.TotalHaberImponible * (this.ComisionAfp/100);
+  this.total_isapre = this.TotalHaberImponible * 0.07;
+  this.SueldoPagar =  this.TotalHaberImponible - ( this.total_afp + this.total_isapre);
+   /* SueldoPagar:number;
+  gratificacion:number;
+  total_afp:number;
+  total_isapre:number;*/
+  } // Fin on searchchange
 
 }
 

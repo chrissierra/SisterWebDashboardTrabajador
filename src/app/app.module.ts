@@ -9,6 +9,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatListModule} from '@angular/material/list';
 
 
 
@@ -106,6 +108,8 @@ import { SueldosService } from './services/sueldos.service';
     MatProgressSpinnerModule,
     MatTabsModule,
     MatSnackBarModule,
+    MatGridListModule,
+    MatListModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAdXTtlsdlutwezrknwZowxSwHV0r__pnE'
     })
