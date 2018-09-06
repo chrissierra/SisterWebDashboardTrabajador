@@ -28,47 +28,66 @@
         </div>
     </div>
 
+<!--
     {{DatosTrabajador?.nombre}} AFP con {{ComisionAfp}} || El sueldo liquido: {{ DatosTrabajador?.sueldo }} El ngModel del input1: {{ValorHaberes[0]}} ||||||
-    <br>{{ TotalHaberImponible }} // Isapre 7% {{ TotalHaberImponible * 0.07}}
+    <br>{{ TotalHaberImponible }} // Isapre 7% {{  * 0.07}} -->
+<div class="container" style="margin-bottom:50px;">
+<ul class="list-group">
+    <li class="list-group-item">Total imponible {{ TotalHaberImponible | currency }}</li>
+  <li class="list-group-item">Sueldo a Pagar {{ SueldoPagar | currency }}</li>
+  <li class="list-group-item">Descuento AFP: {{ total_afp  | currency }}</li>
+  <li class="list-group-item"> Descuento ISAPRE: {{ total_isapre | currency }}</li>
+</ul>
+</div>
 
-
-    <mat-grid-list cols="2" rowHeight="2:1">
-        <mat-grid-tile>
-            <mat-list role="list">
-                <mat-list-item role="listitem">Sueldo a Pagar {{ SueldoPagar }}</mat-list-item>
-                <mat-list-item role="listitem">Descuento AFP: {{ total_afp }}</mat-list-item>
-                <mat-list-item role="listitem">Descuento ISAPRE: {{ total_isapre }}</mat-list-item>
-            </mat-list>
-        </mat-grid-tile>
-
-        <mat-grid-tile>2</mat-grid-tile>
-        <mat-grid-tile>3</mat-grid-tile>
-        <mat-grid-tile>4</mat-grid-tile>
-    </mat-grid-list>
 
 
 
     <form #forma='ngForm' (ngSubmit)="guardar(forma)" #forma="ngForm">
 
-
-        <div *ngFor="let HaberesImponibles_ of HaberesImponibles; let i = index" class="form-group">
-            <label> {{ HaberesImponibles_ }} </label>
-
-            <input (input)="FuncionHaberesImponibles($event.target.value)" type="number" class="form-control" name="{{HaberesImponibles_}}" [(ngModel)]="ValorHaberes[i]">
-            <hr>
-            <br>
+        <div *ngFor="let HaberesImponibles_ of HaberesImponibles; let i = index" class="form-group row">
+            
+             <div class="col">
+                <label> {{ HaberesImponibles_ }} </label>
+             </div>
+            
+            <div class="col">
+                <input (input)="FuncionHaberesImponibles()" type="number" class="form-control" name="{{HaberesImponibles_}}" [(ngModel)]="ValorHaberes[i]">
+            </div>
+            
+            <div class="col">
+                <button (click)="BorrarHaberImponible(i)"   type="button" class="btn btn-danger">Eliminar</button>
+               <!--<span  (click)="BorrarHaberImponible(i)"  class="badge badge-warning">Borrar</span>-->
+            </div>
+            
+        <div class="col"></div>
+        
         </div>
 
+           
 
 
-        <div *ngFor="let HaberesNoImponibles_ of HaberesNoImponibles; let i = index" class="form-group">
-            <label> {{ HaberesNoImponibles_ }} </label>
 
-            <input (input)="FuncionHaberesNoImponibles()" type="number" class="form-control" name="{{HaberesNoImponibles_}}" [(ngModel)]="ValorHaberesNo[i]">
+        <div *ngFor="let HaberesNoImponibles_ of HaberesNoImponibles; let i = index"  class="form-group row">
+            <div class="col">
+                <label> {{ HaberesNoImponibles_ }} </label>
+            </div>
+            
+            <div class="col">
+                 <input (input)="FuncionHaberesNoImponibles()" type="number" class="form-control" name="{{HaberesNoImponibles_}}" [(ngModel)]="ValorHaberesNo[i]">
+            </div>
+            
+            <div class="col">
+               <!-- <span  (click)="BorrarHaberNoImponible(i)"  class="badge badge-warning">Borrar</span>-->
+                <button  (click)="BorrarHaberNoImponible(i)"  type="button" class="btn btn-danger">Eliminar</button>
+            </div>
+
+
+            <div class="col"></div>
+        </div>
+            
             <hr>
             <br>
-        </div>
-
         <button type="submit" class="btn btn-primary">Guardar Haberes</button>
     </form>
 </div>

@@ -59,7 +59,16 @@ export class ResumenComponent  {
 
   guardar(forma) {
 
+/*
+    let arreglo = [1,2,"hola",4,5];
+    console.log( arreglo );
+    let indice = arreglo.indexOf("hola"); // obtenemos el indice
+    arreglo.splice(indice, 1); // 1 es la cantidad de elemento a eliminar
+    console.log( arreglo );
 
+Para borrar un elemento de un array 
+
+*/
 let result = {};
 this.HaberesImponibles.forEach((k, i) => result[k] = this.ValorHaberes[i]);
 console.log(result);
@@ -82,7 +91,7 @@ console.log(result);
      
   }
 
-  FuncionHaberesImponibles(e){
+  FuncionHaberesImponibles(){
     let element = 0;
 
      for (let index = 0; index < this.ValorHaberes.length; index++) {
@@ -114,6 +123,21 @@ console.log(result);
 
   
 
+
+   BorrarHaberNoImponible(elemento){
+     this.HaberesNoImponibles.splice(elemento, 1);
+     this.ValorHaberesNo.splice(elemento, 1);
+     this.FuncionHaberesImponibles();
+     this.FuncionHaberesNoImponibles();
+   }
+
+
+   BorrarHaberImponible(elemento){
+     this.HaberesImponibles.splice(elemento, 1);
+     this.ValorHaberes.splice(elemento, 1);
+      this.FuncionHaberesImponibles();
+     this.FuncionHaberesNoImponibles();
+   }
 }
 
 
