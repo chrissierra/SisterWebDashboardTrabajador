@@ -14,16 +14,16 @@
 
 <div class="card" style="padding:50px;">
   <div class="card-body">
-     <div class="form-group" *ngFor="let dia of dias;let i = index">
+     <div class="form-group" *ngFor="let dia of dias ;let i = index">
 		    <label><strong>{{ dia | uppercase}}</strong></label>
 		         <div class="form-row">       	
 				    <div class="form-group col-md-6">
 				      <label>Entrada</label>
-				      <input name="{{i}}e" type="time" class="form-control" ngModel>
+				      <input name="{{i}}e" type="time" class="form-control" [(ngModel)]="datosTurnosFijoValuesImpar[i]">
 				    </div>
 				    <div class="form-group col-md-6">
 				      <label>Salida</label>
-				      <input name="{{i}}s" type="time" class="form-control" ngModel>
+				      <input name="{{i}}s" type="time" class="form-control" [(ngModel)]="datosTurnosFijoValuesPar[i]">
 				    </div>
 		        </div>
 		  </div>

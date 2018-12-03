@@ -3,8 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MarcajeServiceService } from '../../../services/marcaje-service.service';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-// tslint:disable:indent
-// tslint:disable:no-shadowed-variable
 @Component({
   selector: 'app-marcaje',
   templateUrl: './marcaje.component.html'
@@ -44,7 +42,8 @@ this.MarcajeServiceService.situacion_marcaje( JSON.stringify(this.id) ).subscrib
       const snackBarRef = this.snackBar.open('Marcaje realizado', 'OK', {
         duration: 3000
       });
-      this.router.navigate(['./PerfilTrabajador/' + this.param.parent.snapshot.paramMap.get('id') + '/Perfil']);
+      console.log(data);
+      //this.router.navigate(['./PerfilTrabajador/' + this.param.parent.snapshot.paramMap.get('id') + '/Perfil']);
     });
   }
 

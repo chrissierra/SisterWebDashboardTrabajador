@@ -4,8 +4,6 @@ import { PerfilTrabajadorServiceService } from '../../../services/perfil-trabaja
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { IngresoUsuarioServidorService } from './../../../services/ingreso-usuario-servidor.service';
-  // tslint:disable:indent
-    // tslint:disable:whitespace
 @Component({
   selector: 'app-turnos-variables',
   templateUrl: './turnos-variables.component.html'

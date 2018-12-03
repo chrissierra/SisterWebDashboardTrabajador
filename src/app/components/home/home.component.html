@@ -1,13 +1,19 @@
 <app-navbar></app-navbar>
 <div class="row justify-content-center container" style="margin-top:30px;padding:50px">
-    <h2>Bienvenido {{nombre_empresa }}</h2>
+    <h2>Bienvenido {{ datosTrabajador['nombre'] }}</h2>
     <div class="jumbotron">
-        <h1 class="display-4">Hello, world!</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <h1 class="display-4">Desde tu plataforma podrás marcar turnos y mucho más!</h1>
+        <p class="lead">Visualizar tu asistencia, visualizar tu horario,  días de vacaciones, etc.</p>
         <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+       
+
+        <p *ngIf="datosMarcaje?.content['trabajaDiaEnCurso'] === 1" >Hoy trabajas con una hora de entrada de {{datosMarcaje?.content['horaEntrada']}} y una hora de salida de {{datosMarcaje?.content['horaSalida']}} .</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+
+            <a [routerLink]="['../ProcesoMarcaje']" style="color:white" *ngIf="datosMarcaje?.content['TipoTurno'] === 'Horario Fijo' && datosMarcaje?.content['trabajaDiaEnCurso'] === 1" class="btn btn-primary btn-lg" role="button">Marcar Turnos</a>
+            <a [routerLink]="['../ProcesoMarcaje']" style="color:white"  *ngIf="datosMarcaje?.content['TipoTurno'] === 'Turnos' " class="btn btn-primary btn-lg" role="button">Marcar Turnos</a>
+
+            <a style="color:white" *ngIf="datosMarcaje?.content['trabajaDiaEnCurso'] === 0" class="btn btn-primary btn-lg" role="button">Turnos Extra</a>
         </p>
     </div>
 </div>

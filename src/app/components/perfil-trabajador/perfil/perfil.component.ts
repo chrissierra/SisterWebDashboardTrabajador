@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PerfilTrabajadorServiceService } from '../../../services/perfil-trabajador-service.service';
 import { Router } from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MarcajeServiceService } from '../../../services/marcaje-service.service';
-// tslint:disable:indent
-// tslint:disable:no-shadowed-variable
+import swal from 'sweetalert2'
+
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html'
@@ -23,8 +24,10 @@ export class PerfilComponent {
     id: any;
     statusEntrada: any;
     statusSalida: any;
-
-
+    turnoFijoSinTurno:boolean = true;
+    urlImagenTrabajador:any;
+    TrabajadorSinTurno:any;
+    
 constructor(private snackBar: MatSnackBar, 
             private perfilServicio_ : PerfilTrabajadorServiceService, 
             private MarcajeServiceService: MarcajeServiceService,
@@ -36,25 +39,28 @@ constructor(private snackBar: MatSnackBar,
                 };
 
               this.MarcajeServiceService.situacion_marcaje( JSON.stringify(this.id) ).subscribe( data => {
-                console.log(data);
+                console.log("LOs datos del marcaje ", data); // => Hora de la entrada, hora de la salida. 
+                console.log("tipo turno", data['TipoTurno']) // => Con esto empiezo . ***   1
+                this.turnoFijoSinTurno = (data['trabajaDiaEnCurso'] == 0) ? true : false;
+                this.TrabajadorSinTurno = (data['TurnoYaRealizado'] ==  "No tiene horario") ? this.funcionNoTieneTurnos() : false;
                 this.trabaja_dia_en_curso = data['trabajaDiaEnCurso'];
                 this.entrada = data['Entrada'];
                 this.salida = data['Salida'];
                 this.statusEntrada = data['EstatusEntrada'];
                 this.statusSalida = data['EstatusSalida'];
               });
-
-    const snackBarRef = snackBar.open('Message archived', 'OK', {
-      duration: 3000
-    });
+    
     this.id_parent = this.param.parent.snapshot.paramMap.get('id');
 
     this.perfilServicio_.getTurnosSinLiberacion(this.id_parent).then(data=>{
       this.turnos_sin_liberar = data;
-      console.log(data);
+      console.log("turnos_sin_liberar",data);
+
     });
 
     this.perfilServicio_.getPerfil(this.param.parent.snapshot.paramMap.get('id')).subscribe( data => {
+
+    this.urlImagenTrabajador =  'https://sister.cl/trabajadores/'+ data[0].rut +'/registro/'+ data[0].rut +'.jpg' ;
    	
    	this.datos_perfil_empleado = data;
 
@@ -65,6 +71,22 @@ constructor(private snackBar: MatSnackBar,
    })
   
   } // FIn constructor
+
+
+  funcionNoTieneTurnos(){
+    this.mensajeError('Error', 'Trabajador no tiene los turnos realizados. Debes generarlos.', 'error', 'Ok' );
+    return true;
+  } // Fin función funcionNoTieneTurnos
+
+
+   public mensajeError(titulo, texto, tipo, boton){
+       swal({
+          title: titulo,
+          text: texto,
+          type: tipo,
+          confirmButtonText: boton
+        })
+   } // Fin funcion mensajeError
 
 
 

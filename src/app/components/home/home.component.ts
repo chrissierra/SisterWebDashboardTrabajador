@@ -1,22 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PerfilTrabajadorServiceService } from '../../services/perfil-trabajador-service.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MarcajeServiceService } from '../../services/marcaje-service.service';
+import swal from 'sweetalert2'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-rut_empresa: string = localStorage.getItem('rut_empresa');
-nombre_empresa: string = localStorage.getItem('nombre_empresa');
-nombre_rep: string = localStorage.getItem('nombre_rep');
+datosTrabajador: string = localStorage.getItem('rut_empresa');
+id:any;
+datosMarcaje:Marcaje;
 
-constructor() {
+constructor(private snackBar: MatSnackBar, 
+            private perfilServicio_ : PerfilTrabajadorServiceService, 
+            private MarcajeServiceService: MarcajeServiceService,
+            private param: ActivatedRoute, 
+            private router : Router) {
 
-    this.rut_empresa = localStorage.getItem('rut_empresa');
+    this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));
 
-   }
+	this.id = {
+              'id':	this.datosTrabajador['id']
+              };
 
-  ngOnInit() {
-  }
+    this.MarcajeServiceService.situacion_marcaje( JSON.stringify(this.id) ).subscribe( data => {
+                 
+                 this.datosMarcaje = {
+                 					content: data
+                 					}
 
+                });
+   
+
+   } // Fin constructor
+
+  
+
+}
+
+
+// Interface Marcaje
+
+interface Marcaje {
+  content: any; 
 }

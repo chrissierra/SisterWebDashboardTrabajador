@@ -1,7 +1,82 @@
+<div class="card text-center">
+
+  <div class="card-header">
+
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Perfil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Editar</a>
+      </li>
+      <li class="nav-item">
+     <!--   <a class="nav-link disabled" href="#">Disabled</a>-->
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ empleado_?.nombre }} {{ empleado_?.apellido }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Administrativo</h6>
+
+         <img class="img-thumbnail" [src]="urlImagenTrabajador" style="width:100px">
+
+    <p class="card-text">Jefatura:  {{ empleado_?.jefatura }}.</p>
+
+        <div style="display:flex;justify-content: center">
+            <ul class="list-group" style="width: 600px;">
+                    <li class="list-group-item">
+                     <p class="text-muted">  Aprobar sueldo para generación de liq. de sueldo</p>
+                      <button class="btn btn-danger btn-sm" [routerLink]="['../LiberarSueldos/']">Liberar Sueldos</button>
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <p class="text-muted"> Desvincular trabajador  </p>
+                        <button class="btn btn-warning btn-sm">Desvinculación </button>
+                    </li>
+                    
+                    <li class="list-group-item">
+                        <p class="text-muted"> Marcar Asistencia de trabajador</p>
+                        
+                        <button *ngIf="trabaja_dia_en_curso == 1" class="btn btn-danger btn-sm" [routerLink]="['../Marcaje/']">Marcar asistencia</button>
+
+                        <button *ngIf="trabaja_dia_en_curso == 0" class="btn btn-danger btn-sm" [routerLink]="['../Marcaje/']" disabled>Marcar asistencia</button>
+                    </li>
+                    
+                    <li class="list-group-item">
+                               <div *ngIf="boleano_boton == 'Turnos'">
+                                    <button [routerLink]="['../TurnosVariables/']" class="btn btn-primary" type="submit">Ir a turnos</button>
+                                </div>
+
+                                <div *ngIf="boleano_boton != 'Turnos' && TrabajadorSinTurno">
+                                   
+                                    <p  class="text-muted">Tu trabajador no tiene generado los turnos aún. Genéralos</p>
+                                    <button  [routerLink]="['../TurnosFijos/']"  class="btn btn-primary btn-sm" type="submit">Turnos fijos</button>
+                                </div>
+
+                                    <div *ngIf="boleano_boton != 'Turnos' && !TrabajadorSinTurno">
+                                    <p  class="text-muted">Puedes modificar los turnos si lo deseas. Pero debe ser en común acuerdo con el trabajador.</p>
+
+                                    <button  [routerLink]="['../ActualizarTurnosFijos/']"  class="btn btn-success btn-sm" type="submit">Modificar turnos fijos</button>
+                                </div>
+                    </li>
+                    
+                  <!--  <li class="list-group-item">
+                            Vestibulum at eros
+                    </li> -->
+            </ul>
+        </div>
+        <br>
+    <a [routerLink]="['../../../Planilla/']" class="btn btn-primary">Volver a planilla</a>
+  </div>
+</div>
+
+
+
+<!--
 <div class="container" style="margin-top:50px;padding:35px;">
 
     <div>
-        <button class="btn btn-danger" [routerLink]="['../LiberarSueldos/']">Liberar Sueldos</button>
+        <button class="btn btn-danger btn-sm" [routerLink]="['../LiberarSueldos/']">Liberar Sueldos</button>
     </div>
 
 
@@ -13,8 +88,14 @@
         <button [routerLink]="['../TurnosVariables/']" class="btn btn-primary" type="submit">Ir a turnos</button>
     </div>
 
-    <div *ngIf="boleano_boton != 'Turnos'">
-        <button class="btn btn-primary" type="submit">Turnos fijos</button>
+    <div *ngIf="boleano_boton != 'Turnos' && turnoFijoSinTurno">
+        <button  [routerLink]="['../TurnosFijos/']"  class="btn btn-primary" type="submit">Turnos fijos</button>
+        <small>Tu trabajador no tiene generado los turnos aún. Genéralos</small>
+    </div>
+
+        <div *ngIf="boleano_boton != 'Turnos' && !turnoFijoSinTurno">
+        <button  [routerLink]="['../ActualizarTurnosFijos/']"  class="btn btn-primary" type="submit">Actualizar turnos fijos</button>
+        <small>Tu trabajador no tiene generado los turnos aún. Genéralos</small>
     </div>
 
     <br>
@@ -25,7 +106,7 @@
 
     </ul>
 
-
+    <img [src]="urlImagenTrabajador" class="img-thumbnail" style="width:100px; height:100px;">
 
     <div *ngIf="entrada !== 0">
 
@@ -48,4 +129,4 @@
 
 
 
-</div>
+</div>-->

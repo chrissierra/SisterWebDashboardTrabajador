@@ -1,0 +1,24 @@
+#Liquidacion{
+	display: flex;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+#col1{
+	flex:1;
+}
+
+#col2{
+	flex:1;
+}
+
+#haberes{
+	display: flex;
+	flex-direction:row;
+	justify-content:space-between;
+	padding-right: 30px;
+}
+
+#liquidacioncompleta{
+	flex-direction:column;
+}

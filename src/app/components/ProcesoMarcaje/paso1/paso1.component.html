@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<p>
+  Autenticación Biométrica
+</p>
+<input type="file" accept="image/*" capture="environment">
+<input  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+<input type="button" class="upload-button" value="Upload attachment(s)" (click)="fileInput.click()" />
+
+<input type="file" accept="image/*" capture="camera" id="camera">
+<img id="frame">
+<script>
+  var camera = document.getElementById('camera');
+  var frame = document.getElementById('frame');
+
+  camera.addEventListener('change', function(e) {
+    var file = e.target.files[0]; 
+    // Do something with the image file.
+    frame.src = URL.createObjectURL(file);
+  });
+</script>
+
+<video id="player" controls autoplay></video>
+<script>  
+  var player = document.getElementById('player');
+
+  var handleSuccess = function(stream) {
+    player.srcObject = stream;
+  };
+
+  navigator.mediaDevices.getUserMedia({video: true})
+      .then(handleSuccess);
+</script>

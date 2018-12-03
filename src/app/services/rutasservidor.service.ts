@@ -3,23 +3,40 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RutasservidorService {
 
+  public urlBase:any = 'https://sister.cl/ServidorImagenesSister/';
+//  public urlBase:any = 'http://127.0.0.1:80/';
+
   constructor() { }
 
   rutas: Object = {
-    'ingreso_empleados_datos_basicos': 'http://localhost/Proyectos/jaja/rest/Index.php/index/testeo1',
-    'login': 'http://127.0.0.1/api/login',
-    'planilla': 'http://127.0.0.1/api/planilla/',
-    'perfil_trabajador': 'http://127.0.0.1/perfil_trabajador/',
-    'estatusTurnos': 'http://127.0.0.1/estatusturnos/',
-    'InsertTurnoVariable': 'http://127.0.0.1/api/TurnosVariables/',
-    'TurnosSinLiberar': 'http://127.0.0.1/TurnosSinLiberar/',
-    'LiberarTurnos': 'http://127.0.0.1/LiberarTurnos/',
-    'ActualizarTurnos': 'http://127.0.0.1/api/ActualizarTurnosVariables/',
-    'LiberarDefinitivoTurnos': 'http://127.0.0.1/api/LiberarDefinitivoTurnos/',
-    'GuardarSucursal':'http://127.0.0.1/api/GuardarSucursal/',
-    'SituacionMarcaje':'http://127.0.0.1/api/SituacionMarcaje/',  
-    'MarcarMovimiento': 'http://127.0.0.1/api/MarcarMovimiento/',
-    'ComisionAfp': 'http://127.0.0.1/ComisionAfp/'
+    'ingreso_empleados_datos_basicos': this.urlBase + 'api/Enrolamiento',
+    'login': this.urlBase + 'api/loginTrabajador',
+    'planilla': this.urlBase + 'api/planilla/',
+    'perfil_trabajador': this.urlBase + 'perfil_trabajador/',
+    'estatusTurnos': this.urlBase + 'estatusturnos/',
+    'InsertTurnoVariable': this.urlBase + 'api/TurnosVariables/',
+    'InsertTurnoFijo': this.urlBase + 'api/InsertTurnoFijo/',
+    'updateTurnoFijo':this.urlBase + 'api/updateTurnoFijo/',
+    'getTurnos':this.urlBase + 'api/getTurnos/',
+    'TurnosSinLiberar': this.urlBase + 'TurnosSinLiberar/',
+    'LiberarTurnos': this.urlBase + 'LiberarTurnos/',
+    'ActualizarTurnos': this.urlBase + 'api/ActualizarTurnosVariables/',
+    'LiberarDefinitivoTurnos': this.urlBase + 'api/LiberarDefinitivoTurnos/',
+    'GuardarSucursal': this.urlBase + 'api/GuardarSucursal/',
+    'SituacionMarcaje': this.urlBase + 'api/SituacionMarcaje/',
+    'MarcarMovimiento': this.urlBase + 'api/MarcarMovimiento/',
+    'ComisionAfp': this.urlBase + 'ComisionAfp/',
+    'DiasLaboralesRealizados': this.urlBase + 'DiasLaboralesRealizados/',
+    'DiasLaboralesCalendarizados': this.urlBase + 'DiasLaboralesCalendarizados/',
+    'LiberarSueldo': this.urlBase + 'api/LiberarSueldo/',
+    'ConfirmarEstadoSueldo': this.urlBase + 'api/ConfirmarEstadoSueldo/',
+    'SueldosLiberados': this.urlBase + 'api/SueldosLiberados/',
+    'SueldosLiberadosPorFecha': this.urlBase + 'api/SueldosLiberadosPorFecha/',
+    'UpdateTurnoFijo': this.urlBase + 'api/UpdateTurnoFijo/',
+    'GetAsistenciaMesAnterior': this.urlBase + 'api/GetAsistenciaMesAnterior/',
+    'libroremuneraciondiario': this.urlBase + 'api/libroremuneraciondiario/',
+    'libroremuneracionmensual': this.urlBase + 'api/libroremuneracionmensual/'
+
   };
 
 }

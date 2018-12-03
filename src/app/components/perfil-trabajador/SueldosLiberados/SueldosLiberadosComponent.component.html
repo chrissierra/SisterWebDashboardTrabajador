@@ -1,0 +1,90 @@
+<div class="container" style="margin-top:30px;">
+	<h3>Visualizar Liquidación de sueldo</h3>
+  <div class="form-group">
+    <label>Selecciona : </label>
+    <select [(ngModel)]="liquidaciones_select" #liqSelect="ngModel" class="form-control">
+      <option>Liquidación por períodos</option>
+      <option *ngFor="let liquidacion of liquidacionesDisponibles">{{ liquidacion.mes_pagado }}/{{ liquidacion.anio_pagado }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+  <button (click)="FuncionVisualizarLiquidacion(liqSelect)" class="btn btn-success">Visualizar liquidación</button>  
+  </div>
+<hr>
+
+
+    <div id="liquidacioncompleta" #liquidacioncompleta *ngIf="liquidacion_booleana_en_curso">
+		<div id="Liquidacion">
+				<div id="col1">
+					<h3> Haberes Imponibles </h3>
+
+			           <div id="haberes" *ngFor="let haberesImponiblesGlosa of haberesImponiblesGlosa; let i = index">
+			           		<p>{{haberesImponiblesGlosa}}</p> 	<p>30</p> <p>{{haberesImponiblesValor[i] | currency }}</p>
+			           	</div>
+			           	
+
+				</div>
+
+				<div id="col2">
+					<h3> Descuentos </h3>
+
+			          <div id="haberes" *ngFor="let descuentosGlosa of descuentosGlosa; let i = index">
+			           		<p>{{ descuentosGlosa }}</p> 	<p>30</p> <p> {{ descuentosValor[i] | currency}}</p>
+			           	</div>
+
+
+
+
+				</div>
+		</div>
+
+
+
+	<div id="Liquidacion">
+				<div id="col1">
+					<h3> Haberes no imponibles </h3>
+
+			              <div id="haberes" *ngFor="let haberesNoImponiblesGlosa of haberesNoImponiblesGlosa; let i= index">
+			           		<p>{{haberesNoImponiblesGlosa}}</p> 	<p>30</p> <p> {{haberesNoImponiblesValor[i] | currency }}</p>
+			           	</div>
+			           	
+
+				</div>
+
+				<div id="col2">
+					<h3> Otros Dsctos. </h3>
+
+
+					<!--	<div id="haberes">
+			           		<p>bono 1</p> 	<p>30</p> <p>$ 5.000</p>
+			            </div>-->
+
+
+				</div>
+		</div>
+
+<br>
+<br>
+
+         <ul class="list-group">
+            <li class="list-group-item">Total haberes Imponibles: {{ totalHaberesImponibles | currency }}</li>
+			<li class="list-group-item">Total haberes No imponibles: {{ totalHaberesNoImponibles | currency }}</li>
+  			<li class="list-group-item">Total haberes: {{ totalHaberes | currency }}</li>
+   			<li class="list-group-item">Total descuento: {{ totalDescuentos | currency }}</li>	
+			
+        </ul>
+
+
+<div class="form-group" style="margin:30px">
+    <button (click)="liquidacionApdf()" class="btn btn-danger">Generar PDF</button>
+</div>
+
+
+	</div> <!-- FIN LIQUIDACION COMPLETA -->
+
+
+
+
+
+</div>

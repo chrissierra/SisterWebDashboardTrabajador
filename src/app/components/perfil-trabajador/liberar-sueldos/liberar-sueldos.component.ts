@@ -40,7 +40,7 @@ export class LiberarSueldosComponent  {
              this.SueldoServicio_.getComisionAfp(this.DatosTrabajador.afp).subscribe( data_afp => {
                 
                 this.ComisionAfp = data_afp[0].monto;
-                // this.TotalHaberImponible = (( this.ComisionAfp + 7 / 100 ) + 1 ) * data_perfil[0].sueldo;
+                
                 this.TotalHaberImponible_temp =  (((  (this.ComisionAfp*1) + 7 ) / 100)+1)* data_perfil[0].sueldo;
                 this.TotalHaberImponible = this.TotalHaberImponible_temp;
                 console.log("Viendo porq no muestra la variable",this.TotalHaberImponible)
@@ -57,30 +57,24 @@ export class LiberarSueldosComponent  {
   }  // Fin función guardar
 
 
-  agregar_haberes(a) {
-
-     
-     this.HaberesImponibles.push(a);
-     
+  agregar_haberes(a) {    
+     this.HaberesImponibles.push(a); 
   }
 
   onSearchChange(e){
+    
     let element = 0;
+  
    for (let index = 0; index < this.ValorHaberes.length; index++) {
       element =  (this.ValorHaberes[index]*1) + element;
      
    }
 
-   this.TotalHaberImponible = element + this.TotalHaberImponible_temp;
+    this.TotalHaberImponible = element + this.TotalHaberImponible_temp;
+    this.total_afp = this.TotalHaberImponible * (this.ComisionAfp/100);
+    this.total_isapre = this.TotalHaberImponible * 0.07;
+    this.SueldoPagar =  this.TotalHaberImponible - ( this.total_afp + this.total_isapre);
 
-  console.log(this.ValorHaberes)
-  this.total_afp = this.TotalHaberImponible * (this.ComisionAfp/100);
-  this.total_isapre = this.TotalHaberImponible * 0.07;
-  this.SueldoPagar =  this.TotalHaberImponible - ( this.total_afp + this.total_isapre);
-   /* SueldoPagar:number;
-  gratificacion:number;
-  total_afp:number;
-  total_isapre:number;*/
   } // Fin on searchchange
 
 }

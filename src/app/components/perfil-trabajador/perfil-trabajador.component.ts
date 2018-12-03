@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class PerfilTrabajadorComponent{
    
-   datos_perfil_empleado:any;
+  datos_perfil_empleado:any;
   constructor(private perfilServicio_ : PerfilTrabajadorServiceService, private param: ActivatedRoute, private router : Router) { 
 
   this.router.navigate(['./PerfilTrabajador/'+this.param.snapshot.paramMap.get('id')+'/Perfil/']);
