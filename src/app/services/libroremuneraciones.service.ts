@@ -15,4 +15,29 @@ export class LibroremuneracionesService {
 		return this.http.post(this.rutasService_.rutas['libroremuneracionmensual'], JSON.stringify(data));     
  	} // Fin funcion login
 
+
+
+
+
+    GetdiarioPorTrabajador(data) {
+		return this.http.post(this.rutasService_.rutas['diarioPorTrabajador'], JSON.stringify(data));     
+ 	} // Fin funcion login
+
+ 	  GetmensualPorTrabajador(data) {
+		return this.http.post(this.rutasService_.rutas['mensualPorTrabajador'], JSON.stringify(data));     
+ 	} // Fin funcion login
+
+    GetmensualPorSucursal(data) {
+		return this.http.post(this.rutasService_.rutas['mensualPorSucursal'], JSON.stringify(data));     
+ 	} // Fin funcion login
+
+ 	  GetdiarioPorSucursal(data) {
+		return this.http.post(this.rutasService_.rutas['diarioPorSucursal'], JSON.stringify(data));     
+ 	} // Fin funcion login
+
+ 	  GetdiarioUltimos(data) {
+		return this.http.post(this.rutasService_.rutas['diarioUltimos'], JSON.stringify(data));     
+ 	} // Fin funcion login
+
+
 }

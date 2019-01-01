@@ -16,7 +16,22 @@ export class MensajesSwalService {
         })
    } // Fin funcion mensajeError
 
+   public mensajePromesa(titulo, texto, tipo, texto_boton_promesa_añadida){
+    return  swal({
+            title: titulo,
+            text: texto,
+            type: tipo,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: texto_boton_promesa_añadida
+          })
+   } // Fin funcion mensajepromesa
+
 }
+
+
 
 
 export interface TipoMensaje {
@@ -27,3 +42,4 @@ export interface TipoMensaje {
 	boton: string;
 
 }
+

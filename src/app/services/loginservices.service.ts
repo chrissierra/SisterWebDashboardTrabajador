@@ -10,4 +10,9 @@ export class LoginservicesService {
 		return this.http.post(this.rutasService_.rutas['login'], JSON.stringify(data));     
  	} // Fin funcion login
 
+
+ 	sucursalLogueo(data) {
+		return this.http.post(this.rutasService_.rutas['loginSucursal'], JSON.stringify(data));     
+ 	} // Fin funcion login
+
 }

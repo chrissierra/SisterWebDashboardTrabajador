@@ -1,17 +1,19 @@
 <body class="text-center" style="padding:40px;">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <div class="container">
         <form [formGroup]="forma" class="form-signin" (ngSubmit)="onSubmit(forma)">
-            <img class="mb-4" src="../../assets/img/logo1.png" alt="">
+            <img class="mb-4" src="./assets/img/logov5.png" width="200px" alt="">
             <h1 class="h3 mb-3 font-weight-normal">Ingresa tus datos: </h1>
             <label for="inputEmail" class="sr-only">Rut Trabajador</label>
-            <input formControlName="rut" data-toggle="popover" data-content="asdf" data-placement="top" title="Ingresa tu rut sin guion" type="text" id="inputEmail" class="form-control" placeholder="Rut Trabajador" required autofocus>
+            <input formControlName="rut" data-toggle="popover" data-content="asdf" data-placement="top" title="Ingresa tu rut sin guion" type="text" id="inputEmail" class="form-control" placeholder="Rut de ingreso" required autofocus>
             <br>
             <label for="inputPassword" class="sr-only">Clave</label>
             <input formControlName="claveTrabajador" data-toggle="tooltip" data-placement="top" title="Ingresa tu clave" type="password" id="inputPassword" class="form-control" placeholder="Clave" required>
             <div class="checkbox mb-3">
                 <label>
-        <input type="checkbox" value="remember-me"> Recordarme
-      </label>
+                    <input [(ngModel)]="sucursal" formControlName="sucursal" type="checkbox" #sucursalDom (change)="sucursalCheckbox($event, sucursalDom)"> Ingreso por sucursal
+                  </label>
+
             </div>
             <button [disabled]="!forma.valid" class="btn btn-lg btn-primary">Ingresar</button>
             <hr>

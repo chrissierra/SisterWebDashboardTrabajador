@@ -1,32 +1,28 @@
 <app-navbar></app-navbar>
-<p>
-  Autenticación Biométrica
-</p>
-<input type="file" accept="image/*" capture="environment">
-<input  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
-<input type="button" class="upload-button" value="Upload attachment(s)" (click)="fileInput.click()" />
 
-<input type="file" accept="image/*" capture="camera" id="camera">
-<img id="frame">
-<script>
-  var camera = document.getElementById('camera');
-  var frame = document.getElementById('frame');
 
-  camera.addEventListener('change', function(e) {
-    var file = e.target.files[0]; 
-    // Do something with the image file.
-    frame.src = URL.createObjectURL(file);
-  });
-</script>
+<body class="text-center" style="padding:40px;">
 
-<video id="player" controls autoplay></video>
-<script>  
-  var player = document.getElementById('player');
+	  <div class="row justify-content-center">
+                <h3>Toma la fotografía de respaldo </h3>
+            </div>
 
-  var handleSuccess = function(stream) {
-    player.srcObject = stream;
-  };
+            <div class="row justify-content-center">
+                <h3><small class="text-muted">Al presionar el botón se abrirá la cámara. Te recomendamos 
+                tomar la foto muy claramente, sin exceso de luz ni zona con muchas sombras.</small></h3>
+            </div>
+            <br>
 
-  navigator.mediaDevices.getUserMedia({video: true})
-      .then(handleSuccess);
-</script>
+		<div class="container">
+				<p>
+				  Autenticación Biométrica
+				</p>
+		<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+		<input *ngIf="BoleanoTomaRespaldo" type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />
+				<div class="row justify-content-center"><mat-spinner *ngIf="boleanoLoader"></mat-spinner></div>
+			 <h5 class="mb-1"> {{ cargando | percent}}</h5>
+		<br>
+
+		<button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
+		</div>
+</body>

@@ -1,19 +1,210 @@
 <app-navbar></app-navbar>
-<div class="row justify-content-center container" style="margin-top:30px;padding:50px">
-    <h2>Bienvenido {{ datosTrabajador['nombre'] }}</h2>
-    <div class="jumbotron">
-        <h1 class="display-4">Desde tu plataforma podrás marcar turnos y mucho más!</h1>
-        <p class="lead">Visualizar tu asistencia, visualizar tu horario,  días de vacaciones, etc.</p>
-        <hr class="my-4">
-       
 
-        <p *ngIf="datosMarcaje?.content['trabajaDiaEnCurso'] === 1" >Hoy trabajas con una hora de entrada de {{datosMarcaje?.content['horaEntrada']}} y una hora de salida de {{datosMarcaje?.content['horaSalida']}} .</p>
-        <p class="lead">
 
-            <a [routerLink]="['../ProcesoMarcaje']" style="color:white" *ngIf="datosMarcaje?.content['TipoTurno'] === 'Horario Fijo' && datosMarcaje?.content['trabajaDiaEnCurso'] === 1" class="btn btn-primary btn-lg" role="button">Marcar Turnos</a>
-            <a [routerLink]="['../ProcesoMarcaje']" style="color:white"  *ngIf="datosMarcaje?.content['TipoTurno'] === 'Turnos' " class="btn btn-primary btn-lg" role="button">Marcar Turnos</a>
+<div class="container bootstrap snippet animated fadeIn">
+      <div class="row">
+          <div class="col-sm-10"><h1></h1></div>
+          <div class="col-sm-2"><a href="/users" class="pull-right">
+              <img title="asistencia image" width="150px" class="img-circle img-responsive" 
+              [src]="url"></a></div>
+      </div>
 
-            <a style="color:white" *ngIf="datosMarcaje?.content['trabajaDiaEnCurso'] === 0" class="btn btn-primary btn-lg" role="button">Turnos Extra</a>
-        </p>
-    </div>
+
+
+
+
+      <div class="row">
+          <div class="col-sm-3"><!--left col-->
+                
+
+                <div class="text-center">
+                    <img src="{{ 'https://sister.cl/trabajadores/' + datosTrabajador['rut'] + '/registro/' + datosTrabajador['rut'] +'.jpg'}}" class="avatar img-circle img-thumbnail" alt="avatar">
+
+                    <h6>{{ datosTrabajador['nombre'] }}</h6>          
+                </div>
+
+                <br>
+
+                 
+                <div class="panel panel-default">
+                <!--  <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>-->
+                  <div class="panel-body">
+                      <p class="lead" *ngIf="!deviceInfo">Desde un computador de escritorio no puedes marcar. Debe ser con un SmartPhone</p>
+                       <p class="lead" *ngIf="deviceInfo">Sesión iniciada con un dispositivo móvil. </p>
+               
+                      <p *ngIf="datosMarcaje?.content['trabajaDiaEnCurso'] === 1 && deviceInfo  && datosMarcaje?.content['TipoTurno'] !== 'Noches'" >Hoy trabajas con una hora de entrada de {{datosMarcaje?.content['horaEntrada']  }} y una hora de salida de {{datosMarcaje?.content['horaSalida']}} .</p>
+
+               
+
+                      <p *ngIf="datosMarcaje?.content['trabajaDiaEnCurso'] === 1 && deviceInfo  && datosMarcaje?.content['TipoTurno'] === 'Noches'  && !MarcajeServiceService?.hora_esperada_entrada " >Tu salida el día de hoy es a las {{MarcajeServiceService?.hora_esperada_salida}}  .</p>
+
+
+
+
+
+                      <p *ngIf="datosMarcaje?.content['trabajaDiaEnCurso'] === 1 && deviceInfo  && datosMarcaje?.content['TipoTurno'] === 'Noches'   && MarcajeServiceService?.hora_esperada_entrada " >Hoy trabajas con una hora de entrada de {{MarcajeServiceService?.hora_esperada_entrada}} y una hora de salida de {{MarcajeServiceService?.hora_esperada_salida}} .</p>
+                      <p class="lead">
+
+                  </div>
+                </div>
+            
+            
+       <ul class="list-group">
+              
+                     <li *ngIf="datosMarcaje?.content['TurnoYaRealizado'] === 'No tiene horario'" class="list-group-item text-right"><span class="pull-left">       <strong>Aún no te han generado horario</strong></span> 
+                      </li>
+
+                  
+                  <li *ngIf="  datosMarcaje?.content['Entrada'] !== 0" class="list-group-item text-right"><span class="pull-left"><strong>Entrada </strong></span>{{ datosMarcaje?.content['Entrada']}}</li>
+                   <li *ngIf="  datosMarcaje?.content['Entrada'] === 0" class="list-group-item text-right"><span class="pull-left"><strong>No han habido marcajes hoy </strong></span></li>
+                  
+                  <li *ngIf="  datosMarcaje?.content['Entrada'] !== 0 && datosMarcaje?.content['Salida'] !== 0" class="list-group-item text-right"><span class="pull-left"><strong>Salida</strong></span> {{ datosMarcaje?.content['Salida']}}
+                    <li *ngIf=" datosMarcaje?.content['Entrada'] !== 0 && datosMarcaje?.content['Salida'] === 0" class="list-group-item text-right"><span class="pull-left"><strong>Salida Pendiente</strong></span> 
+                </li>
+
+                   <li  class="list-group-item text-right"><span class="pull-left"> <strong>Ingreso de viáticos </strong> <a  [routerLink]="['../Paso1Viaticos/']" class="badge badge-warning">VIÁTICOS</a></span></li>
+              
+        </ul>   
+
+
+        <ul class="list-group">
+        
+              <li *ngIf=" datosMarcaje?.content['EntradaTurnoExtra'] !== 0" class="list-group-item text-right"><span class="pull-left"><strong>Entrada turno extra: </strong></span>{{ datosMarcaje?.content['EntradaTurnoExtra']}}</li>
+               <li *ngIf=" datosMarcaje?.content['EntradaTurnoExtra'] === 0" class="list-group-item text-right"><span class="pull-left"><strong>No han habido turnos extras el día de hoy.</strong></span></li>
+              
+              <li *ngIf=" datosMarcaje?.content['EntradaTurnoExtra'] !== 0 && datosMarcaje?.content['SalidaTurnoExtra'] !== 0" class="list-group-item text-right"><span class="pull-left">
+                <strong>Salida turno extra: </strong></span> 
+                {{ datosMarcaje?.content['SalidaTurnoExtra']}}
+              </li>
+                <li *ngIf=" datosMarcaje?.content['EntradaTurnoExtra'] !== 0 && datosMarcaje?.content['SalidaTurnoExtra'] === 0" class="list-group-item text-right"><span class="pull-left"><strong>Salida Pendiente</strong></span> 
+            </li>
+
+        </ul> 
+          
+                 
+                <div class="panel panel-default">
+                 
+                  <div class="panel-body">
+                      <i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+                  </div>
+                </div>
+          
+        </div><!--/col-3-->
+
+
+        <div class="col-sm-9">
+         
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="perfil-tab" data-toggle="tab" href="#perfil" role="tab" aria-controls="perfil" aria-selected="true">Perfil</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="asistencia-tab" data-toggle="tab" href="#asistencia" role="tab" aria-controls="asistencia" aria-selected="false">Asistencia</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="turnos-tab" data-toggle="tab" href="#turnos" role="tab" aria-controls="turnos" aria-selected="false">Turnos</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" id="viaticos-tab" data-toggle="tab" href="#viaticos" role="tab" aria-controls="viaticos" aria-selected="false">Viaticos</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
+    
+                               <hr>
+                              <form class="form" action="##" method="post" id="registrationForm">
+                                  <div class="form-group">
+                                      
+                                      <div class="col-xs-6">
+                                          <label for="first_name"><h4>Nombres</h4></label>
+                                          <input type="text" [ngModel]="datosTrabajador['nombre']" class="form-control" name="first_name" id="first_name" placeholder="first name" disabled>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      
+                                      <div class="col-xs-6">
+                                        <label for="last_name"><h4>Apellidos</h4></label>
+                                          <input type="text" [ngModel]="datosTrabajador['apellido']"  class="form-control" name="last_name" id="last_name" placeholder="last name"  disabled>
+                                      </div>
+                                  </div>
+                      
+                                  <div class="form-group">
+                                      
+                                      <div class="col-xs-6">
+                                          <label for="phone"><h4>Rut</h4></label>
+                                          <input type="text"  [ngModel]="datosTrabajador['rut']" class="form-control" name="phone" id="phone" placeholder="enter phone"  disabled>
+                                      </div>
+                                  </div>
+                      
+                                <div *ngIf="datosMarcaje?.content['TurnoExtraEnCurso'] === 1" class="text-center" style="margin-bottom:50px">
+                                  <hr>
+                                 <h3>{{avisoTurnoExtra}}</h3>
+                                </div>
+                     
+                                 
+                                  <div class="form-group">
+                                       <div class="col-xs-12">
+                                            <br>
+                                          
+                                             <a [routerLink]="['../ProcesoMarcaje']" style="color:white" *ngIf="datosMarcaje?.content['Salida'] === 0" class="btn btn-primary btn-lg" role="button" >Turnos </a>
+
+                                             <button [routerLink]="['../ProcesoMarcaje']" style="color:white" *ngIf="datosMarcaje?.content['Entrada'] !== 0 && datosMarcaje?.content['Salida']  !== 0" class="btn btn-primary btn-lg" role="button" disabled>Turnos </button>
+
+
+                                                                                     <!--
+                                                      *******************                              ********************************
+                                                      *******************     MARCAJE DE irHitos       ******************************** -->    
+                                            <div *ngIf="boleanoHitos" class="text-center" style="margin-bottom:50px">
+                                              <hr>
+                                              <button (click)="irHitos()" class="btn btn-success">Hitos</button>
+                                            </div>
+                                                      <!--
+                                                      *******************     MARCAJE DE irHitos         ********************************
+                                                      *******************                                ******************************** -->   
+
+
+
+
+                                          <!--
+                                            *******************                                                      ********************************
+                                            *******************     MARCAJE DE TURNO EXTRA, BOTON ENVÍO FOTO        ******************************** -->    
+                                      <div *ngIf="boleanoTurnoExtra" class="text-center" style="margin-bottom:50px">
+                                        <hr>
+                                        <button (click)="irTurnosExtras()" class="btn btn-warning btn-block">Marcaje turno extra</button>
+                                      </div>
+                                            <!--
+                                            *******************     MARCAJE DE TURNO EXTRA, BOTON ENVÍO FOTO   ********************************
+                                            *******************                                                 ******************************** -->  
+
+
+
+                                        </div>
+                                  </div>
+                            </form>
+                          
+                          <hr>
+
+
+
+  </div>
+  <div class="tab-pane fade" id="asistencia" role="tabpanel" aria-labelledby="asistencia-tab">
+    <app-libro-asistencia></app-libro-asistencia>
+  </div>
+  <div class="tab-pane fade" id="turnos" role="tabpanel" aria-labelledby="turnos-tab">
+       <app-turnos-trabajador *ngIf="boleanoTurnoFijo && datosMarcaje?.content['TipoTurno'] !== 'Noches'"></app-turnos-trabajador>
+      <app-turnos-variables *ngIf="!boleanoTurnoFijo && datosMarcaje?.content['TipoTurno'] !== 'Noches'"></app-turnos-variables>
+      <app-turnos-noche *ngIf="datosMarcaje?.content['TipoTurno'] === 'Noches' "></app-turnos-noche>
+  </div>
+
+
+  <div class="tab-pane fade" id="viaticos" role="tabpanel" aria-labelledby="viaticos-tab">
+       <app-paso2-viaticos></app-paso2-viaticos>
+  </div>
+
+<!--app-paso2-viaticos-->
 </div>
+
+
+        </div><!--/col-9-->
+    </div><!--/row-->

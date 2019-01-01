@@ -47,6 +47,9 @@ data['mes'] = mes;
 }
 
 
+
+
+
 liberar_turno(data, id, mes) {
 data['id'] = id;
 data['mes'] = mes;

@@ -46,5 +46,8 @@ export class PerfilTrabajadorServiceService {
        return  this.http_.get(this.rutas_.rutas['TurnosSinLiberar'] + trabajador_id).toPromise();
   }
 
+  getTurnoNocheService(datos){
+       return  this.http_.post(this.rutas_.rutas['GetTurnoNoche'], JSON.stringify(datos));
+  }
 
 }

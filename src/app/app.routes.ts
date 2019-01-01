@@ -8,7 +8,6 @@ import { LoginComponent } from './components/login/login.component';
 
 import { PerfilTrabajadorComponent } from './components/perfil-trabajador/perfil-trabajador.component';
 
-import { TurnosVariablesComponent } from './components/perfil-trabajador/turnos-variables/turnos-variables.component';
 import { TurnosFijosComponent } from './components/perfil-trabajador/turnos-fijos/turnos-fijos.component';
 import { PerfilComponent } from './components/perfil-trabajador/perfil/perfil.component';
 import { HistorialTurnosComponent } from './components/perfil-trabajador/historial-turnos/historial-turnos.component';
@@ -26,13 +25,29 @@ import { ResumenComponent } from './components/perfil-trabajador/resumen/resumen
 import { ActualizarTurnosFijosComponent } from './components/perfil-trabajador/actualizar-turnos-fijos/actualizar-turnos-fijos.component';
 
 import { Paso1Component } from './components/ProcesoMarcaje/paso1/paso1.component';
+import { Paso2Component } from './components/ProcesoMarcaje/paso2/paso2.component';
+import { ProcesoMarcajeSucursalComponent } from './components/proceso-marcaje-sucursal/proceso-marcaje-sucursal.component';
 
+import { Paso1sComponent } from './components/proceso-marcaje-sucursal/paso1/paso1s.component';
+import { Paso2sComponent } from './components/proceso-marcaje-sucursal/paso2/paso2s.component';
+
+
+import { Paso1HitoComponent } from './components/Hitos/paso1/paso1h.component';
+import { Paso2HitoComponent } from './components/Hitos/paso2/paso2h.component';
+import { Paso3HitoComponent } from './components/Hitos/paso3/paso3h.component';
+import { Paso1TurnoExtraComponent } from './components/proceso-marcaje-sucursal/paso1-turno-extra/paso1-turno-extra.component';
+import { Paso2TurnoExtraComponent } from './components/proceso-marcaje-sucursal/paso2-turno-extra/paso2-turno-extra.component';
+
+import { LibroAsistenciaComponent } from './components/libro-asistencia/libro-asistencia.component';
+
+import { Paso1ViaticosComponent } from './components/viaticos/paso1-viaticos/paso1-viaticos.component';
+import { Paso2ViaticosComponent } from './components/viaticos/paso2-viaticos/paso2-viaticos.component';
+import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/paso3-viaticos.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'PerfilTrabajador/:id', component: PerfilTrabajadorComponent, children:[
   		{ path: 'Perfil' , component: PerfilComponent},
-		  { path: 'TurnosVariables' , component: TurnosVariablesComponent},
 		  { path: 'TurnosFijos' , component: TurnosFijosComponent},
       { path: 'Marcaje' , component: MarcajeComponent},
       { path: 'ActualizarTurnosFijos', component: ActualizarTurnosFijosComponent },
@@ -45,6 +60,20 @@ const routes: Routes = [
   ] },
  { path: 'Home', component: HomeComponent },
  { path: 'ProcesoMarcaje', component: Paso1Component },
+ { path: 'Paso1Hito', component: Paso1HitoComponent },
+ { path: 'Paso2Hito', component: Paso2HitoComponent },
+ { path: 'Paso3Hito', component: Paso3HitoComponent },
+ { path: 'ProcesoMarcajeSucursal', component: ProcesoMarcajeSucursalComponent },
+ { path: 'Paso1s/:id/:rut', component: Paso1sComponent },
+ { path: 'Paso2s/:coeficiente', component: Paso2sComponent },
+ { path: 'Paso1TurnoExtra/:id/:rut', component: Paso1TurnoExtraComponent },
+ { path: 'Paso2TurnoExtra/:coeficiente', component: Paso2TurnoExtraComponent },
+ { path: 'ProcesoMarcajePaso2/:coeficiente', component: Paso2Component }, 
+ { path: 'Paso1Viaticos', component: Paso1ViaticosComponent }, 
+ { path: 'Paso2Viaticos', component: Paso2ViaticosComponent }, 
+ { path: 'Paso3Viaticos', component: Paso3ViaticosComponent }, 
+
+ { path: 'LibroAsistencia', component: LibroAsistenciaComponent }, 
  { path: '**', component: LoginComponent }
 ];
 

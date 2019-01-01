@@ -272,3 +272,9 @@
 [0827/083735.557:ERROR:crash_report_database_win.cc(428)] unexpected header
 [0827/085235.561:ERROR:crash_report_database_win.cc(428)] unexpected header
 [0827/092445.129:ERROR:crash_report_database_win.cc(428)] unexpected header
+[1226/171222.692:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
+[1226/171222.693:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
+[1226/171222.693:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
+[1226/171222.693:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
+[1226/171222.693:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
+[1226/171222.693:ERROR:exception_snapshot_win.cc(88)] thread ID 3736 not found in process

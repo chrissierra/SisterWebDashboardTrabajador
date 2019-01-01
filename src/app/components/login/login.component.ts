@@ -11,6 +11,7 @@ import swal from 'sweetalert2'
 export class LoginComponent  {
   forma: FormGroup;
   respuesta_servidor_login :any;
+  sucursal:any= false;
   constructor(private router: Router, private login_: LoginservicesService) {
 
 
@@ -18,31 +19,66 @@ export class LoginComponent  {
 
               'rut': new FormControl('', [Validators.required]),
               'claveTrabajador': new FormControl('', [Validators.required]),
+              'sucursal': new FormControl('', [Validators.required]),
         });
 
    }
 
    onSubmit(forma) {
+
+
+     if(this.sucursal){
+
+       this.login_.sucursalLogueo(forma.value).subscribe(a => {
+            
+            if(a['error'] === 'Contraseña Errónea'){
+              this.mensajeError('Contraseña no corresponde');
+
+            }else{
+
+            localStorage.setItem('datosTrabajador', JSON.stringify(a))
+            this.router.navigate(['./ProcesoMarcajeSucursal']);
+
+            }
+           
+          }, (error)=>{
+            this.mensajeError('Rut de cliente no existe');
+          });
+
+
+     }else{
+
+         this.respuesta_servidor_login = this.login_.login(forma.value).subscribe(a => {
+            
+            if(a['error'] === 'Contraseña Errónea'){
+              this.mensajeError('Contraseña no corresponde');
+
+            }else{
+
+            localStorage.setItem('datosTrabajador', JSON.stringify(a))
+            this.router.navigate(['./Home']);
+
+            }
+           
+          }, (error)=>{
+            this.mensajeError('Rut de cliente no existe');
+          });
+
+
+     } // Fin IF*
    
-   this.respuesta_servidor_login = this.login_.login(forma.value).subscribe(a => {
-      console.log(a)
-      if(a['error'] === 'Contraseña Errónea'){
-        this.mensajeError('Contraseña no corresponde');
-      }else{
-
-      localStorage.setItem('datosTrabajador', JSON.stringify(a))
-      this.router.navigate(['./Home']);
-
-      }
-     
-    }, (error)=>{
-      this.mensajeError('Rut de cliente no existe');
-    });
+   
   
     
 
-   }
+   } // Fin funcion onSubmit **
 
+
+    sucursalCheckbox(evento, sucursalDom){
+      console.log("evento", evento)
+      console.log('sucursalDom', sucursalDom)
+      console.log("this.sucursal", this.sucursal)
+    }
 
    mensajeError(texto){
      return swal({
