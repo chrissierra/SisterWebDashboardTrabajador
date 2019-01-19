@@ -37,12 +37,14 @@ export class LoginComponent  {
             }else{
 
             localStorage.setItem('datosTrabajador', JSON.stringify(a))
-            this.router.navigate(['./ProcesoMarcajeSucursal']);
-
+           
             }
            
           }, (error)=>{
             this.mensajeError('Rut de cliente no existe');
+          }, ()=> {
+             this.router.navigate(['./ProcesoMarcajeSucursal']);
+
           });
 
 
@@ -56,12 +58,14 @@ export class LoginComponent  {
             }else{
 
             localStorage.setItem('datosTrabajador', JSON.stringify(a))
-            this.router.navigate(['./Home']);
+           
 
             }
            
           }, (error)=>{
             this.mensajeError('Rut de cliente no existe');
+          },()=> {
+             this.router.navigate(['./Home']);
           });
 
 

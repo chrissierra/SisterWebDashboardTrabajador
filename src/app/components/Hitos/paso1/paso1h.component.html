@@ -1,0 +1,105 @@
+<app-navbar></app-navbar>
+ <ng-template #customLoadingTemplate></ng-template>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+	<!--
+    <select #seleccion class="form-control" name="nombre" [(ngModel)]="seleccionMandante" required>
+        <option *ngFor="let dato of Datos" [value]="dato['nombre_mandante']" >{{ dato['nombre_mandante'] }}</option>
+	</select>
+
+
+    <select class="form-control" name="nombre" [(ngModel)]="SelectHito" required>
+        <option *ngFor="let hitos of arrayHito" >{{ hitos }}</option>
+	</select>
+
+	<button (click)="ver(seleccion)">VER</button>
+
+	<br>
+
+	
+
+			<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+		<input *ngIf="booleanoRespaldo" type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />
+
+-->
+
+
+<div class="container">
+  <div class="row">
+
+
+  	    <!-- Primer Select  -->
+    <div class="col text-center" style="margin-top:50px;">
+    		<h2><strong>Ingreso de Hitos</strong></h2>
+    </div>    
+	<hr>
+	 <div class="w-100"></div>
+     <!-- Primer Select  -->	
+
+
+    <!-- Primer Select  -->
+    <div class="col text-center">
+    		<label><strong>Selecciona al  mandante</strong></label>
+    </div>
+    <div class="w-100"></div>
+    <div class="col">
+    		
+    		<select #seleccion class="form-control" name="nombre" [(ngModel)]="seleccionMandante" required>
+    		
+    		    	<option *ngFor="let dato of Datos" [value]="dato['nombre_mandante']" >{{ dato['nombre_mandante'] }}</option>
+			
+			</select>
+	
+	</div>
+	<hr>
+	 <div class="w-100"></div>
+     <!-- Primer Select  -->	
+
+
+
+	 <!-- Segundo Select  -->
+     <div class="col  text-center">
+    		<label><strong>Selecciona tipo hito a ingresar</strong></label>
+    </div>
+    <div class="w-100"></div>
+    <div class="col">
+    		
+    	<select  (change)="SeleccionHito($event)" class="form-control" name="nombre" [(ngModel)]="SelectHito" required>
+       		 <option *ngFor="let hitos of arrayHito" >{{ hitos }}</option>
+		</select>
+
+		<div class="text-center" style="margin-top:30px">
+			<button *ngIf="booleanoVer" class="btn btn-outline-danger" (click)="ver(seleccion)">VER</button>	
+			<button *ngIf="!booleanoVer"  class="btn btn-outline-danger" (click)="ver(seleccion)" disabled>VER</button>		
+		</div>
+	
+	</div>
+	<hr>
+
+	<div class="w-100"></div>
+	 <!-- Segundo Select  -->
+
+
+	<!-- Primer Select  -->
+    <div *ngIf="loading" class="col text-center" style="margin-top:50px;">
+    	<h3>{{cargando}} %</h3>
+    </div>    
+	<hr>
+	 <div class="w-100"></div>
+     <!-- Primer Select  -->
+
+	
+    <div class="col tex-center">
+    	<hr>
+    	<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+		<button *ngIf="booleanoRespaldo" type="button" class="btn btn-warning btn-block" value="Ingresa el registro" (click)="fileInput.click()" >
+			<i class="fas fa-camera"></i>  Ingresar Registro
+		</button>
+	</div>
+
+
+    
+  </div>
+</div>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 

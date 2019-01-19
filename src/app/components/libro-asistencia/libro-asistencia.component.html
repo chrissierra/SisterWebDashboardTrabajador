@@ -1,0 +1,89 @@
+
+<div class="row justify-content-center" style="margin-top:50px">
+        <form class="form-inline">
+          <div class="form-group mb-2">
+            <label for="staticEmail2" class="sr-only">Email</label>
+                  <mat-form-field>
+                    <input [(ngModel)]="calendario" name="calendario" matInput [matDatepicker]="picker" placeholder="Selecciona una fecha">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+          </div>
+
+        <div class="form-group mx-sm-3 mb-2">
+            
+          </div>
+           
+           <button (click)="ActualizarFecha()" mat-raised-button color="primary">Ir </button>
+         
+        </form>
+
+            <div class="form-group mx-sm-3 mb-2">
+             
+            </div>
+</div>
+
+
+<table #TABLE class="table" style="margin-bottom:300px" >
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Rut</th>
+      <th scope="col">Movimiento</th>
+      <th scope="col">Hora</th>
+      
+      <th scope="col">Locación</th>
+      <th scope="col">Respaldo</th>
+
+
+
+    </tr>	
+  </thead>
+  <tbody>
+    <tr *ngFor="let movimientos of movimiento; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{movimientos.nombre}}</td>
+      <td>{{movimientos.apellido}}</td>
+      <td>{{movimientos.rut}}</td>
+      <td>{{movimientos.tipo_movimiento}}</td>
+      <td>{{movimientos.hora}}</td>
+      
+      <td>{{movimientos.locacion }}</td>
+      <th scope="col">
+        <!-- Aca va el modal -->
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#s' + movimientos.id">
+                        Visualizar Registro
+                      </button>
+
+                              <!-- Modal -->
+                              <div class="modal fade" [id]="'s'+movimientos.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                 <div class="text-center">
+                                   <img [src]="movimientos.url" class="rounded" alt="...">
+                                 </div>    
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <!--  <button type="button" class="btn btn-primary">Save changes</button> -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>  
+        <!-- Aca va el modal -->    
+      </th>
+
+    </tr>
+   
+  </tbody>
+</table>

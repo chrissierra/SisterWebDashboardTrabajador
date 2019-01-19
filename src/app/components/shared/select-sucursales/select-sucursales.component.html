@@ -1,0 +1,6 @@
+  <div class="form-group">
+    <label>Selecciona Sucursal</label>
+    <select #select  (change)="onChange($event, select)" [(ngModel)]="SucursalElegida" class="form-control" id="exampleFormControlSelect1">
+      <option *ngFor="let sucursal of sucursales" [value]="sucursal.id">{{ sucursal.nombre }}</option>
+    </select>
+  </div>

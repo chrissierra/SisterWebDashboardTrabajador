@@ -1,0 +1,109 @@
+
+  	<div class="container-fluid" style="margin-top:50px">
+			  	<div class="row">
+
+
+			  		<div class="col-sm-8">
+							<form *ngIf="booleanoDatosServidor"  #forma='ngForm' (ngSubmit)="guardar(forma)"> 
+
+						        <div *ngFor="let dia of dias; let i = index" class="form-group">	
+						        <div *ngIf="tipo_a[i].length > 0">				           
+						           <div class="form-group">
+								    <label ><strong >Turnos  para el día {{dia}}  {{ i + 1}} / {{ mes }} / {{ anio }}</strong> </label>
+								    	<input disabled  [(ngModel)]='hora_a[i]' type="time" class="form-control" name="hora_a_{{i+1}}">
+								   </div>
+								   
+								     <div class="form-group">	
+								    	<select  disabled [(ngModel)]='tipo_a[i]'  name="tipo_a_{{i+1}}" class="form-control">
+								    		<option>Entrada</option>
+								    		<option>Salida</option>
+								    		<option>Vacío</option>
+								    	</select> 
+								    </div>
+
+								     <div class="form-group">	
+								        <input  disabled [(ngModel)]='hora_b[i]' type="time" class="form-control" name="hora_b_{{i+1}}">
+								    </div>
+
+								     <div class="form-group">		
+								    	<select  disabled [(ngModel)]='tipo_b[i]'  name="tipo_b_{{i+1}}" class="form-control">
+								    		<option>Entrada</option>
+								    		<option>Salida</option>
+								    		<option>Vacío</option>
+								    	</select>  
+								    </div>	
+								    	<hr>
+								    	<br>       
+
+						        </div>
+						        </div>	
+						        <input type="hidden" name="mes" [(ngModel)]="mes">
+						        <input type="hidden" name="anio" [(ngModel)]="anio">
+
+						        <input type="hidden" name="id_trabajador" [(ngModel)]="id">
+						        		<!--<button type="submit"  *ngIf="!booleanoBotonActualizar" class="btn btn-outline-primary">Guarda el horario</button>
+								    	<button type="submit" *ngIf="booleanoBotonActualizar" class="btn btn-outline-warning">Actualizar el horario</button>-->
+						    </form>
+
+<!-- ****************************************************************************************************************************************+-->
+
+
+						    	<form *ngIf="!booleanoDatosServidor"  #forma='ngForm' (ngSubmit)="guardar(forma)"> 
+
+						    			    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+										      <h1 class="display-4">Turnos</h1>
+										      <p  class="lead">Tu empleador aún no designa el horario de éste mes.</p>
+
+									    </div>
+						      
+						    	</form>
+
+						</div>
+				    <div class="col-sm-4">
+				    	<br>
+				    	<hr>
+				    		<div class="card m-5">
+								  <div class="card-header " >
+								    Meses
+								  </div>
+								  <div class="card-body">
+								    <blockquote class="blockquote mb-0">
+								      <p style="font-size: 12px !important">Selecciona el mes a visualizar:</p>
+								      			<div class="form-group">		
+								     				<select [(ngModel)]="mesIntermedio"  name="MesSelect" class="form-control">
+								    					<option>1</option>
+								    					<option>2</option>
+								    					<option>3</option>
+								    					<option>4</option>
+								    					<option>5</option>
+								    					<option>6</option>
+								    					<option>7</option>
+								    					<option>8</option>
+								    					<option>9</option>
+								    					<option>10</option>
+								    					<option>11</option>
+								    					<option>12</option>
+								    				</select>  
+								    			</div>	
+
+ 									   <p style="font-size: 12px !important">Selecciona el Año:</p>
+								    				<div class="form-group">		
+								     				<select [(ngModel)]="anioIntermedio"  name="AnioSelect" class="form-control">
+								    					<option>2018</option>
+								    					<option>2019</option>
+								    					<option>2020</option>
+								    					<option>2021</option>
+								    					
+								    				</select>  
+								    			</div>	
+
+								    			<button (click)="ActualizarMesEnCurso()"  class="btn btn-outline-primary">Cambiar</button>
+		
+
+								    <!--  <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>-->
+								    </blockquote>
+								  </div>
+							</div>
+				    </div>
+			</div><!-- Fin Row -->
+	</div>

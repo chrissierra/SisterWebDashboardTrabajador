@@ -1,6 +1,11 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
+
+// Guard
+import { AuthGuard } from './services/auth.guard';
+
+
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 
@@ -58,17 +63,17 @@ const routes: Routes = [
       { path: 'HistorialTurnos' , component: HistorialTurnosComponent},
       { path: 'LiberarTurnos/:mes/:anio' , component: LiberarTurnosComponent},
   ] },
- { path: 'Home', component: HomeComponent },
- { path: 'ProcesoMarcaje', component: Paso1Component },
- { path: 'Paso1Hito', component: Paso1HitoComponent },
- { path: 'Paso2Hito', component: Paso2HitoComponent },
- { path: 'Paso3Hito', component: Paso3HitoComponent },
- { path: 'ProcesoMarcajeSucursal', component: ProcesoMarcajeSucursalComponent },
- { path: 'Paso1s/:id/:rut', component: Paso1sComponent },
- { path: 'Paso2s/:coeficiente', component: Paso2sComponent },
- { path: 'Paso1TurnoExtra/:id/:rut', component: Paso1TurnoExtraComponent },
- { path: 'Paso2TurnoExtra/:coeficiente', component: Paso2TurnoExtraComponent },
- { path: 'ProcesoMarcajePaso2/:coeficiente', component: Paso2Component }, 
+ { path: 'Home', component: HomeComponent, canActivate: [ AuthGuard ] },
+ { path: 'ProcesoMarcaje', component: Paso1Component, canActivate: [ AuthGuard ] },
+ { path: 'Paso1Hito', component: Paso1HitoComponent , canActivate: [ AuthGuard ]},
+ { path: 'Paso2Hito', component: Paso2HitoComponent , canActivate: [ AuthGuard ]},
+ { path: 'Paso3Hito', component: Paso3HitoComponent , canActivate: [ AuthGuard ]},
+ { path: 'ProcesoMarcajeSucursal', component: ProcesoMarcajeSucursalComponent, canActivate: [ AuthGuard ] },
+ { path: 'Paso1s/:id/:rut', component: Paso1sComponent, canActivate: [ AuthGuard ] },
+ { path: 'Paso2s/:coeficiente', component: Paso2sComponent, canActivate: [ AuthGuard ] },
+ { path: 'Paso1TurnoExtra/:id/:rut', component: Paso1TurnoExtraComponent, canActivate: [ AuthGuard ] },
+ { path: 'Paso2TurnoExtra/:coeficiente', component: Paso2TurnoExtraComponent, canActivate: [ AuthGuard ] },
+ { path: 'ProcesoMarcajePaso2/:coeficiente', component: Paso2Component, canActivate: [ AuthGuard ] }, 
  { path: 'Paso1Viaticos', component: Paso1ViaticosComponent }, 
  { path: 'Paso2Viaticos', component: Paso2ViaticosComponent }, 
  { path: 'Paso3Viaticos', component: Paso3ViaticosComponent }, 

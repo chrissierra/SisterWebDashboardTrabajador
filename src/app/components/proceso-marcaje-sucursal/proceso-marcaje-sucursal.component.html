@@ -1,0 +1,95 @@
+<app-navbar></app-navbar>
+
+<div class="container" style="margin-top:50px;padding:35px;" >
+    
+    <ng-template #customLoadingTemplate></ng-template>
+    
+
+    <div class="row">
+      <div class="col-sm-10" style="font-family: 'Dosis', sans-serif !important;">  <h3>EMPRESA {{ Sucursales.nombre_empresa | uppercase}}</h3></div>
+        <div class="col-sm-2"><a href="/users" class="pull-right">
+            <img title="profile image" width="100px" class="img-thumbnail" [src]="url"></a></div>
+    </div>
+
+    <br>
+        
+
+
+            <div class="row justify-content-center">
+                <h3><small class="text-muted">Lista Trabajadores</small></h3>
+
+
+
+
+            </div>
+
+
+            <ng-select 
+                      [items]="arrayNombres"
+                      bindLabel="rut"
+                      
+                      bindValue="id"
+                        (change)="onChange($event)"
+                      [(ngModel)]="selectedPersonId">
+            </ng-select>
+
+
+
+            
+        <div *ngIf="booleanBuscado" class="list-group" >
+          <a (click)="IrPaso1s(empleadoSeleccionado)"  class="list-group-item list-group-item-action flex-column align-items-start ">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">  {{ empleadoSeleccionado.nombre }} {{ empleadoSeleccionado.apellido }}</h5>
+
+              </div>
+              <p class="mb-1">Rut: {{ empleadoSeleccionado.rut }} </p>
+              <button (click)="IrPaso1s(empleadoSeleccionado)"  type="button" class="btn btn-outline-info btn-sm">Marcar</button>
+
+                <!--<button (click)="IrPaso1s(empleados)" [routerLink]="['/Paso1s',  empleados.id,  empleados.rut]" type="button" class="btn btn-outline-info btn-sm">Marcar</button>-->
+
+              <img  
+                class="img-thumbnail"
+                src="{{ 'https://sister.cl/trabajadores/' + empleadoSeleccionado.rut + '/registro/' + empleadoSeleccionado.rut +'.jpg'}}" 
+                style="width:100px;float:right;"
+              >
+            </a>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div  *ngIf="!booleanBuscado" class="list-group">
+                <a (click)="IrPaso1s(empleados)" *ngFor="let empleados of empleados" class="list-group-item list-group-item-action flex-column align-items-start ">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">  {{ empleados.nombre }} {{ empleados.apellido }}</h5>
+
+                    </div>
+                    <p class="mb-1">Rut: {{ empleados.rut }} </p>
+                    <button (click)="IrPaso1s(empleados)"  type="button" class="btn btn-outline-info btn-sm">Marcar</button>
+
+                      <!--<button (click)="IrPaso1s(empleados)" [routerLink]="['/Paso1s',  empleados.id,  empleados.rut]" type="button" class="btn btn-outline-info btn-sm">Marcar</button>-->
+
+                    <img  
+                      class="img-thumbnail"
+                      src="{{ 'https://sister.cl/trabajadores/' + empleados.rut + '/registro/' + empleados.rut +'.jpg'}}" 
+                      style="width:100px;float:right;"
+                    >
+                  </a>
+        </div>
+      
+
+
+
+   
+
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
+
+</div>

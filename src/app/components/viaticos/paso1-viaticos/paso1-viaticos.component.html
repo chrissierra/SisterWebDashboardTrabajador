@@ -1,0 +1,36 @@
+	<app-navbar></app-navbar>
+
+
+	<div class="container">
+			<form #forma='ngForm' (ngSubmit)="guardar(forma)">
+			  
+			
+			  <div class="form-group">
+			    <label>Motivo Viático</label>
+			    <textarea name="motivo" ngModel class="form-control"  rows="3"></textarea>
+			  </div>
+			
+			
+			  <div class="form-group">
+			    <label >Glosa</label>
+			    <input name="glosa" ngModel type="text" class="form-control"  placeholder="EJ: Almuerzo">
+			  </div>
+			
+			
+			  <div class="form-group">
+			    <label >Monto</label>
+			    <input name="monto" ngModel type="number" class="form-control">
+			  </div>
+			
+			
+			  <div class="form-group form-check">
+			  	<label class="form-check-label" for="exampleCheck1"><strong><p>Toma registro de tu boleta</p></strong></label>
+			    	<br><app-upload [nombreArchivo]="nombreDelArchivo"></app-upload>
+			    
+			  </div>
+			
+			
+			  <button type="submit" class="btn btn-primary">Enviar</button>
+		
+			</form>
+	</div>

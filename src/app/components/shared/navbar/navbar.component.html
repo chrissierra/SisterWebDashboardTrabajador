@@ -1,7 +1,13 @@
 <nav class="navbar navbar-dark" style="background-color: #1976d2;">
+    
     <a class="navbar-brand" [routerLink]="['/Home']">
       <img src="./assets/img/logov11.png" style="margin-bottom:-30px;margin-top:-30px"  width="100px" alt="">
          
 
     </a>
+
+    <span (click)="logout()" style="font-size: 1.2em; color: white;">
+    	<i class="fas fa-sign-out-alt"></i>
+	</span>
+    
 </nav>

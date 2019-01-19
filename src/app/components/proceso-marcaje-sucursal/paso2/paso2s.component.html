@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+
+
+<body class="text-center" style="padding:40px;">
+    <ng-template #customLoadingTemplate></ng-template>
+
+		<div class="container">
+				<app-select-sucursales></app-select-sucursales>
+
+				<div class="container" style="margin-top:30px;">
+
+				    <div class="row">
+
+				        <div class="col-2"></div>
+				        
+				        <div class="col-4">
+				            
+				            <!--<button *ngIf="entrada !== 0" class="btn btn-success" disabled>Entrada realizada</button>-->
+				        </div>
+				        
+				        <div class="col-4">
+				           
+				           <!--  <button *ngIf="salida !== 0" class="btn btn-danger" disabled>Salida realizada</button>-->
+				        </div>
+				        
+				        <div class="col-2"></div>
+				   
+				    </div>
+
+				    <div class="row">
+						  <button 
+						  (click)="marcar_movimiento('salida')" 
+						  *ngIf="movimiento === 'salida'" 
+						  class="btn btn-outline-danger btn-lg btn-block">Marcar Salida</button>
+				    </div>		
+
+				    <div class="row">
+				    	  <button 
+				    	  (click)="marcar_movimiento('entrada')"
+				    	   *ngIf="movimiento === 'entrada'" 
+				    	   class="btn btn-outline-success btn-lg btn-block">Marcar Entrada</button>
+				           
+				    </div>
+
+
+				</div>
+				<br>
+
+				<div class="alert alert-danger" role="alert">
+					<h3>{{aviso}}</h3>
+				</div>
+				
+		    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
+
+		</div>
+</body>

@@ -1,0 +1,85 @@
+<!--<app-navbar></app-navbar>
+
+	
+
+
+			<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+		<input  type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />
+
+<div class="form-group">
+    <label for="exampleInputEmail1">Ingresa un comentario</label>
+   
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comentario" [(ngModel)]="comentario"></textarea>
+    <small id="emailHelp" class="form-text text-muted">Describe brevemente el ingreso que realizas.</small>
+  </div>
+
+  <button  (click)="enviar()" class="btn btn-primary">Enviar</button>
+-->
+  <app-navbar></app-navbar>
+ <ng-template #customLoadingTemplate></ng-template>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+
+
+<div class="container">
+  <div class="row">
+
+  	<!-- Primer Select  -->
+    <div class="col text-center" style="margin-top:50px;">
+    		<h2><strong>Ingresa el último registro </strong></h2>
+    </div>    
+	<hr>
+	 <div class="w-100"></div>
+     <!-- Primer Select  -->
+
+	<!-- Primer Select  -->
+    <div *ngIf="loading" class="col text-center" style="margin-top:50px;">
+    	<h3>{{cargando}} %</h3>
+    </div>    
+	<hr>
+	 <div class="w-100"></div>
+     <!-- Primer Select  -->
+
+
+    <div class="col tex-center">
+    	<hr>
+    	<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+		<button type="button" class="btn btn-warning btn-block" value="Ingresa el registro" (click)="fileInput.click()" >
+			<i class="fas fa-camera"></i>  Ingresar Registro
+		</button>
+	</div>
+
+
+	<!-- Primer Select  -->
+	 <div class="w-100"></div>
+	   <div class="col tex-center">
+    		<div class="form-group" style="margin-top: 35px;">
+    				<label for="exampleInputEmail1">Ingresa un comentario</label>
+   				
+   		 				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comentario" [(ngModel)]="comentario"></textarea>
+    				<small id="emailHelp" class="form-text text-muted">Describe brevemente el ingreso que realizas.</small>
+  			</div>
+  		</div>	
+	<hr>	
+     <!-- Primer Select  -->
+
+
+     	<!-- Primer Select  -->
+	 <div class="w-100"></div>
+	   <div class="col tex-center">
+    		<div class="form-group">
+    				  <button *ngIf="booleanBotonEnviar" (click)="enviar()" class="btn btn-outline-primary btn-block">Enviar</button>
+      				  <button *ngIf="!booleanBotonEnviar" (click)="enviar()" class="btn btn-outline-primary btn-block" disabled>Enviar</button>
+
+  			</div>
+  		</div>	
+	<hr>	
+     <!-- Primer Select  -->
+
+
+
+    
+  </div>
+</div>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 

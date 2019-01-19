@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { ImageUploadModule } from "angular2-image-upload";
+//import { ImageUploadModule } from "angular2-image-upload";
 
 // Angular material
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -67,6 +67,9 @@ import { Paso2TurnoExtraComponent } from './components/proceso-marcaje-sucursal/
 
 
 // servicios
+import { NgSelectModule } from '@ng-select/ng-select';
+import { AuthGuard } from './services/auth.guard';
+
 
 import { IngresoUsuarioServidorService } from './services/ingreso-usuario-servidor.service';
 import { LoginservicesService } from './services/loginservices.service';
@@ -103,6 +106,7 @@ import { TurnosNocheComponent } from './components/turnos-noche/turnos-noche.com
 import { Paso1ViaticosComponent } from './components/viaticos/paso1-viaticos/paso1-viaticos.component';
 import { Paso2ViaticosComponent } from './components/viaticos/paso2-viaticos/paso2-viaticos.component';
 import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/paso3-viaticos.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +148,8 @@ import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/pas
     TurnosNocheComponent,
     Paso1ViaticosComponent,
     Paso2ViaticosComponent,
-    Paso3ViaticosComponent
+    Paso3ViaticosComponent,
+    FooterComponent
 
   ],
   imports: [
@@ -153,9 +158,9 @@ import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/pas
     peo,
     DeviceDetectorModule.forRoot(),
     FormsModule,
-    ImageUploadModule.forRoot(),
+   
     NgxLoadingModule.forRoot({}),
-
+    NgSelectModule,
     ReactiveFormsModule,
     HttpClientModule,
     HttpModule,
@@ -194,7 +199,8 @@ import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/pas
               SueldosService,
               MensajesSwalService,
               LibroremuneracionesService,
-              GeolocalizacionService],
+              GeolocalizacionService,
+              AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

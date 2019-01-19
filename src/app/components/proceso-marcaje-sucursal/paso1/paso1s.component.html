@@ -1,0 +1,115 @@
+<app-navbar></app-navbar>
+
+
+<body class="text-center" style="padding:40px;">
+ 
+	  <div class="row justify-content-center">
+                <h3>Toma la fotografía de respaldo </h3>
+            </div>
+
+            <div class="row justify-content-center">
+                <h3><small class="text-muted">Al presionar el botón se abrirá la cámara. Te recomendamos 
+                tomar la foto muy claramente, sin exceso de luz ni zona con muchas sombras.</small></h3>
+            </div>
+            <br>
+
+
+		<div class="container">
+    		<p *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtra">
+    		  Autenticación Biométrica
+    		</p>
+
+
+        <!--
+          *******************                                                      ********************************
+          *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO        ******************************** -->    
+
+    		<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+    		<input *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtraEnCurso" type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />
+    	    <!--
+          *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO   ********************************
+          *******************                                                 ******************************** -->       
+
+
+
+    			<div class="row justify-content-center"><mat-spinner *ngIf="boleanoLoader"></mat-spinner></div>
+    			<h5 class="mb-1"> {{ cargando | percent}}</h5>
+    		  <br>
+
+    		  <button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
+		</div>
+
+
+        <!--
+          *******************                              ********************************
+          *******************     MARCAJE DE irHitos       ******************************** -->    
+<div *ngIf="boleanoHitos" class="text-center" style="margin-bottom:50px">
+  <hr>
+  <button (click)="irHitos()" class="btn btn-success">Hitos</button>
+</div>
+          <!--
+          *******************     MARCAJE DE irHitos         ********************************
+          *******************                                ******************************** -->   
+
+
+
+<div *ngIf="datosMarcaje?.content['TurnoExtraEnCurso'] === 1" class="text-center" style="margin-bottom:50px">
+  <hr>
+ <h3>{{avisoTurnoExtra}}</h3>
+</div>
+
+
+
+
+
+    <!--
+      *******************                                                      ********************************
+      *******************     MARCAJE DE TURNO EXTRA, BOTON ENVÍO FOTO        ******************************** -->    
+<div *ngIf="boleanoTurnoExtra" class="text-center" style="margin-bottom:50px">
+  <hr>
+  <button (click)="irTurnosExtras()" class="btn btn-warning btn-block">Marcaje turno extra</button>
+</div>
+      <!--
+      *******************     MARCAJE DE TURNO EXTRA, BOTON ENVÍO FOTO   ********************************
+      *******************                                                 ******************************** -->   
+
+
+
+
+
+
+		  <ul class="list-group">
+      
+            <li *ngIf=" datosMarcaje?.content['Entrada'] !== 0" class="list-group-item text-right"><span class="pull-left"><strong>Entrada </strong></span>{{ datosMarcaje?.content['Entrada']}}</li>
+             <li *ngIf=" datosMarcaje?.content['Entrada'] === 0" class="list-group-item text-right"><span class="pull-left"><strong>No han habido marcajes hoy de turnos establecidos. </strong></span></li>
+            
+            <li *ngIf=" datosMarcaje?.content['Entrada'] !== 0 && datosMarcaje?.content['Salida'] !== 0" class="list-group-item text-right"><span class="pull-left">
+            	<strong>Salida</strong></span> 
+            	{{ datosMarcaje?.content['Salida']}}
+            </li>
+              <li *ngIf=" datosMarcaje?.content['Entrada'] !== 0 && datosMarcaje?.content['Salida'] === 0" class="list-group-item text-right"><span class="pull-left"><strong>Salida Pendiente</strong></span> 
+          </li>
+
+      </ul> 
+
+
+
+       <ul class="list-group">
+      
+            <li *ngIf=" datosMarcaje?.content['EntradaTurnoExtra'] !== 0" class="list-group-item text-right"><span class="pull-left"><strong>Entrada turno extra: </strong></span>{{ datosMarcaje?.content['EntradaTurnoExtra']}}</li>
+             <li *ngIf=" datosMarcaje?.content['EntradaTurnoExtra'] === 0" class="list-group-item text-right"><span class="pull-left"><strong>No han habido turnos extras el día de hoy.</strong></span></li>
+            
+            <li *ngIf=" datosMarcaje?.content['EntradaTurnoExtra'] !== 0 && datosMarcaje?.content['SalidaTurnoExtra'] !== 0" class="list-group-item text-right"><span class="pull-left">
+              <strong>Salida turno extra: </strong></span> 
+              {{ datosMarcaje?.content['SalidaTurnoExtra']}}
+            </li>
+              <li *ngIf=" datosMarcaje?.content['EntradaTurnoExtra'] !== 0 && datosMarcaje?.content['SalidaTurnoExtra'] === 0" class="list-group-item text-right"><span class="pull-left"><strong>Salida Pendiente</strong></span> 
+          </li>
+
+      </ul> 
+              
+
+              <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
+
+</body>
+<ng-template style="height:1500px !important" #customLoadingTemplate></ng-template>

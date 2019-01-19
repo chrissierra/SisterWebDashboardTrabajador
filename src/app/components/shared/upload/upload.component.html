@@ -1,0 +1,5 @@
+<div>
+<input type="file" name="image" id="image" (change)="onFileChanged($event)" />
+ <ng-template #customLoadingTemplate></ng-template>
+               <ngx-loading [show]="boleanoLoader" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
+               </div>
