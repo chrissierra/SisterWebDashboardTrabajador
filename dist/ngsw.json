@@ -1,0 +1,93 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "Aplicación Marcaje RRHH",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main.12ca929ebc0daef9f877.js",
+        "/polyfills.c6e41b86763c13ea8ab8.js",
+        "/runtime.ec2944dd8b20ec099bf3.js",
+        "/styles.01c9e1e42f18ab0d2dae.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/.gitkeep (1)",
+        "/assets/css/animated.css",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/img/logo.png",
+        "/assets/img/logo1.png",
+        "/assets/img/logo2.png",
+        "/assets/img/logov1.png",
+        "/assets/img/logov10.png",
+        "/assets/img/logov11.png",
+        "/assets/img/logov2.png",
+        "/assets/img/logov3.png",
+        "/assets/img/logov5.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/.gitkeep (1)": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "/assets/css/animated.css": "8d56a197fef7a1cf420e16c854a111d3b1b3995c",
+    "/assets/icons/icon-128x128.png": "9ec8b3e03730058f0dc8570c36da4e1abfdd2f3c",
+    "/assets/icons/icon-144x144.png": "89312e2a1a2635f4d13de4693e2da88d235f0b9a",
+    "/assets/icons/icon-152x152.png": "c166b50514dc67108853b467e9ce386dcd8f8ca9",
+    "/assets/icons/icon-192x192.png": "e93f0725d5c20a57d715e9335afdf087f9ff53c6",
+    "/assets/icons/icon-384x384.png": "910984a89a4d588fb96250ae2dfe12b168aaaa9c",
+    "/assets/icons/icon-512x512.png": "92e05e88ee0e275fe5241aa396933b5aeb7135ce",
+    "/assets/icons/icon-72x72.png": "49d4f6498ffe737db9ed9415d81eaba0bfbfa9f2",
+    "/assets/icons/icon-96x96.png": "1440c2e1b6241c8a34fbdfdd330db664995e7ee0",
+    "/assets/img/logo.png": "ddce76cb3152bffd9c07401d40cc0cd6a5a74c64",
+    "/assets/img/logo1.png": "7dd2be4f00457605162c7c6911710a5651849435",
+    "/assets/img/logo2.png": "0a1289f30cfa91debfbca28d54a7211f23c11dee",
+    "/assets/img/logov1.png": "c0a061d6db0143475b1dd2d0a92ca28a2ab2c44a",
+    "/assets/img/logov10.png": "960f6747decd7c7b5b8fcb21a62647effb218992",
+    "/assets/img/logov11.png": "c4b033855e633b7c2008d2785bc9948ab69e3cd5",
+    "/assets/img/logov2.png": "50d4ecd973139501dfb00bc69bf346eaf99a1a8e",
+    "/assets/img/logov3.png": "93a1b8083c9f5ec280545d2a1bbb50c38f8a90a4",
+    "/assets/img/logov5.png": "18bf9cbdbbf73b8c1308717913a40ba52dc87049",
+    "/favicon.ico": "fca46620d642c9abb50b057c83161c88708899c8",
+    "/index.html": "8fc8e68ac509f30aef342ec6619411c4aa1cb7e3",
+    "/main.12ca929ebc0daef9f877.js": "f1dd6cfa4fce0415f5cdcbfd49cb204febda21e5",
+    "/polyfills.c6e41b86763c13ea8ab8.js": "bca3bd84b9513547d77c87084bc3e85a42b2451f",
+    "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "/styles.01c9e1e42f18ab0d2dae.css": "cd5b0cf7e2dda51e29d36ecc6bce6a87baa58fcc"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
