@@ -79,11 +79,11 @@ private GetsituacionMarcaje(){
 
 marcar_movimiento(mov){
 
-	this.loading = true;
+		this.loading = true;
 		this.SetId();
 		this.getFromState();
-		console.log("this.sucursal,", this.sucursal)
-		if(this.sucursal === undefined) return this.swalSucursal();
+		
+		if(this.sucursal === undefined) return this.swalSucursal(); //console.log("this.sucursal,", this.sucursal)
 
 		this.MarcajeService_.situacion_marcaje(JSON.stringify({id:this.idTrabajador})).subscribe( data => {
   			
@@ -101,7 +101,7 @@ marcar_movimiento(mov){
 							  if(data['id'] !== undefined) this.GeneracionComprobante(data)
 
 			  			}, (error) => {
-
+			  				alert("Error " + JSON.stringify(error) + " Sucursal: " + this.sucursal )
 			  			}, ()=> {
 			  				this.loading = false,
 			  				this.MarcajeRealizado();
@@ -118,7 +118,7 @@ marcar_movimiento(mov){
 					if(data['id'] !== undefined) this.GeneracionComprobante(data)
 
 	  			}, (error) => {
-
+	  						alert("Error " + JSON.stringify(error) + " Sucursal: " + this.sucursal )
 			  			}, ()=> {
 			  				this.loading = false,
 			  				this.MarcajeRealizado();
@@ -158,6 +158,7 @@ marcar_movimiento_noches(data){
 		//console.log(data)
 		//this.MarcajeRealizado(data);
 	}, (error) => {
+				//alert("Error " + JSON.stringify(error) + " Sucursal: " + this.sucursal )
 				this.MensajesSwalService_.mensajeStandar({
 												titulo:'Error en marcaje',
 												texto:'Debes estar marcando sin tener un turno asignado. Intenta marcar un turno extra siempre que tu empleador lo apruebe.',
@@ -205,6 +206,7 @@ swalSucursal(){
 
 SetId(){
 	this.GeolocalizacionService_.getLocacion();
+
 	this.id = {
 				'id': this.idTrabajador,
 				'movimiento': this.movimiento,

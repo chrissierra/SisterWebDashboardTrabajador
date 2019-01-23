@@ -712,6 +712,9 @@ SOFTWARE.
 @ng-select/ng-select
 MIT
 
+ng-connection-service
+MIT
+
 @angular/http
 MIT
 

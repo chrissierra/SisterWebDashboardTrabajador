@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services';
-
+import { MensajesSwalService } from './mensajes-swal.service'
 import { Store } from '@ngrx/store';
 import * as fromMarcaje from './../components/marcaje.actions';
 import { AppState } from './../app.reducers';
+import { Router } from '@angular/router';
 //declare var google: any;
 
 @Injectable()
@@ -16,7 +17,9 @@ export class GeolocalizacionService {
     public location:Location;
     public locacion:any;
 
-  constructor(private store: Store<AppState>,
+  constructor(private router_: Router,
+              private MensajesSwalService_: MensajesSwalService,
+              private store: Store<AppState>,
               public mapsApiLoader: MapsAPILoader,
               private wrapper: GoogleMapsAPIWrapper) {}
 
@@ -63,9 +66,12 @@ getLocacion(){
        // alert(this.long + " /  " + this.lat)
       }, err => {
         console.log(err)
+         this.mensajeSinPermisoGps();
       }, geo_options);
     } else {
        // alert("no funciona geo")
+       this.mensajeSinAccesoGps();
+
     }
 }// Fin función consultaMapa
 
@@ -81,6 +87,8 @@ getLocacion(){
             navigator.geolocation.getCurrentPosition( pos => {
           //   alert(" funciona geo")
 
+
+
           this.locacion = JSON.stringify(this.cloneAsObject(pos)); ;
           
           const accion = new fromMarcaje.ACTUALIZARLATITUDAction(pos.coords.latitude);
@@ -90,15 +98,46 @@ getLocacion(){
           this.store.dispatch( accion1 );
            // alert(this.long + " /  " + this.lat)
           }, err => {
-            console.log(err)
+            console.log(err);
+             this.mensajeSinPermisoGps();
           }, geo_options);
         } else {
            // alert("no funciona geo")
+            this.mensajeSinAccesoGps();
         }
     }// Fin función consultaMapa
 
 
-}
+    private mensajeSinAccesoGps(){
+       this.MensajesSwalService_.mensajeStandar({
+         titulo: 'Sin Acceso GPS',
+         texto: `
+            El dispositivo o el navegador no tienen acceso al GPS. Intenta con otro 
+            navegador u otro dispositivo, idealmente Android.
+         ` ,
+         boton:'Ok',
+         tipo: 'error'
+       });
+
+       this.router_.navigate(['./Home/'])
+    }
+
+   private mensajeSinPermisoGps(){
+           this.MensajesSwalService_.mensajeStandar({
+             titulo: 'Sin Acceso GPS',
+             texto: `
+                Debes además de activar tu ubicación, asegurarte que en la configuración
+                de tu celular está activada la ubicación con Alta precisión ( GPS y redes). No podrás
+                ingresar tu marcaje si no está todo activado.
+             ` ,
+             boton:'Ok',
+             tipo: 'error'
+           });
+           this.router_.navigate(['./Home/'])
+        }
+
+
+    }
 
 interface Location {
   usuario: string;
