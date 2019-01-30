@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import * as fromMarcaje from './../marcaje.actions';
 import { AppState } from './../../app.reducers';
 import { MensajesSwalService } from './../../services/mensajes-swal.service';
+import { IndexeddbService } from './../../services/indexeddb.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
@@ -28,7 +29,15 @@ export class HomeComponent {
   public url:any;
   public avisoTurnoExtra:any;
   public rut:any;
-constructor(private MensajesSwalService_: MensajesSwalService,
+
+  //
+      databaseCreated: boolean;
+      postPerformed: boolean;
+      allUsers: any[];
+      allOrdersBeforeUpdate: any[];
+      allOrdersAfterUpdate: any[];
+constructor(public idbService: IndexeddbService,
+            private MensajesSwalService_: MensajesSwalService,
             private store: Store<AppState>,
             private deviceService: DeviceDetectorService,
 			      private snackBar: MatSnackBar, 
@@ -73,7 +82,8 @@ constructor(private MensajesSwalService_: MensajesSwalService,
                 });
    
         this.setNombreStore();
-
+        this.TestIndex()
+       
    } // Fin constructor
 
 public SetBoleanosTemplate(datosMarcaje){
@@ -130,6 +140,67 @@ public SetBoleanosTemplate(datosMarcaje){
   } )
   } // Fin irturnosextras
 
+
+
+
+TestIndex(){
+
+
+  
+        let storesSchemaAndSeeds = [
+            {
+                name: 'marcajes',
+                indexes: ['id_trabajador', 'movimiento', 'coeficiente'],
+                seeds: [{ name: "Phone 7", price: 210.00, user: "John" }, { name: "Phone 8", price: 210.00, user: "Helenam" }]
+            },
+        ];
+         
+        // Create the IndexedDB database and perform few operations.
+        let self = this;
+        
+        this.idbService.setName('db');
+       
+        this.idbService.create(storesSchemaAndSeeds).subscribe(done => {});
+       
+
+    }
+
+    enboton(){
+
+              // Create the IndexedDB database and perform few operations.
+        let self = this;
+
+        let newOrder = {    id_trabajador: "alksdkajlsdfjkasdfjlkasdfljkasdflkjasfdlkj9", 
+                            movimiento: 910.00, 
+                            coeficiente: "John",
+                            url:"https://sister.cl",
+                            Sucursal:"locacion",
+                            locacion:"2",
+                            biometrica:1,
+                            hora_esperada:"NA"
+
+                       };
+        
+        this.idbService
+                    .post('marcajes', newOrder)
+                    .subscribe((res: any) => {
+                        self.idbService.all('marcajes').subscribe(marcajes => console.log(marcajes) );
+        });
+
+    }
+
+
+        enboton2(){
+
+              // Create the IndexedDB database and perform few operations.
+        let self = this;
+       
+        this.idbService.all('marcajes')
+        .subscribe( data => {
+          console.log("Datos... " , data)
+        } )
+
+    }
 
 
 

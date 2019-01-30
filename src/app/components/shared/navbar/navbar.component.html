@@ -1,13 +1,62 @@
-<nav class="navbar navbar-dark" style="background-color: #1976d2;">
+<nav class="navbar navbar-dark" style="background-color: #1976d2; display: flex;  ">
     
-    <a class="navbar-brand" [routerLink]="['/Home']">
-      <img src="./assets/img/logov11.png" style="margin-bottom:-30px;margin-top:-30px"  width="100px" alt="">
-         
-
+    <a class="navbar-brand" [routerLink]="['/Home']" style="flex:75%"  >
+      <img src="./assets/img/logov11.png" style="margin-bottom:-30px;margin-top:-30px"  width="100px" alt="">      
     </a>
 
-    <span (click)="logout()" style="font-size: 1.2em; color: white;">
+
+    <span  data-toggle="modal" data-target="#exampleModal" (click)="actualizarTurnosOffline()" style=" font-size: 1.2em; color: white; margin-left: auto; flex:10%">
+    	    <i class="fas fa-exclamation-circle"></i>
+	</span>
+
+
+    <span (click)="logout()" style="font-size: 1.2em; color: white; margin-left: auto; flex:5%">
     	<i class="fas fa-sign-out-alt"></i>
 	</span>
     
 </nav>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Turnos Pendientes Por Sincronizar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+		       <div class="table-responsive-sm">
+				  <table class="table">
+					 <thead>
+					    <tr>
+					      <th scope="col">Nombre</th>
+					      <th scope="col">Movimiento</th>
+					      <th scope="col">Hora</th>
+					      <th scope="col">Fecha</th>
+                <th scope="col">Sincronizar</th>                
+					    </tr>
+					  </thead>
+					  <tbody>					   
+					    <tr *ngFor="let turno of turnosPorSincronizar; let i = index">
+					      <th>{{turno.nombre_trabajador}}</th>
+					      <td>{{turno.movimiento}}</td>
+					      <td>{{turno.horaMarcaje}}</td>
+					      <td>{{turno.fecha}}</td>
+                <td><button (click)="SincronizarTurnosOffline(turno, i)" class="btn btn-outline-primary btn-sm">Sincronizar</button></td>
+					    </tr>
+					  </tbody>
+				  </table>
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

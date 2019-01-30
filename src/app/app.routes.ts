@@ -48,7 +48,7 @@ import { LibroAsistenciaComponent } from './components/libro-asistencia/libro-as
 import { Paso1ViaticosComponent } from './components/viaticos/paso1-viaticos/paso1-viaticos.component';
 import { Paso2ViaticosComponent } from './components/viaticos/paso2-viaticos/paso2-viaticos.component';
 import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/paso3-viaticos.component';
-
+import { Paso1OfflineComponent } from './components/proceso-marcaje-sucursal/paso1-offline/paso1-offline.component';
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'PerfilTrabajador/:id', component: PerfilTrabajadorComponent, children:[
@@ -74,6 +74,8 @@ const routes: Routes = [
  { path: 'Paso1TurnoExtra/:id/:rut', component: Paso1TurnoExtraComponent, canActivate: [ AuthGuard ] },
  { path: 'Paso2TurnoExtra/:coeficiente', component: Paso2TurnoExtraComponent, canActivate: [ AuthGuard ] },
  { path: 'ProcesoMarcajePaso2/:coeficiente', component: Paso2Component, canActivate: [ AuthGuard ] }, 
+  { path: 'Paso1Offline', component: Paso1OfflineComponent, canActivate: [ AuthGuard ] }, 
+ 
  { path: 'Paso1Viaticos', component: Paso1ViaticosComponent }, 
  { path: 'Paso2Viaticos', component: Paso2ViaticosComponent }, 
  { path: 'Paso3Viaticos', component: Paso3ViaticosComponent }, 

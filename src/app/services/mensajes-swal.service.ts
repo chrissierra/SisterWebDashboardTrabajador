@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import swal from 'sweetalert2'
-
+import 'sweetalert2/src/sweetalert2.scss'
 @Injectable()
 export class MensajesSwalService {
 
@@ -22,6 +22,7 @@ export class MensajesSwalService {
             text: texto,
             type: tipo,
             showCancelButton: true,
+            position:'center', 
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'Cancelar',

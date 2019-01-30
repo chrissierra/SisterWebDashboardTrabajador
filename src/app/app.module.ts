@@ -17,6 +17,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatIconModule} from '@angular/material/icon';
+
 //import {MatMomentDateModule} from '@angular/material-moment-adapter';
  import {MatNativeDateModule} from '@angular/material';
 
@@ -107,6 +109,7 @@ import { Paso1ViaticosComponent } from './components/viaticos/paso1-viaticos/pas
 import { Paso2ViaticosComponent } from './components/viaticos/paso2-viaticos/paso2-viaticos.component';
 import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/paso3-viaticos.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { Paso1OfflineComponent } from './components/proceso-marcaje-sucursal/paso1-offline/paso1-offline.component';
 
 @NgModule({
   declarations: [
@@ -149,7 +152,8 @@ import { FooterComponent } from './components/shared/footer/footer.component';
     Paso1ViaticosComponent,
     Paso2ViaticosComponent,
     Paso3ViaticosComponent,
-    FooterComponent
+    FooterComponent,
+    Paso1OfflineComponent
 
   ],
   imports: [
@@ -175,7 +179,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
     MatButtonModule,
     MatInputModule,
     MatDatepickerModule,
-  
+    MatIconModule,
     MatNativeDateModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDNSFFyJn6a_AIm44b_7atfg_ml4NI6ReY'

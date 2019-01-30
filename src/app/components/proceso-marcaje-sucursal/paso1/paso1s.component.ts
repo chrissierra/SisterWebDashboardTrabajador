@@ -138,6 +138,16 @@ irTurnosExtras(){
 	} )
 }
 
+
+	TurnoOffline(){
+		this.MensajesSwalService_.mensajePromesa("Marcaje emergencia",
+		 "¿ Estás seguro que deseas marcar un turno de emergencia ? Solo debes marcarlo si intentaste marcar y no tuviste éxito. Debes avisar a tu supervisor.", "question", "Voy a marcar")
+		.then( data => {
+			if(data.value) this.router.navigate(['./Paso1Offline'])
+		} )
+
+	}
+
 	analisis(){
 		 this.http.get('https://sister.cl/DeteccionFacialServidor/' +this.rut).subscribe(event => {
 		       	

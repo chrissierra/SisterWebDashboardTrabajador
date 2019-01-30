@@ -49,7 +49,11 @@ public apellidoSeleccion:any='';
         this.loading = false;
       }, 900 )
 
-			});
+			},(error)=>{
+              setTimeout( () => {
+                  this.loading = false;
+                }, 900 )
+      });
 
    } // Fin constructor
 

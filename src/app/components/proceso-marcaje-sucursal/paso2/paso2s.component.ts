@@ -241,13 +241,13 @@ GetMovimiento(){
 	this.MarcajeService_.verificarUltimoMovimiento(JSON.stringify({'id': this.idTrabajador}))
 	.subscribe( data => {
 		console.log("Getmovimiento", data);
-		if(data === 'Listo' && this.conjuntoSituacionMarcaje['Entrada']!==0 && this.conjuntoSituacionMarcaje['Salida'] !== 0){
+		if(data['estatus'] === 'Listo'){
 			let d = new Date();
 			console.log("this.conjuntoSituacionMarcaje", this.conjuntoSituacionMarcaje)
 			const fecha = d.getDate() + '/'+(d.getMonth()+1) + '/'+d.getFullYear();
 			this.aviso = ` Hoy ${fecha}, todos los turnos de ${this.nombre_trabajador} han sido marcados.
 			Entrada a las ${this.conjuntoSituacionMarcaje['Entrada']} y la salida a las ${this.conjuntoSituacionMarcaje['Salida']}
-			`
+			Tu último turno se marcó hace ${data['diferenciaTimes'].toPrecision(2)} horas. Deben pasar por lo menos 8 horas para tu próximo marcaje.`
 			//"Todos los turnos del día están correctamente marcados."
 		}
 

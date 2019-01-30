@@ -39,7 +39,11 @@ export class SelectSucursalesComponent {
 		.subscribe( data => {
 			console.log(data)
 			this.sucursales = data;
-		} )
+      localStorage.setItem("sucursalesLocalStorage", JSON.stringify(data))
+		}, (error) => {
+      console.log(error)
+      this.sucursales = JSON.parse(localStorage.getItem("sucursalesLocalStorage"));
+    } )
 	} // Fin GetSucursal
 
 	onChange(e, select){

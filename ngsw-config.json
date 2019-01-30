@@ -9,7 +9,16 @@
           "/favicon.ico",
           "/index.html",
           "/*.css",
-          "/*.js"
+          "/*.js",
+          "/manifest.json"
+        ],
+        "urls":[
+       
+          "https://use.fontawesome.com/**",
+          "https://fonts.googleapis.com/**",
+          "https://stackpath.bootstrapcdn.com/**",
+          "https://code.jquery.com/**",
+          "https://cdnjs.cloudflare.com/**"
         ]
       }
     }, {
@@ -22,5 +31,24 @@
         ]
       }
     }
+  ],
+  "dataGroups":[
+      {
+
+        "name":"marcaje-api",
+        "urls":[ 
+          "https://sister.cl/laravel/index.php/api/planilla",
+          "https://sister.cl/laravel/index.php/api/get_sucursales",
+          "https://sister.cl/laravel/index.php/api/**" ],
+        "version": 3,
+        "cacheConfig": {
+          "maxSize": 20,
+          "maxAge": "1h",
+          "timeout": "8s",
+          "strategy": "freshness"
+        }
+
+      }
   ]
 }
+

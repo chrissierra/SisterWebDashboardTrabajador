@@ -1,15 +1,25 @@
 <app-navbar></app-navbar>
 
-
-<body class="text-center" style="padding:40px;">
- 
+ <div class="container text-center p-3">
 	  <div class="row justify-content-center">
-                <h3>Toma la fotografía de respaldo </h3>
+
+            <div class="col-sm-12">
+                <h4 style="font-family: 'Dosis', sans-serif !important;">TOMA LA FOTO DE RESPALDO </h4>&nbsp;<mat-icon  (click)="TurnoOffline()" >help outline</mat-icon>
+                <!-- (click)="TurnoOffline()" -->
             </div>
+      </div>
+
+
 
             <div class="row justify-content-center">
-                <h3><small class="text-muted">Al presionar el botón se abrirá la cámara. Te recomendamos 
-                tomar la foto muy claramente, sin exceso de luz ni zona con muchas sombras.</small></h3>
+                <div class="col-sm-12">
+                      <h3>
+                            <small class="text-muted" >
+                            Al presionar el botón se abrirá la cámara. Te recomendamos 
+                          tomar la foto muy claramente, sin exceso de luz ni zona con muchas sombras.
+                        </small>
+                       </h3>
+                </div>
             </div>
             <br>
 
@@ -32,7 +42,7 @@
 
 
 
-    			<div class="row justify-content-center"><mat-spinner *ngIf="boleanoLoader"></mat-spinner></div>
+    			<div class="justify-content-center"><mat-spinner *ngIf="boleanoLoader"></mat-spinner></div>
     			<h5 class="mb-1"> {{ cargando | percent}}</h5>
     		  <br>
 
@@ -110,6 +120,5 @@
               
 
               <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
-
-</body>
-<ng-template style="height:1500px !important" #customLoadingTemplate></ng-template>
+              <ng-template #customLoadingTemplate></ng-template>
+</div>
