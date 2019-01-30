@@ -31,28 +31,35 @@
       </div>
       <div class="modal-body">
       
-		       <div class="table-responsive-sm">
-				  <table class="table">
-					 <thead>
-					    <tr>
-					      <th scope="col">Nombre</th>
-					      <th scope="col">Movimiento</th>
-					      <th scope="col">Hora</th>
-					      <th scope="col">Fecha</th>
-                <th scope="col">Sincronizar</th>                
-					    </tr>
-					  </thead>
-					  <tbody>					   
-					    <tr *ngFor="let turno of turnosPorSincronizar; let i = index">
-					      <th>{{turno.nombre_trabajador}}</th>
-					      <td>{{turno.movimiento}}</td>
-					      <td>{{turno.horaMarcaje}}</td>
-					      <td>{{turno.fecha}}</td>
-                <td><button (click)="SincronizarTurnosOffline(turno, i)" class="btn btn-outline-primary btn-sm">Sincronizar</button></td>
-					    </tr>
-					  </tbody>
-				  </table>
-				</div>
+		    
+
+           <div class="list-group">
+            <ng-container *ngFor="let item of turnosPorSincronizar; let i = index" >
+              <a *ngIf="item.length > 0" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 *ngIf="item.length > 0" class="mb-1">Marcajes de {{item[0].nombre_trabajador }}</h5>              
+                </div>
+
+                <p *ngFor="let  list of  turnosPorSincronizar[i]; let o = index" class="mb-1">
+                Marcó {{ list.movimiento }}  a las {{list.horaMarcaje}}  el {{list.fecha}}.
+                <button (click)="enviarABbdd(list, o)" class="btn btn-outline-secondary btn-sm" >Sincronizar</button>
+              </p><hr>
+         
+
+              </a>
+               </ng-container>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

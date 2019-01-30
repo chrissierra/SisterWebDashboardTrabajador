@@ -55,6 +55,10 @@ export class RutasservidorService {
     'InsertViaticos': this.urlBase + 'api/InsertViaticos',
     'GetViaticosPorTrabajador': this.urlBase + 'api/GetViaticosPorTrabajador/',
     'GetViaticosPorEmpleador': this.urlBase + 'api/GetViaticosPorEmpleador',
+    'MarcarMovimiento_offline': this.urlBase + 'api/MarcarMovimiento_offline',
+    'getAsistenciaOfflineDiario': this.urlBase + 'api/getAsistenciaOfflineDiario',
+    'getAsistenciaOfflineMensual': this.urlBase + 'api/getAsistenciaOfflineMensual',
+
     
     // SERVIDOR
     'registrohitosmandantes': this.urlServer + 'registrohitosmandantes.php',

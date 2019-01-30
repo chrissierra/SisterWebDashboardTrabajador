@@ -9,9 +9,9 @@ import { ComprobanteService } from '../../../services/comprobante.service';
 import { Store } from '@ngrx/store';
 import * as fromMarcaje from '../../marcaje.actions';
 import { AppState } from '../../../app.reducers';
-import { IndexeddbService } from './../../../services/indexeddb.service';
+import { AlmacenamientoOfflineService } from './../../../services/almacenamiento-offline.service';
 import { Observable } from 'rxjs/Observable';
-
+import { LocalStorage } from '@ngx-pwa/local-storage';
 @Component({
   selector: 'app-paso1-offline',
   templateUrl: './paso1-offline.component.html',
@@ -36,7 +36,8 @@ export class Paso1OfflineComponent   {
 	public fotoLista:boolean = false;
 	public blobImagen:any;
   public nuevoMarcaje:any;
-  constructor(	public idbService: IndexeddbService,
+  constructor(	public almacenamiento: LocalStorage,
+                public AlmacenamientoOfflineService_: AlmacenamientoOfflineService,
         				public ComprobanteService_:ComprobanteService,
         				private MensajesSwalService_: MensajesSwalService,
         				public GeolocalizacionService_: GeolocalizacionService,
@@ -46,7 +47,7 @@ export class Paso1OfflineComponent   {
         				public http: HttpClient,
         				private param: ActivatedRoute,
         			  private router : Router) {
- this.imagen = localStorage.getItem("img")
+
 
   	this.store.select('marcaje')
       .subscribe( marcaje  => {       
@@ -66,7 +67,6 @@ export class Paso1OfflineComponent   {
 
 getDatos(){
 
-
 	this.getFromState()
 	this.SetId();
 	this.id.movimiento = this.movimientoDesdeSelect;
@@ -78,8 +78,6 @@ getDatos(){
 	    	boton: 'Ok'
 	    })
 
-
-    //alert("Antes de ir al tema del blob...")
     this.enboton();
 }
 
@@ -106,23 +104,14 @@ SetId(){
 
 
 onFileChanged(event) {	 
-
   this.imagen = event.target.files[0];
-
-
-  this.fotoLista = true;
-
-
-
-  	// this.enboton(blob)
+  this.fotoLista = true;  	// this.enboton(blob)
 	} // Fin onFileChanged
 
 
 
 	    enboton(){
 
-        let self = this;
-        //alert("En funcion boton ya...")
         this.nuevoMarcaje = {    
 
         					          id_trabajador: this.idTrabajador, 
@@ -135,42 +124,24 @@ onFileChanged(event) {
                             locacion: this.GeolocalizacionService_.locacion,
                             horaMarcaje: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
               							fecha: new Date().getDate() + "/"+ (new Date().getMonth() +1 )+ "/"+ new Date().getFullYear(),
-              							nombre_trabajador: this.nombre_trabajador
+              							nombre_trabajador: this.nombre_trabajador,
+                            rutMarcajeOffline: localStorage.getItem('rutMarcajeOffline')
 
                        	};
-        
-        this.idbService
-                    .post('marcajes', this.nuevoMarcaje)
-                    .subscribe((res: any) => {
-                        self.idbService.put('marcajes', this.nuevoMarcaje, res)
-                        .subscribe(data => console.log(data))
-                        self.idbService.all('marcajes').subscribe(marcajes => console.log(marcajes) );
-        },(error) => {
 
-          //alert(JSON.stringify(error))
-
-        }, () => {
-        	this.MensajesSwalService_.mensajeStandar({
-                  	    	titulo: 'Marcaje Ingresado',
-                  	    	texto: '¡El movimiento de emergencia se realizó con éxito!',
-                  	    	tipo: 'success',
-                  	    	boton: 'Ok'
-                  	    });
-
-        	 this.router.navigate(['./Home'])
-        });
+                         this.AlmacenamientoOfflineService_.ingresarMarcaje(this.nuevoMarcaje, this.idTrabajador);
 
     }
 
 
 
-getFromState(){
-	this.store.select('marcaje')
-      .subscribe( marcaje  => {       
-        this.sucursal = marcaje.Sucursal;
-        this.nombre_trabajador = marcaje.nombre_trabajador;
-        console.log("El marcaje...", marcaje)
-      });
-} // Fin getFromState
+    getFromState(){
+    	this.store.select('marcaje')
+          .subscribe( marcaje  => {       
+            this.sucursal = marcaje.Sucursal;
+            this.nombre_trabajador = marcaje.nombre_trabajador;
+            console.log("El marcaje...", marcaje)
+          });
+    } // Fin getFromState
 
 }

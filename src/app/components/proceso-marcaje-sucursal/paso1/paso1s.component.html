@@ -25,28 +25,47 @@
 
 
 		<div class="container">
-    		<p *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtra">
-    		  Autenticación Biométrica
-    		</p>
 
 
-        <!--
-          *******************                                                      ********************************
-          *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO        ******************************** -->    
-
-    		<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
-    		<input *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtraEnCurso" type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />
-    	    <!--
-          *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO   ********************************
-          *******************                                                 ******************************** -->       
+      <div class="row justify-content-center">
+                <div class="col-sm-12 text-center">
+                    
 
 
+                      <p *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtra">
+                        Autenticación Biométrica
+                      </p>
 
-    			<div class="justify-content-center"><mat-spinner *ngIf="boleanoLoader"></mat-spinner></div>
-    			<h5 class="mb-1"> {{ cargando | percent}}</h5>
-    		  <br>
 
-    		  <button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
+                      <!--
+                        *******************                                                      ********************************
+                        *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO        ******************************** -->    
+
+                      <input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+                      <input *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtraEnCurso" type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />
+                        <!--
+                        *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO   ********************************
+                        *******************                                                 ******************************** -->       
+
+
+
+                   
+                          <mat-spinner style="margin:0 auto;" mode="indeterminate"  *ngIf="boleanoLoader"></mat-spinner>
+                   
+
+                        <h5 class="mb-1"> {{ cargando | percent}}</h5>
+                        <br>
+
+                        <button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
+              
+
+
+                </div>
+      </div>
+
+
+
+    		
 		</div>
 
 

@@ -31,7 +31,7 @@ export class Paso1sComponent  {
 	datosMarcaje:Marcaje;
 	boleanoHitos:boolean=false;
 	avisoTurnoExtra:any;
-  constructor(	 public RutasservidorService_: RutasservidorService,
+  constructor(	public RutasservidorService_: RutasservidorService,
 				private MarcajeServiceService: MarcajeServiceService,
   				private MensajesSwalService_: MensajesSwalService,
   				private store: Store<AppState>,
@@ -42,6 +42,7 @@ export class Paso1sComponent  {
   		this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));
 		this.id=this.param.snapshot.paramMap.get('id');
 		this.rut=this.param.snapshot.paramMap.get('rut');
+		localStorage.setItem('rutMarcajeOffline', this.rut)
 		const accion = new fromMarcaje.ACTUALIZARIDAction(this.id);
     	this.store.dispatch( accion );
     

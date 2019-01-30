@@ -18,7 +18,7 @@ export class ProcesobiometricoService {
               private rutasService_: RutasservidorService) { }
 
 
-   EnvioRegistro(file, rut) {
+   EnvioRegistro(file, rut, objeto) {
         
         
 
@@ -34,7 +34,12 @@ export class ProcesobiometricoService {
 
             const accion = new fromMarcaje.ACTUALIZARURLAction(event['body']);
             this.store.dispatch( accion );
-            console.log(event['body'])
+            
+            console.log(event['body']);
+            objeto.urlEscrita = event['body'];
+
+
+
           
         }, (error) => {
           this.MensajesSwalService_.mensajeStandar({
@@ -47,6 +52,13 @@ export class ProcesobiometricoService {
 
         }, ()=> {
 
+          
+            this.http.post(this.rutasService_.rutas['MarcarMovimiento_offline'], objeto)
+            .subscribe(data => {
+              console.log("Enviando a servidor finalmente", data)
+            }, (error) => {
+              alert(JSON.stringify(error))
+            })
         	this.procesoRealizado = true;
 
 

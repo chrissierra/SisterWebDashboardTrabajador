@@ -1,87 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component  } from '@angular/core';
 import { MensajesSwalService } from '../../../services/mensajes-swal.service';
 import { Router } from '@angular/router';
 import { IndexeddbService } from './../../../services/indexeddb.service';
 import { ProcesobiometricoService } from './../../../services/procesobiometrico.service';
 import { map } from 'rxjs/operators';
 import { Observable, of, forkJoin, timer } from 'rxjs';
-import PouchDB from 'pouchdb-browser';
-
+import { LocalStorage } from '@ngx-pwa/local-storage';
+import { AlmacenamientoOfflineService } from './../../../services/almacenamiento-offline.service';
+import * as fromMarcaje from '../../../components/marcaje.actions';
+import { AppState } from '../../../app.reducers';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html'
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent   {
   public boleanoMarcajesOffline:boolean = false;
   public turnosPorSincronizar : any;
   public db: any;
-  constructor(	public ProcesobiometricoService_: ProcesobiometricoService,
+  public url: any;
+  constructor(	private store: Store<AppState>,
+                public AlmacenamientoOfflineService_: AlmacenamientoOfflineService,
+                protected almacenamiento: LocalStorage,
+                public ProcesobiometricoService_: ProcesobiometricoService,
                 private IndexeddbService_ : IndexeddbService,
                 public Router_: Router,
-  				      private MensajesSwalService_: MensajesSwalService) { 
+  				      private MensajesSwalService_: MensajesSwalService) {}
 
-            let storesSchemaAndSeeds = [
-                {
-                    name: 'marcajes',
-                    indexes: ['id_trabajador', 'movimiento', 'coeficiente']
-                },
-          ];
-
-          let peo = new PouchDB('chrisssssssssss')
-         
-        // Create the IndexedDB database and perform few operations.
-    let self = this;
-        
-    this.IndexeddbService_.setName('db');
-       
-    this.IndexeddbService_.create(storesSchemaAndSeeds).subscribe(done => {});
-
-    this.IndexeddbService_.all('marcajes')
-        .subscribe( data => {
-           if(data.length > 0) this.boleanoMarcajesOffline = true;
-    } );
-
-
-  }
-
-  ngOnInit() {
-  }
 
   SincronizarTurnosOffline(hola, indice){
     console.log("Haciendole de otra forma", hola);
-    this.ProcesobiometricoService_.EnvioRegistro(hola.url, '179614936')
-
-
-/*
-    this.IndexeddbService_.all('marcajes')
-    .subscribe( data => {
-
-        let observables: Observable<T>[] = [];
-
-        data.map(value => {
-
-               observables.push(this.ProcesobiometricoService_.EnvioRegistro(value.url, '179614936'))
-           
-        });
-
-              forkJoin(observables)
-              .subscribe(dataArray => {
-                const source = timer(1000);
-                source.subscribe( value =>  )
-                  // All observables in `observables` array have resolved and `dataArray` is an array of result of each observable
-                 console.log("En forkjoin", dataArray)
-                  
-              });
-      })
-
-
-*/
-
-   /* this.IndexeddbService_.clear()
-    .subscribe( data => {
-      console.log(data)
-    }) */
   }
 
 
@@ -95,18 +44,40 @@ export class NavbarComponent implements OnInit {
 
   actualizarTurnosOffline(){
 
-        let self = this;
-       
-        this.IndexeddbService_.all('marcajes')
-        .subscribe( data => {
-          console.log("Datos... " , data);
-          this.turnosPorSincronizar = data;
-        } );
+      let observableBatch: Observable<any>[] = [];
+        
+      this.almacenamiento.getItem('idsIngresados').subscribe( (data:any[]) => {         
+            data.map( value =>   observableBatch.push( this.almacenamiento.getItem(value)) )
+      }, (error) => {
+
+      }, ()=> {
+         forkJoin(observableBatch)
+          .subscribe( data => { this.turnosPorSincronizar = data; console.log(data) });
+      });  
+              
+      //setTimeout( () =>  { this.forkJoinFunction(observableBatch) } , 500)
+    
   }
 
 
+enviarABbdd(objeto, indice){
 
-   
+  this.ProcesobiometricoService_.EnvioRegistro(objeto.url, objeto.rutMarcajeOffline, objeto)
+  this.AlmacenamientoOfflineService_.borrarRegistro(objeto.id_trabajador, indice)
+  console.log("VER URL", this.url)
+  this.Router_.navigate(['./Home'])
+}
+
+
+  getFromState(){
+      this.store.select('marcaje')
+          .subscribe( marcaje  => {       
+              this.url = marcaje.url;
+          });
+  } // Fin getFromState
+
+
+
 
 
   BorrarRegistro(){
@@ -114,7 +85,7 @@ export class NavbarComponent implements OnInit {
   	this.Router_.navigate(['./Login'])
   }
 
-}
-interface T{
 
-}
+
+
+} // **************** Fin CLASE **************** 
