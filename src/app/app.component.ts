@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AppService } from './app.service';
 import { ConnectionService } from 'ng-connection-service';
 import { MatSnackBar } from '@angular/material';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,12 @@ import { MatSnackBar } from '@angular/material';
 })
 export class AppComponent {
 	public snack:any;
-	constructor(
+	
+	constructor(public almacenamiento: LocalStorage,
 				public snackBar: MatSnackBar,
 				private connectionService: ConnectionService){
 
+			this.almacenamiento.setItem("InicioBD", {estado: 'ok'}).subscribe( data => console.log(data) );
 		    this.connectionService.monitor().subscribe(isConnected => {
 		      
 		      if (isConnected) {

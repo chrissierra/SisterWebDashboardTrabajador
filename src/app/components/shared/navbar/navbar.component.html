@@ -5,7 +5,7 @@
     </a>
 
 
-    <span  data-toggle="modal" data-target="#exampleModal" (click)="actualizarTurnosOffline()" style=" font-size: 1.2em; color: white; margin-left: auto; flex:10%">
+    <span id="openModalButton" data-toggle="modal" data-target="#exampleModal" (click)="actualizarTurnosOffline()" style=" font-size: 1.2em; color: white; margin-left: auto; flex:10%">
     	    <i class="fas fa-exclamation-circle"></i>
 	</span>
 
@@ -13,14 +13,15 @@
     <span (click)="logout()" style="font-size: 1.2em; color: white; margin-left: auto; flex:5%">
     	<i class="fas fa-sign-out-alt"></i>
 	</span>
-    
 </nav>
+<ng-template #customLoadingTemplate></ng-template>
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
 
 <!-- Button trigger modal -->
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div #exampleModal class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -30,7 +31,7 @@
         </button>
       </div>
       <div class="modal-body">
-      
+     
 		    
 
            <div class="list-group">
@@ -42,7 +43,7 @@
 
                 <p *ngFor="let  list of  turnosPorSincronizar[i]; let o = index" class="mb-1">
                 Marcó {{ list.movimiento }}  a las {{list.horaMarcaje}}  el {{list.fecha}}.
-                <button (click)="enviarABbdd(list, o)" class="btn btn-outline-secondary btn-sm" >Sincronizar</button>
+                <button  (click)="enviarABbdd(list, o)" class="btn btn-outline-secondary btn-sm" >Sincronizar</button>
               </p><hr>
          
 

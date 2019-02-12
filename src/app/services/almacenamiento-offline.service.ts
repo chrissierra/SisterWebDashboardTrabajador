@@ -29,12 +29,19 @@ uniq(a) {
     this.almacenamiento.getItem(idTrabajador)
     .subscribe((data:any[]) => {
       data.splice(id, 1);
-      this.almacenamiento.setItem(idTrabajador, data).subscribe(data => console.log(data))
-    })
+      this.almacenamiento.setItem(idTrabajador, data).subscribe(data => console.log(data), error => this.errorEnProceso(error))   
+    }, error => this.errorEnProceso(error)) 
   }
 
 
-
+private errorEnProceso(error){
+          this.MensajesSwalService_.mensajeStandar({
+          titulo: 'ERROR',
+          texto: 'Tu SmartPhone no puede guardar turnos Offline.' + JSON.stringify(error),
+          tipo: 'error',
+          boton: 'ok'
+        }); this.router.navigate(["./Home"])
+}
 
 
 
@@ -42,18 +49,24 @@ uniq(a) {
 
   		this.almacenamiento.getItem('idsIngresados').subscribe((data:any[]) => {
         console.log("Q es ids ingresados.......", data)
-      			if(data === null){
+      			
+            if(data === null){
       			  
       				this.almacenamiento.setItem('idsIngresados', new Array(idTrabajador))
-              .subscribe( data6 => console.log("DATA DE SET ITEM Cuando no es null", data6) )	
+              .subscribe( data6 => console.log("DATA DE SET ITEM Cuando no es null", data6) 
+               , error => this.errorEnProceso(error))	
       			
       			}else{	
     		  	  data.push(idTrabajador);
               this.almacenamiento.setItem('idsIngresados', this.uniq(data))
-              .subscribe( data6 => console.log("DATA DE SET ITEM Cuando no es null", data6) )  
+              .subscribe( data6 => console.log("DATA DE SET ITEM Cuando no es null", data6) , error => this.errorEnProceso(error))    
 
     			}
-  		});
+  		}, (error) => {
+            this.errorEnProceso(error);
+      }, ()=> {
+
+      });
 
 
 
@@ -74,7 +87,7 @@ uniq(a) {
                                       });
 
                          this.router.navigate(['./Home'])
-                      });
+                      }, error => this.errorEnProceso(error))
            }else{
 
                      this.almacenamiento.setItem(idTrabajador, new Array(nuevoMarcaje))
@@ -88,9 +101,9 @@ uniq(a) {
                                           });
 
                              this.router.navigate(['./Home'])
-                          });
+                          }, error => this.errorEnProceso(error));
            }
-        })
+        }, error => this.errorEnProceso(error))
   }
 
 

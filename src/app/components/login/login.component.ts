@@ -12,15 +12,22 @@ export class LoginComponent  {
   forma: FormGroup;
   respuesta_servidor_login :any;
   sucursal:any= false;
+  datosTrabajador:any;
   constructor(private router: Router, private login_: LoginservicesService) {
+           
+            if(!localStorage.getItem('datosTrabajador')){
+              // Nada
+            }else{
+              this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));  
+              if(this.datosTrabajador['rol'] === 'cliente') this.router.navigate(['./ProcesoMarcajeSucursal'])            
+            }
 
 
-            this.forma = new FormGroup({
-
+          this.forma = new FormGroup({
               'rut': new FormControl('', [Validators.required]),
               'claveTrabajador': new FormControl('', [Validators.required]),
               'sucursal': new FormControl('', [Validators.required]),
-        });
+          });
 
    }
 
