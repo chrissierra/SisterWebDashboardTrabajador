@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
-import * as jsPDF from 'jspdf'
+import * as jsPDF from 'jspdf';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ComprobanteService {
 
-  constructor() { }
+  constructor(public http: HttpClient,) { }
 
-
+  envio_comprobante(movimiento, fecha, hora, sucursal, rut, ArrayDatosTrabajadorMarcaje, url){
+			this.http.post('https://mailing.sister.cl/Correos', {para: ArrayDatosTrabajadorMarcaje['email'], asunto: `SISTER: Marcaje realizado con éxito para  ${ArrayDatosTrabajadorMarcaje['nombre']}`,  mensaje: `
+	  			<h1> MARCAJE REALIZADO </h1><br>
+	  			<p> El trabajador ${ArrayDatosTrabajadorMarcaje['nombre']}, marcó la ${movimiento} a las ${hora} del día ${fecha}</p>
+	  			<br>
+	  			<img src="${url}">
+	  			`} )
+	  		.subscribe(data=> console.log(data), error => console.log(error))
+  }
 
   public comprobante(movimiento, fecha, hora, sucursal, rut, ArrayDatosTrabajadorMarcaje){
   

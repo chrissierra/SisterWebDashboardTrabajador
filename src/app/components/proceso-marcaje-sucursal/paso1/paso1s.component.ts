@@ -89,9 +89,35 @@ export class Paso1sComponent  {
   }
 
 
-	onFileChanged(event) {
+	onFileChanged(e) {
 		    
-		    this.selectedFile = event.target.files[0];
+		    this.selectedFile = localStorage.getItem('fotito')
+		    console.log(this.selectedFile)
+
+
+
+		    const date = new Date().valueOf();
+			let text = '';
+			const possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			for (let i = 0; i < 5; i++) {
+			   text += possibleText.charAt(Math.floor(Math.random() *    possibleText.length));
+			}
+			// Replace extension according to your media type
+			const imageName = date + '.' + text + '.jpeg';
+			// call method that creates a blob from dataUri
+			const imageBlob = this.dataURItoBlob(this.selectedFile );
+
+			const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' });
+			this.selectedFile = imageFile;
+			alert(JSON.stringify(this.selectedFile.size));
+			console.log(this.selectedFile)
+
+
+
+
+
+
+
 
 		    const formData = new FormData();
 
@@ -167,6 +193,17 @@ irTurnosExtras(){
 		    	this.router.navigate(['./ProcesoMarcajeSucursal']);
 		    })
 	}
+
+	    dataURItoBlob(dataURI) {
+   const byteString = window.atob(dataURI);
+   const arrayBuffer = new ArrayBuffer(byteString.length);
+   const int8Array = new Uint8Array(arrayBuffer);
+   for (let i = 0; i < byteString.length; i++) {
+     int8Array[i] = byteString.charCodeAt(i);
+   }
+   const blob = new Blob([int8Array], { type: 'image/jpeg' });    
+   return blob;
+}
 
 }
 // Interface Marcaje

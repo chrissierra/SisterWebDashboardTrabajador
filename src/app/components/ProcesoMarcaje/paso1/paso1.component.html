@@ -1,28 +1,37 @@
 <app-navbar></app-navbar>
 
 
-<body class="text-center" style="padding:40px;">
+<body class="text-center">
+	<div class="container text-center p-3">
+		  		<div class="row justify-content-center">
+	                <h3>Toma la fotografía de respaldo </h3>
+	            </div>
 
-	  <div class="row justify-content-center">
-                <h3>Toma la fotografía de respaldo </h3>
-            </div>
+	            <div class="row justify-content-center">
+	                <h3><small class="text-muted">Al presionar el botón se abrirá la cámara. Te recomendamos 
+	                tomar la foto muy claramente, sin exceso de luz ni zona con muchas sombras.</small></h3>
+	            </div>
+	            
+	            <br>
 
-            <div class="row justify-content-center">
-                <h3><small class="text-muted">Al presionar el botón se abrirá la cámara. Te recomendamos 
-                tomar la foto muy claramente, sin exceso de luz ni zona con muchas sombras.</small></h3>
-            </div>
-            <br>
+				<div class="container">
+					<p>Autenticación Biométrica</p>
 
-		<div class="container">
-				<p>
-				  Autenticación Biométrica
-				</p>
-		<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
-		<input *ngIf="BoleanoTomaRespaldo" type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />
-				<div class="row justify-content-center"><mat-spinner *ngIf="boleanoLoader"></mat-spinner></div>
-			 <h5 class="mb-1"> {{ cargando | percent}}</h5>
-		<br>
+						<div class="row justify-content-center">
 
-		<button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
-		</div>
+									
+
+							<div class="col-sm-12 text-center">
+									<app-toma-fotografica (onFotoTomada)="onFileChanged($event)"></app-toma-fotografica>
+									<!--<input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
+									<input *ngIf="BoleanoTomaRespaldo" type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />-->
+											<div class="row justify-content-center"><mat-spinner *ngIf="boleanoLoader"></mat-spinner></div>
+										 <h5 class="mb-1"> {{ cargando | percent}}</h5>
+									<br>
+
+									<button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
+							</div>
+						</div>
+				</div>
+	</div>
 </body>

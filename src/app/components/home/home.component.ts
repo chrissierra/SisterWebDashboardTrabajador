@@ -82,7 +82,7 @@ constructor(public idbService: IndexeddbService,
                 });
    
         this.setNombreStore();
-        this.TestIndex()
+
        
    } // Fin constructor
 
@@ -96,7 +96,7 @@ public SetBoleanosTemplate(datosMarcaje){
    if(datosMarcaje.content['Entrada'] === 0 && datosMarcaje.content['Salida']=== 0) this.boleanoTurnoExtra =true;
    if(datosMarcaje.content['Entrada'] !== 0 && datosMarcaje.content['Salida']!== 0) this.boleanoTurnoExtra =true;
    if(datosMarcaje.content['TurnoExtraEnCurso'] === 1){
-            this.avisoTurnoExtra = 'Estás en un turno extra en curso.';
+            this.avisoTurnoExtra = '¡TURNO EXTRA EN CURSO!';
             this.boleanoTurnoExtraEnCurso =true;
             this.boleanoHitos =true;
     } 
@@ -143,64 +143,7 @@ public SetBoleanosTemplate(datosMarcaje){
 
 
 
-TestIndex(){
 
-
-  
-        let storesSchemaAndSeeds = [
-            {
-                name: 'marcajes',
-                indexes: ['id_trabajador', 'movimiento', 'coeficiente'],
-                seeds: [{ name: "Phone 7", price: 210.00, user: "John" }, { name: "Phone 8", price: 210.00, user: "Helenam" }]
-            },
-        ];
-         
-        // Create the IndexedDB database and perform few operations.
-        let self = this;
-        
-        this.idbService.setName('db');
-       
-        this.idbService.create(storesSchemaAndSeeds).subscribe(done => {});
-       
-
-    }
-
-    enboton(){
-
-              // Create the IndexedDB database and perform few operations.
-        let self = this;
-
-        let newOrder = {    id_trabajador: "alksdkajlsdfjkasdfjlkasdfljkasdflkjasfdlkj9", 
-                            movimiento: 910.00, 
-                            coeficiente: "John",
-                            url:"https://sister.cl",
-                            Sucursal:"locacion",
-                            locacion:"2",
-                            biometrica:1,
-                            hora_esperada:"NA"
-
-                       };
-        
-        this.idbService
-                    .post('marcajes', newOrder)
-                    .subscribe((res: any) => {
-                        self.idbService.all('marcajes').subscribe(marcajes => console.log(marcajes) );
-        });
-
-    }
-
-
-        enboton2(){
-
-              // Create the IndexedDB database and perform few operations.
-        let self = this;
-       
-        this.idbService.all('marcajes')
-        .subscribe( data => {
-          console.log("Datos... " , data)
-        } )
-
-    }
 
 
 

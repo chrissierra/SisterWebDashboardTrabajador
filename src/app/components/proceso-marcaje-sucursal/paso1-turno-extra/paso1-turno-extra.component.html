@@ -1,9 +1,40 @@
 <app-navbar></app-navbar>
 
 
-<body class="text-center" style="padding:40px;">
+<body class="text-center">
  <ng-template #customLoadingTemplate></ng-template>
-	  <div class="row justify-content-center">
+		<div class="container text-center p-3">
+
+			      <div class="row justify-content-center">
+			                <div class="col-sm-12 text-center">
+			                    
+
+
+			                      <p style="font-family: 'Dosis', sans-serif !important;">
+			                        AUTENTICACIÓN BIÓMETRICA
+			                      </p>
+
+			                      <app-toma-fotografica (onFotoTomada)="onFileChanged($event)"></app-toma-fotografica>
+			                   
+			                      <mat-spinner style="margin:0 auto;" mode="indeterminate"  *ngIf="boleanoLoader"></mat-spinner>
+			                   
+
+			                        <h5 class="mb-1"> {{ cargando | percent}}</h5>
+			                        <br>
+
+			                        <button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
+			              
+
+
+			                </div>
+			      </div>
+			    		
+		</div>
+
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
+</body>
+<!--
+		  <div class="row justify-content-center">
                 <h3>Toma la fotografía de respaldo </h3>
             </div>
 
@@ -27,6 +58,4 @@
 		<button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
 		</div>
 
-              <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
-
-</body>
+		-->

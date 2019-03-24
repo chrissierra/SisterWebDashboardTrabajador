@@ -24,6 +24,8 @@
             <br>
 
 
+
+
 		<div class="container">
 
 
@@ -36,13 +38,13 @@
                         Autenticación Biométrica
                       </p>
 
-
+                      <app-toma-fotografica *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtraEnCurso" (onFotoTomada)="onFileChanged($event)"></app-toma-fotografica>
                       <!--
                         *******************                                                      ********************************
                         *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO        ******************************** -->    
 
-                      <input style="display:none"  type="file" (change)="onFileChanged($event)" #fileInput accept="image/*" capture="environment">    
-                      <input *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtraEnCurso" type="button" class="btn btn-danger" value="Registro biométrico" (click)="fileInput.click()" />
+                  <!--   <input style="display:none"  type="file"  #fileInput accept="image/*" capture="environment">    
+                      <input *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtraEnCurso" type="button" class="btn btn-danger" value="Registro biométrico" (click)="onFileChanged()" />-->
                         <!--
                         *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO   ********************************
                         *******************                                                 ******************************** -->       

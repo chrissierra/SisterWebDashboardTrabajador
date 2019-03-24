@@ -9,6 +9,7 @@ import { ComprobanteService } from '../../../services/comprobante.service';
 import { Store } from '@ngrx/store';
 import * as fromMarcaje from '../../marcaje.actions';
 import { AppState } from '../../../app.reducers';
+
 var movimiento, letra, hora;
 @Component({
   selector: 'app-paso2',
@@ -44,6 +45,7 @@ export class Paso2sComponent  {
         this.coeficiente=marcaje.Coeficiente;
         this.sucursal = marcaje.Sucursal;
         this.idTrabajador = marcaje.id;
+        console.log("****MARCAJE *****", marcaje)
       });
 
       //alert(this.idTrabajador)
@@ -51,6 +53,7 @@ export class Paso2sComponent  {
 
 	this.GeolocalizacionService_.getLocacion()
 	this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));
+	this.getFromState();
 	this.SetearAviso();
 	this.GetsituacionMarcaje();
 	
@@ -99,6 +102,7 @@ marcar_movimiento(mov){
 							  console.log(this.id)
 							  console.log(data['id'])
 							  if(data['id'] !== undefined) this.GeneracionComprobante(data)
+							  if(data['email'] !== null) this.envio_comprobante(data)
 
 			  			}, (error) => {
 			  				alert("Error " + JSON.stringify(error) + " Sucursal: " + this.sucursal )
@@ -116,7 +120,7 @@ marcar_movimiento(mov){
 	  			.subscribe( data => {
 
 					if(data['id'] !== undefined) this.GeneracionComprobante(data)
-
+					if(data['email'] !== null) this.envio_comprobante(data)
 	  			}, (error) => {
 	  						alert("Error " + JSON.stringify(error) + " Sucursal: " + this.sucursal )
 			  			}, ()=> {
@@ -154,7 +158,10 @@ marcar_movimiento_noches(data){
 					console.log("data['id']", data['id'])
 					if(data['id'] !== undefined){
 						this.GeneracionComprobante(data)
+
 					}
+					if(data['email'] !== null) this.envio_comprobante(data)
+
 		//console.log(data)
 		//this.MarcajeRealizado(data);
 	}, (error) => {
@@ -263,11 +270,27 @@ GetMovimiento(){
 		this.ComprobanteService_.comprobante(this.movimiento, d.getDate() + '/'+(d.getMonth()+1) + '/'+d.getFullYear(), d.getHours() +':'+ d.getMinutes(), this.sucursal, this.datosTrabajador['rut'],  data );
 	}
 
+
+	private envio_comprobante(data){
+	    let d = new Date();
+		this.ComprobanteService_.envio_comprobante(this.movimiento, d.getDate() + '/'+(d.getMonth()+1) + '/'+d.getFullYear(), d.getHours() +':'+ d.getMinutes(), this.sucursal, this.datosTrabajador['rut'],  data, this.url );
+
+	}
+
   SetearAviso(){
+
   		if(this.coeficiente < 0.61){
 	  		this.aviso="";
 	  	}else{
-	  		this.aviso="La validación fue incorrecta. Deberás seguir el protocolo de la empresa para marcajes dudosos."
+	  		this.aviso="La validación fue incorrecta. Deberás seguir el protocolo de la empresa para marcajes dudosos.";
+	  		
+	  		if(this.nombre_trabajador !== undefined){  this.http.post('https://mailing.sister.cl/Correos', {para: 'christopher.sierra@usach.cl', asunto: `SISTER: Intento de marcaje erróneo de ${this.nombre_trabajador}`,  mensaje: `
+	  			<h1> Intento de marcaje sin validación biométrica </h1><br>
+	  			<p> El trabajador ${this.nombre_trabajador}, intentó marcar sin tener validación biometrica. </p>
+	  			<br>
+	  			<img src="${this.url}">
+	  			`} )
+	  		.subscribe(data=> console.log(data), error => console.log(error)) }
 	  	}
   } // Fin SetearAviso
 

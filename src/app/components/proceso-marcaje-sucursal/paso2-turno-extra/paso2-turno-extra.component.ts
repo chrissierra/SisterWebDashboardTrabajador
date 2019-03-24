@@ -26,6 +26,7 @@ export class Paso2TurnoExtraComponent implements OnInit {
 	public sucursal:any;
 	public idTrabajador:any;
 	public ArrayDatosTrabajadorMarcaje:any;
+	public data_array_server:any;
   constructor(  public ComprobanteService_: ComprobanteService,
   				private MensajesSwalService_: MensajesSwalService,
   				public GeolocalizacionService_: GeolocalizacionService,
@@ -119,21 +120,21 @@ export class Paso2TurnoExtraComponent implements OnInit {
 			  	 .subscribe( (data: any[]) => {
 
 			  	 	this.ArrayDatosTrabajadorMarcaje = data;
-
+			  	 	this.data_array_server = data;
 
 			  	}, (error) => {
 
 			  	}, () => {
 
 			  		this.loading = false,
-			  		this.MarcajeRealizado();
+			  		this.MarcajeRealizado(this.data_array_server);
 			  	} )
 			  
 		}//Fin Marcar_movimiento
 
 
 
-		MarcajeRealizado(){
+		MarcajeRealizado(data){
 
 				
 				this.MensajesSwalService_.mensajeStandar({
@@ -145,13 +146,21 @@ export class Paso2TurnoExtraComponent implements OnInit {
 
 
 				let d = new Date()
-				
+				this.envio_comprobante(data)
+
 				this.ComprobanteService_.comprobante(this.movimiento, d.getDate() + '/'+(d.getMonth()+1) + '/'+d.getFullYear(), d.getHours() +':'+ d.getMinutes(), this.sucursal, this.datosTrabajador['rut'], this.ArrayDatosTrabajadorMarcaje )
 				this.router.navigate(['./ProcesoMarcajeSucursal/']);
 
 			
 
 		} // Fin MarcajeRealizado
+
+
+	private envio_comprobante(data){
+	    let d = new Date();
+		this.ComprobanteService_.envio_comprobante(this.movimiento, d.getDate() + '/'+(d.getMonth()+1) + '/'+d.getFullYear(), d.getHours() +':'+ d.getMinutes(), this.sucursal, this.datosTrabajador['rut'],  data, this.url );
+
+	}
 
  SetearAviso(){
   		if(this.coeficiente < 0.61){

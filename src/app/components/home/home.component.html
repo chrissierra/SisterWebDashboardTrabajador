@@ -10,9 +10,6 @@
       </div>
 
 
-<button (click)="enboton()" >Postear</button>
-<br>
-<button (click)="enboton2()" >Get</button>
 
 
       <div class="row">
@@ -141,7 +138,7 @@
                       
                                 <div *ngIf="datosMarcaje?.content['TurnoExtraEnCurso'] === 1" class="text-center" style="margin-bottom:50px">
                                   <hr>
-                                 <h3>{{avisoTurnoExtra}}</h3>
+                                 <h3 style="font-family: 'Dosis', sans-serif !important;">{{avisoTurnoExtra}}</h3>
                                 </div>
                      
                                  
@@ -149,7 +146,7 @@
                                        <div class="col-xs-12">
                                             <br>
                                           
-                                             <a [routerLink]="['../ProcesoMarcaje']" style="color:white" *ngIf="datosMarcaje?.content['Salida'] === 0" class="btn btn-primary btn-lg" role="button" >Turnos </a>
+                                             <a [routerLink]="['../ProcesoMarcaje']" style="color:white" *ngIf="datosMarcaje?.content['Salida'] === 0 && !boleanoTurnoExtra" class="btn btn-primary btn-lg" role="button" >Turnos </a>
 
                                              <button [routerLink]="['../ProcesoMarcaje']" style="color:white" *ngIf="datosMarcaje?.content['Entrada'] !== 0 && datosMarcaje?.content['Salida']  !== 0" class="btn btn-primary btn-lg" role="button" disabled>Turnos </button>
 

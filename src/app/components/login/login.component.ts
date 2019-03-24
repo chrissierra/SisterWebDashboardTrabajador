@@ -33,7 +33,7 @@ export class LoginComponent  {
 
    onSubmit(forma) {
 
-
+     //alert("asdfasdfasfdasfdasfdkjasfdjlkdasfjlk")
      if(this.sucursal){
 
        this.login_.sucursalLogueo(forma.value).subscribe(a => {
@@ -57,7 +57,9 @@ export class LoginComponent  {
 
      }else{
 
-         this.respuesta_servidor_login = this.login_.login(forma.value).subscribe(a => {
+         this.respuesta_servidor_login = this.login_.loginTrabajador(forma.value).subscribe(a => {
+
+           //alert(JSON.stringify(a))
             
             if(a['error'] === 'Contraseña Errónea'){
               this.mensajeError('Contraseña no corresponde');

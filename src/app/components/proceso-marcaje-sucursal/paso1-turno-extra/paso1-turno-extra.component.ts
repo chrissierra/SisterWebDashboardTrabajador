@@ -64,7 +64,92 @@ export class Paso1TurnoExtraComponent {
   			     }  // *** Fin CONTRUCTOR
 
 
+	    dataURItoBlob(dataURI) {
+			   const byteString = window.atob(dataURI);
+			   const arrayBuffer = new ArrayBuffer(byteString.length);
+			   const int8Array = new Uint8Array(arrayBuffer);
+			   for (let i = 0; i < byteString.length; i++) {
+			     int8Array[i] = byteString.charCodeAt(i);
+			   }
+			   const blob = new Blob([int8Array], { type: 'image/jpeg' });    
+			   return blob;
+		}
 
+
+
+
+
+
+
+
+  	onFileChanged(e) {
+		    
+		    this.selectedFile = localStorage.getItem('fotito')
+		    console.log(this.selectedFile)
+
+
+
+		    const date = new Date().valueOf();
+			let text = '';
+			const possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			for (let i = 0; i < 5; i++) {
+			   text += possibleText.charAt(Math.floor(Math.random() *    possibleText.length));
+			}
+			// Replace extension according to your media type
+			const imageName = date + '.' + text + '.jpeg';
+			// call method that creates a blob from dataUri
+			const imageBlob = this.dataURItoBlob(this.selectedFile );
+
+			const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' });
+			this.selectedFile = imageFile;
+			alert(JSON.stringify(this.selectedFile.size));
+			console.log(this.selectedFile)
+
+
+
+
+
+
+
+
+		    const formData = new FormData();
+
+   			formData.append('photo', this.selectedFile);
+		    
+		    this.http.post(this.RutasservidorService_.rutas['recepcionimagenv10']+'?rut='+this.rut, formData, {
+		        reportProgress: true,
+		        observe: 'events'
+		    }).subscribe(event => {
+		    	console.log(event)
+		    	console.log(event['total'])
+		    	this.boleanoLoader=true;
+		    	this.BoleanoTomaRespaldo = false;
+		    	this.cargando = (event['total'] === undefined) ? 1 : event['loaded'] / event['total'];	
+
+		        const accion = new fromMarcaje.ACTUALIZARURLAction(event['body']);
+    			this.store.dispatch( accion );
+    			this.url = event['body'];
+		        
+		      
+		    }, (error) => {
+		    	this.MensajesSwalService_.mensajeStandar({
+												titulo:'Error en envío',
+												texto:'La fotografía no pudo ser procesada. Repite la operación. Si persiste avísanos.',
+												tipo:'error',
+												boton:'Ok'
+		    											});
+		    	this.router.navigate(['./ProcesoMarcajeSucursal']);
+		    }, ()=> {
+		    	console.log(this.url['urlImagen'])
+		    	if(this.url['urlImagen'].search('https') > -1){
+		    		this.boleanoBoton = true;
+		    		this.boleanoLoader=false;
+		    	} 
+		    });
+	} // Fin onFileChanged
+
+
+/*
   	onFileChanged(event) {
 		    
 		    this.selectedFile = event.target.files[0];
@@ -104,7 +189,7 @@ export class Paso1TurnoExtraComponent {
 		    	} 
 		    });
 	} // Fin onFileChanged
-
+*/
 
 
 

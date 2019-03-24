@@ -10,7 +10,7 @@ export class RutasservidorService {
 
   rutas: Object = {
     'ingreso_empleados_datos_basicos': this.urlBase + 'api/Enrolamiento',
-    'login': this.urlBase + 'api/loginTrabajador',
+    'loginTrabajador': this.urlBase + 'api/loginTrabajador',
     'loginSucursal': this.urlBase + 'api/loginSucursal',
     'planilla': this.urlBase + 'api/planilla/',
     'perfil_trabajador': this.urlBase + 'perfil_trabajador/',

@@ -278,3 +278,4 @@
 [1226/171222.693:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
 [1226/171222.693:ERROR:process_reader_win.cc(151)] SuspendThread: Acceso denegado. (0x5)
 [1226/171222.693:ERROR:exception_snapshot_win.cc(88)] thread ID 3736 not found in process
+[0319/153504.092:ERROR:crash_report_database_win.cc(428)] unexpected header

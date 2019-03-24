@@ -110,6 +110,7 @@ import { Paso2ViaticosComponent } from './components/viaticos/paso2-viaticos/pas
 import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/paso3-viaticos.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { Paso1OfflineComponent } from './components/proceso-marcaje-sucursal/paso1-offline/paso1-offline.component';
+import { TomaFotograficaComponent } from './components/shared/toma-fotografica/toma-fotografica.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +154,8 @@ import { Paso1OfflineComponent } from './components/proceso-marcaje-sucursal/pas
     Paso2ViaticosComponent,
     Paso3ViaticosComponent,
     FooterComponent,
-    Paso1OfflineComponent
+    Paso1OfflineComponent,
+    TomaFotograficaComponent
 
   ],
   imports: [

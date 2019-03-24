@@ -26,6 +26,7 @@ export class Paso2Component  {
 	public sucursal:any;
 	public hora_esperada:any;
 	public conjuntoSituacionMarcaje:any;
+	public rut:any;
   constructor(	public ComprobanteService_:ComprobanteService,
   				private MensajesSwalService_: MensajesSwalService,
   				public GeolocalizacionService_: GeolocalizacionService,
@@ -46,15 +47,22 @@ export class Paso2Component  {
 
 	this.GeolocalizacionService_.getLocacion()
 	this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));
-	alert(this.datosTrabajador['nombre'] + this.datosTrabajador.nombre)
-	this.SetearAviso();
+  	this.rut = this.datosTrabajador.rut;
+
 	this.GetMovimiento();
+	this.SetearAviso();
 	this.SetId();  	
 
   
 
   } // Fin Constructor
+	
 
+	private envio_comprobante(data){
+	    let d = new Date();
+		this.ComprobanteService_.envio_comprobante(this.movimiento, d.getDate() + '/'+(d.getMonth()+1) + '/'+d.getFullYear(), d.getHours() +':'+ d.getMinutes(), this.sucursal, this.rut,  data, this.url );
+
+	}
 
 marcar_movimiento(mov){
 	this.loading = true;
@@ -65,7 +73,7 @@ marcar_movimiento(mov){
 		this.MarcajeService_.situacion_marcaje(JSON.stringify({id:this.datosTrabajador.id})).subscribe( data => {
   			if(data['TipoTurno'] === 'Noches' && data['TurnoYaRealizado'] === 1) return this.marcar_movimiento_noches(data);
 	  		if(data['TurnoYaRealizado'] === 1){
-	  			this.conjuntoSituacionMarcaje = data;
+	  			//this.conjuntoSituacionMarcaje = data;
 	  			this.getFromState();
 	  			this.SetId();
 
@@ -76,6 +84,10 @@ marcar_movimiento(mov){
 			  				if(data['id'] !== undefined){
 								this.GeneracionComprobante(data)
 							}
+
+							if(data['email'] !== null) this.envio_comprobante(data)
+
+
 			  			} , (error) => {
 
 			  			}, ()=> {
@@ -93,6 +105,8 @@ marcar_movimiento(mov){
 			  				if(data['id'] !== undefined){
 								this.GeneracionComprobante(data)
 							}
+							if(data['email'] !== null) this.envio_comprobante(data)
+
 	  			}  , (error) => {
 
 			  			}, ()=> {
@@ -220,21 +234,10 @@ getFromState(){
 
 
 GetMovimiento(){
-	console.log("this.conjuntoSituacionMarcaje['Entrada']", this.conjuntoSituacionMarcaje['Entrada'])
-	console.log("this.conjuntoSituacionMarcaje['Salida']", this.conjuntoSituacionMarcaje['Salida'])
 	this.MarcajeService_.verificarUltimoMovimiento(JSON.stringify({'id': this.datosTrabajador.id}))
 	.subscribe( data => {
-		console.log("Getmovimiento", data);
-		if(data === 'Listo'){
-			let d = new Date();
-			console.log("this.conjuntoSituacionMarcaje", this.conjuntoSituacionMarcaje)
-			const fecha = d.getDate() + '/'+(d.getMonth()+1) + '/'+d.getFullYear();
-			this.aviso = ` Hoy ${fecha}, todos los turnos de ${this.datosTrabajador.nombre} han sido marcados.
-			Entrada a las ${this.conjuntoSituacionMarcaje['Entrada']} y la salida a las ${this.conjuntoSituacionMarcaje['Salida']}
-			`
-		}
 		this.movimiento = data;
-	} );
+	}, (error) => alert(JSON.stringify(error)) );
 } // Fin GetMovimiento
 
 

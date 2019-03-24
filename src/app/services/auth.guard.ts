@@ -19,26 +19,26 @@ export class AuthGuard implements CanActivate {
   			console.log(next.url[0].path)
 
   			if(next.url[0].path === 'Home' ){
-  				if(localStorage.getItem('datosTrabajador') === null) return this.returnFalso(' Ingresa tus credenciales');
-  				if(JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'cliente' || JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'Sin Rol' || 
-		  			JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'Administrador'){
-  					 return true;
-  				}else{
-  					return this.returnFalso(' Ingresa tus credenciales');
-  				}
+      				if(localStorage.getItem('datosTrabajador') === null) return this.returnFalso(' Ingresa tus credenciales');
+      				if(JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'cliente' || JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'Sin Rol' || 
+    		  			JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'Administrador'){
+      					 return true;
+      				}else{
+      					return this.returnFalso(' Ingresa tus credenciales');
+      				}
   			}
   	// JSON.parse(localStorage.getItem('datosTrabajador')).rol 
 		  	if(localStorage.getItem('datosTrabajador') === null) return this.returnFalso(' Ingresa tus credenciales');
 		  	
 		  	if(this.deviceInfo){
 
-		  		if(JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'cliente' || JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'Sin Rol' || 
-		  			JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'Administrador'){
-		  				 return true;
-		  		}else{
+        		  		if(JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'cliente' || JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'Sin Rol' || 
+        		  			JSON.parse(localStorage.getItem('datosTrabajador')).rol === 'Administrador'){
+        		  				 return true;
+        		  		}else{
 
-		  			this.returnFalso(' Ingresa tus credenciales');
-		  		}
+        		  			this.returnFalso(' Ingresa tus credenciales');
+        		  		}
 			   
 		  	}else{
 
