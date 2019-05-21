@@ -95,13 +95,14 @@ localStorage.setItem('fotito', this.foto.split(',').pop())
 
     apagar() {
 
-
+      if(this.videoNode){
         this.videoNode.nativeElement.pause();
       
             this.stream.getTracks()[0].stop();
             this.stream.getTracks().forEach(track => track.stop());
             this.videoNode.nativeElement.srcObject = null;
            // this.imagenNode.nativeElement.src = window.URL.createObjectURL(imageFile);
+      }
 
 
     }

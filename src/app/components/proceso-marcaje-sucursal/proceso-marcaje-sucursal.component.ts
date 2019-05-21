@@ -4,25 +4,31 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromMarcaje from './../marcaje.actions';
 import { AppState } from './../../app.reducers';
-
+import { Observable, from, of } from 'rxjs';
+import { map, distinct } from 'rxjs/operators';
 @Component({
   selector: 'app-proceso-marcaje-sucursal',
   templateUrl: './proceso-marcaje-sucursal.component.html',
   styleUrls: ['./proceso-marcaje-sucursal.component.css']
 })
 export class ProcesoMarcajeSucursalComponent {
-public loading:boolean = true;
-public selectedPersonId:any;
-public arrayNombres:any[];
-empleados: any;
-public empleadoSeleccionado:any;
-buscador: any;
-public booleanBuscado:boolean = false;
-Sucursales:any;
-name:any;
-url:any;
-public nombreSeleccion:any='';
-public apellidoSeleccion:any='';
+
+  public loading:boolean = true;
+  public selectedPersonId:any;
+  public arrayNombres:any[];
+  public empleados: any[]=[];
+  public empleadoSeleccionado:any;
+  public buscador: any;
+  public booleanBuscado:boolean = false;
+  public Sucursales:any;
+  public name:any;
+  public url:any;
+  public nombreSeleccion:any='';
+  public apellidoSeleccion:any='';
+  public sucursales:any = [];
+  public filtro_por_sucursal:string;
+  public datos: any;
+
   constructor(private store: Store<AppState>,
               private planillaServicio_: PlanillaservicesService,
               private router : Router) {
@@ -38,16 +44,38 @@ public apellidoSeleccion:any='';
 
 			this.planillaServicio_.obtener_planilla(this.Sucursales.nombre_empresa).subscribe(( data: any[]) => {
       
-        this.arrayNombres = data;
-			console.log('data', data);
-			
-			this.empleados = data;
+            this.arrayNombres = data;
+  			      
+            console.log('data', data);
 
-      this.url = "https://sister.cl/clientes_rrhh/"+ this.Sucursales.rut + "/registro/" + this.Sucursales.rut + ".jpg"
+            this.sucursales = data.map( valor => { 
+                      console.log("valor.sucursal_nombre === undefined", valor.sucursal_nombre === undefined)
+                      if(valor.sucursal_nombre === null){
+                          console.log("En primera parte if", valor.sucursal_nombre)
+                          console.log("En primera parte if",valor.sucursal_nombre === null)
+                      }else{
+                          console.log("En else", valor.sucursal_nombre)
+                          console.log("En else",valor.sucursal_nombre === null)
+                          return valor.sucursal_nombre
+                      }
+               
+                })
 
-      setTimeout( () => {
-        this.loading = false;
-      }, 900 )
+            this.sucursales = this.getUniqueArray(this.sucursales);
+
+            this.sucursales = this.sucursales.filter( (valor) => valor !== undefined )
+            
+            this.sucursales.unshift('Selecciona')
+             			  
+  			    //this.empleados = data;
+
+            this.datos = data;
+  
+            this.url = "https://sister.cl/clientes_rrhh/"+ this.Sucursales.rut + "/registro/" + this.Sucursales.rut + ".jpg"
+  
+            setTimeout( () => {
+              this.loading = false;
+            }, 900 )
 
 			},(error)=>{
               setTimeout( () => {
@@ -56,6 +84,16 @@ public apellidoSeleccion:any='';
       });
 
    } // Fin constructor
+
+
+   getUniqueArray(array){
+      var result = [];
+      for(var x = 0; x < array.length; x++){
+      if(result.indexOf(array[x]) == -1)
+            result.push(array[x]);
+      }
+      return result;
+    }
 
 
   IrPaso1s(empleado){
@@ -78,6 +116,20 @@ public apellidoSeleccion:any='';
 
 
   }
+
+
+   onChangeSelect(evento, dom_select){
+     this.empleados = [];
+     console.log(evento)
+     console.log(dom_select.value)
+     this.filtro_por_sucursal = dom_select.value;
+     this.datos.map((valor:any[]) => {
+       if(valor['sucursal_nombre'] === this.filtro_por_sucursal){
+         console.log(valor['sucursal_nombre'])
+         this.empleados.push(valor)
+       }
+     })
+   }
 
 
 

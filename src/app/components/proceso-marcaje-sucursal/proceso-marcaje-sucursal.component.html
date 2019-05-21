@@ -53,10 +53,18 @@
                 style="width:100px;float:right;"
               >
             </a>
+
+
+
   </div>
 
 
-
+        <div class="container m-2 p-2">
+          <label><strong>Selecciona Centro</strong></label>
+            <select #select (change)="onChangeSelect($event, select)" class="custom-select">
+              <option  *ngFor="let sucursal of sucursales"  [value]="sucursal">{{sucursal}}</option>
+            </select>  
+        </div>
 
 
 
