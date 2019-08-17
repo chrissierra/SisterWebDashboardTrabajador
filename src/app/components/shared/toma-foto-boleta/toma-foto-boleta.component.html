@@ -1,0 +1,20 @@
+<div *ngIf="booleanoFotoLista"  class="camara-contenedor container" align="center">
+                    
+                    <video #camara_contenedor id="camara_contenedor" autoplay playsinline width="100%" height="100%"></video>
+                    
+                    <button *ngIf="booleanoFotoLista" (click)="tomarFoto()" class="btn btn-danger" id="tomar-foto-btn">
+                        <i class="fa fa-camera"></i>
+                        Tomar Foto
+                    </button>
+
+                   
+
+</div>
+
+<div align="center" class="container"> 
+	<div class="row justify-content-center">
+	
+        <div class="col-sm-12 text-center"><img #imagen></div>
+
+	</div>
+</div>               

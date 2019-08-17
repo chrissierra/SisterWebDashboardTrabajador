@@ -34,13 +34,14 @@ export class AppComponent {
   title = 'app';
 
   private avisoSinConexion(){
-  	this.snack = this.snackBar.open(`¡Cuidado! Estás sin conexión.
-  	 Puede haber errores en el proceso si no tienes internet, asegurate de conectarte adecuadamente.`);
+  	localStorage.setItem('AvisoSinConexion', 'true')
+  	this.snack = this.snackBar.open(`¡Cuidado! Estás sin conexión.`);
 
   }
 
 
   private avisoConexion(){
+  	localStorage.setItem('AvisoSinConexion', 'false')
   	this.snack.dismiss()
   	this.snackBar.open('¡Excelente! Volviste a conectarte', 'Ok', {
 	  duration: 1000

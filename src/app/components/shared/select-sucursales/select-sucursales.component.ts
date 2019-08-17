@@ -15,7 +15,7 @@ export class SelectSucursalesComponent {
 	SucursalElegida:any;
   nombreEmpresa:any;
   constructor(	private GuardarSucursalService_: GuardarSucursalService,
-  				private store: Store<AppState>) 
+  				      private store: Store<AppState>) 
   { 
   		this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));
      

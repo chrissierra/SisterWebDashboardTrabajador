@@ -22,6 +22,12 @@ export class PerfilTrabajadorServiceService {
   } // Fin funcion getStatusHorarios_por_consulta
 
 
+  getContrasteFotograficoValidacion(trabajador_id){
+         return this.http_.post(this.rutas_.rutas['getContrasteFotograficoValidacion'] , JSON.stringify({'trabajador_id':trabajador_id}));
+ 
+  }
+
+
   getStatusHorarios_mes_actual(trabajador_id){
 
     	let date= new Date();

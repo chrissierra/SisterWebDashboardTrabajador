@@ -59,10 +59,12 @@ export class RutasservidorService {
     'getAsistenciaOfflineDiario': this.urlBase + 'api/getAsistenciaOfflineDiario',
     'getAsistenciaOfflineMensual': this.urlBase + 'api/getAsistenciaOfflineMensual',
 
-    
+    'getContrasteFotograficoValidacion': this.urlBase + 'api/getContrasteFotograficoValidacion',
+    'UpdateContrasteFotograficoValidacion' : this.urlBase + 'api/UpdateContrasteFotograficoValidacion',
     // SERVIDOR
     'registrohitosmandantes': this.urlServer + 'registrohitosmandantes.php',
     'recepcionimagenv10': this.urlServer + 'recepcionimagenv10.php',
+    'recepcionimagen1v1': this.urlServer + 'recepcionimagen1v1.php',
 
   };
 

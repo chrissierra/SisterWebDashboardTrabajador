@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
 
+
+<body>
  <div class="container text-center p-3">
 	  <div class="row justify-content-center">
 
@@ -12,12 +14,21 @@
 
 
             <div class="row justify-content-center">
-                <div class="col-sm-12">
+                <div class="col-sm-12" *ngIf="ConexionInternet">
                       <h3>
-                            <small class="text-muted" >
+                            <small *ngIf="ConFotografiaContraste" class="text-muted">
                             Al presionar el botón se abrirá la cámara. Te recomendamos 
-                          tomar la foto muy claramente, sin exceso de luz ni zona con muchas sombras.
-                        </small>
+                             tomar la foto muy claramente, sin exceso de luz ni zona con muchas sombras.
+                             <hr>
+                             <br>
+                             <h5>Nombre:  {{ informacionPersonalTrabajador['nombre'] + " " + informacionPersonalTrabajador['apellido'] }}</h5>
+                             <br>
+                             <h5>Rut:  {{ informacionPersonalTrabajador['rut']  }}</h5>
+                            </small>
+
+                            <small *ngIf="!ConFotografiaContraste"  class="text-muted"  style="font-family: 'Dosis', sans-serif !important; color:red !important"  >
+                              NO TIENES FOTOGRAFÍA PARA REALIZAR VALIDACIÓN BIOMÉTRICA.<BR> ¡ENVÍA TU FOTO!
+                            </small>                            
                        </h3>
                 </div>
             </div>
@@ -26,11 +37,11 @@
 
 
 
-		<div class="container">
+		<div *ngIf="ConexionInternet" class="container">
 
 
       <div class="row justify-content-center">
-                <div class="col-sm-12 text-center">
+                <div class="col-sm-12 text-center" *ngIf="carnet_validacion?.carnet_validacion !== 1">
                     
 
 
@@ -38,7 +49,10 @@
                         Autenticación Biométrica
                       </p>
 
-                      <app-toma-fotografica *ngIf="BoleanoTomaRespaldo && !boleanoTurnoExtraEnCurso" (onFotoTomada)="onFileChanged($event)"></app-toma-fotografica>
+
+                      <app-toma-fotografica (onButonPresionado)="AlPresionarBoton($event)" *ngIf=" BoleanoTomaRespaldo && !boleanoTurnoExtraEnCurso" (onFotoTomada)="onFileChanged($event)"></app-toma-fotografica>
+                      
+
                       <!--
                         *******************                                                      ********************************
                         *******************     MARCAJE DE TURNO NORMAL, BOTON ENVÍO FOTO        ******************************** -->    
@@ -58,9 +72,22 @@
                         <h5 class="mb-1"> {{ cargando | percent}}</h5>
                         <br>
 
-                        <button *ngIf="boleanoBoton" (click)="analisis()" class="btn btn-success" >Marcar Turno</button>
+                        <button *ngIf="boleanoBoton" (click)="analisis(true)" class="btn btn-success" >Marcar Turno</button>
               
 
+
+                </div>
+                <div  class="col-sm-12 text-center" *ngIf="carnet_validacion?.carnet_validacion === 1">
+                                                        <!-- app.component.html -->
+
+
+                        <app-toma-foto-carnet-respaldo *ngIf="FotoCarnetTomaRespaldoBoolean2" (onFotoTomada)="onFileChanged_($event)" [tomarFotoInput]="test_"></app-toma-foto-carnet-respaldo>
+    
+                        <zxing-scanner *ngIf="!FotoCarnetTomaRespaldoBoolean1"  #carnetDom
+                            (scanSuccess)="carnet_funcion($event)"
+                             [(device)]="device"
+                             (camerasFound)="camerasFoundHandler($event)"
+                        ></zxing-scanner> 
 
                 </div>
       </div>
@@ -140,6 +167,15 @@
       </ul> 
               
 
-              <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading> 
-              <ng-template #customLoadingTemplate></ng-template>
+              <!--  -->
+
+
+
+
+
+
+
+              <ngx-loading style="height:2000px !important;" [show]="loading" [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop:'true' }" [template]="customLoadingTemplate"></ngx-loading> 
+              <ng-template  style="height:2000px !important;"  #customLoadingTemplate></ng-template>
 </div>
+</body>

@@ -82,6 +82,42 @@ horas_eys_noche(data){
 
 
 
+		GenerarImagen(){
+			 				    
+				    const date = new Date().valueOf();
+					
+					let text = '';
+					
+					const possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+					
+					for (let i = 0; i < 5; i++) {
+					   text += possibleText.charAt(Math.floor(Math.random() *    possibleText.length));
+					}
+					// Replace extension according to your media type
+					const imageName = date + '.' + text + '.jpeg';
+					// call method that creates a blob from dataUri
+					const imageBlob = this.dataURItoBlob(localStorage.getItem('fotito') );
+
+					const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' }); // alert(JSON.stringify(this.selectedFile.size));
+					
+					return imageFile; 
+
+			}
+
+
+	dataURItoBlob(dataURI) {
+		   const byteString = window.atob(dataURI);
+		   const arrayBuffer = new ArrayBuffer(byteString.length);
+		   const int8Array = new Uint8Array(arrayBuffer);
+		   for (let i = 0; i < byteString.length; i++) {
+		     int8Array[i] = byteString.charCodeAt(i);
+		   }
+		   const blob = new Blob([int8Array], { type: 'image/jpeg' });    
+		   return blob;
+	}
+
+
+
 
 
 

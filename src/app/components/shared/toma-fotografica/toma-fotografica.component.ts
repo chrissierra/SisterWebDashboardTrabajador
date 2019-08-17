@@ -13,11 +13,12 @@ export class TomaFotograficaComponent implements OnInit, OnDestroy {
 	@ViewChild('camara_contenedor') videoNode: ElementRef;
 	@ViewChild('imagen') imagenNode: ElementRef;
   @Output() onFotoTomada: EventEmitter<any>;
+  @Output() onButonPresionado: EventEmitter<any>;
 
 //@ViewChild('camara_contenedor')
 
 //public videoNode: ElementRef;
-  constructor() { this.onFotoTomada = new EventEmitter(); }
+  constructor() { this.onFotoTomada = new EventEmitter(); this.onButonPresionado = new EventEmitter(); }
 
   ngOnDestroy(){
     this.apagar();
@@ -44,13 +45,15 @@ export class TomaFotograficaComponent implements OnInit, OnDestroy {
 
       tomarFoto() {
 
+        this.onButonPresionado.emit(true);
+
         // Crear un elemento canvas para renderizr ahí la foto
         let canvas = document.createElement('canvas');
 
 
         // Colocar las dimensiones igual al elemento del video
-        canvas.setAttribute('width', '300' ); // 320
-        canvas.setAttribute('height', '350' ); // 470
+        canvas.setAttribute('width', '300' ); // 320  // 20-07-2019: Lo que estaba y funcionaba: 300
+        canvas.setAttribute('height', '350' ); // 470 // 20-07-2019: Lo que estaba y funcionaba: 350
 
         // obtener el contexto del canvas
         let context = canvas.getContext('2d'); // una simple imagen
@@ -81,6 +84,7 @@ const imageFile = new File([imageBlob], imageName, { type: 'image/jpeg' });
 this.booleanoFotoLista = false;
 this.apagar();
 this.imagenNode.nativeElement.src = window.URL.createObjectURL(imageFile);
+localStorage.setItem('URL_Interna',this.imagenNode.nativeElement.src )
 console.log(imageFile)
 localStorage.setItem('fotito', this.foto.split(',').pop())
         

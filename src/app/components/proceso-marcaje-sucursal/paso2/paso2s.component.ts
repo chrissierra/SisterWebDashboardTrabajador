@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MarcajeServiceService } from '../../../services/marcaje-service.service';
@@ -16,7 +16,7 @@ var movimiento, letra, hora;
   templateUrl: './paso2s.component.html',
   styleUrls: ['./paso2s.component.css']
 })
-export class Paso2sComponent  {
+export class Paso2sComponent implements OnInit  {
 	public loading:any = true;
 	public coeficiente:any;
 	public aviso:any;
@@ -56,10 +56,16 @@ export class Paso2sComponent  {
 	this.getFromState();
 	this.SetearAviso();
 	this.GetsituacionMarcaje();
-	
+	const indefiniendo_sucursal = new fromMarcaje.ACTUALIZARSUCURSALAction(undefined);
+    this.store.dispatch( indefiniendo_sucursal );
 	
 
   } // Fin Constructor
+
+  ngOnInit(){
+  	const indefiniendo_sucursal = new fromMarcaje.ACTUALIZARSUCURSALAction(undefined);
+    this.store.dispatch( indefiniendo_sucursal );
+  }
 
 
 private GetsituacionMarcaje(){
@@ -68,7 +74,7 @@ private GetsituacionMarcaje(){
 		//console.log(data['Entrada'])
 		this.conjuntoSituacionMarcaje = data
 		}, (error) => {
-			
+			alert(JSON.stringify(error))
 		}, () => {
 			// Todo esto continuaba luego de llamar la función desde el constructor. Ahora continua en complete de subscribe
 			this.GetMovimiento();
@@ -82,8 +88,10 @@ private GetsituacionMarcaje(){
 
 marcar_movimiento(mov){
 
+		
 		this.loading = true;
 		this.SetId();
+		this.sucursal = undefined;
 		this.getFromState();
 		
 		if(this.sucursal === undefined) return this.swalSucursal(); //console.log("this.sucursal,", this.sucursal)
@@ -99,6 +107,14 @@ marcar_movimiento(mov){
 	  			// Turnos ya generados...
 	  				this.MarcajeService_.realizarMarcaje(this.id)
 			  			.subscribe( (data:any[]) => {
+							
+
+			  				/**
+			  				 *
+ 	
+
+
+			  				*/
 							  console.log(this.id)
 							  console.log(data['id'])
 							  if(data['id'] !== undefined) this.GeneracionComprobante(data)

@@ -1,3 +1,9 @@
 .swal-wide{
     width:350px !important;
 }
+
+
+canvas {
+    width: 1080px !important;
+    height: 720px !important;
+}

@@ -26,7 +26,8 @@
 			  <div class="form-group form-check">
 			  	<label class="form-check-label" for="exampleCheck1"><strong><p>Toma registro de tu boleta</p></strong></label>
 			    	<br><app-upload [nombreArchivo]="nombreDelArchivo"></app-upload>
-			    
+			    		    	<br><app-toma-foto-boleta (onButonPresionado)="AlPresionarBoton($event)"  (onFotoTomada)="onFileChanged($event)"></app-toma-foto-boleta> 
+
 			  </div>
 			
 			

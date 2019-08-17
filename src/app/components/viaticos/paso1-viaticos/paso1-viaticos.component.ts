@@ -8,6 +8,10 @@ import { GeolocalizacionService } from '../../../services/geolocalizacion.servic
 import { ViaticosService } from '../../../services/viaticos.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { RutasservidorService } from '../../../services/rutasservidor.service';
+import { MarcajeServiceService } from '../../../services/marcaje-service.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TesseractWorker } from 'tesseract.js';
+
 @Component({
   selector: 'app-paso1-viaticos',
   templateUrl: './paso1-viaticos.component.html',
@@ -20,7 +24,10 @@ export class Paso1ViaticosComponent  {
 	public nombreDelArchivo:string = 'photo';
 	public viatico:viaticos;
 	public deviceInfo:any;
-  constructor(	public RutasservidorService_: RutasservidorService,
+	public selectedFile:any;
+  constructor(	public http: HttpClient,
+  				private MarcajeServiceService: MarcajeServiceService,
+  				public RutasservidorService_: RutasservidorService,
 				private MensajesSwalService_: MensajesSwalService,
   				private GeolocalizacionService_: GeolocalizacionService,
   				private deviceService: DeviceDetectorService,
@@ -28,13 +35,14 @@ export class Paso1ViaticosComponent  {
   				private store: Store<AppState>,
               	private param: ActivatedRoute,
               	private router: Router) { 
-  				this.detectDevice();
-  				this.GeolocalizacionService_.getLocacionToState();
- 				this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));
- 				this.id = this.datosTrabajador['id'];
-  				this.url = this.RutasservidorService_.rutas['registrohitosmandantes'] +'?id='+this.id
-  		        const accion = new fromMarcaje.ACTUALIZARURLAction(this.url);
-        		this.store.dispatch( accion );
+
+		  				this.detectDevice();
+		  				this.GeolocalizacionService_.getLocacionToState();
+		 				this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));
+		 				this.id = this.datosTrabajador['id'];
+		  				this.url = this.RutasservidorService_.rutas['registrohitosmandantes'] +'?id='+this.id
+		  		        const accion = new fromMarcaje.ACTUALIZARURLAction(this.url);
+		        		this.store.dispatch( accion );
   }
 
 
@@ -90,6 +98,54 @@ guardar(forma){
 	
 	
 }
+
+
+  AlPresionarBoton(e){
+  	//this.boleanoTurnoExtra = false;
+  	if(e){
+
+  	}  
+  }
+
+
+  	onFileChanged(e) {
+
+  				var peo;
+
+		  		this.selectedFile = this.MarcajeServiceService.GenerarImagen();
+		  		
+		  		const formData_caso_updatear = new FormData(); 
+   				   				
+   				formData_caso_updatear.append('sampleFile', this.selectedFile);
+   				
+   				this.http.post('https://mailing.sister.cl/LeerBoleta', formData_caso_updatear)
+   				.subscribe( (event:any) => { 
+			    	peo = event;
+			    	console.log(event)
+			    	//alert(event.split('\n'))
+			    	alert(JSON.stringify(event['response']).split(' '))
+			    	alert(JSON.stringify(event['response']).split(' ')[4])
+
+			    	for (var i = 0; i < JSON.stringify(event['response']).split('\n').length; ++i) {
+			    		// code...
+			    	alert(JSON.stringify(event['response']).split('\n')[i])
+
+			    	}
+
+
+			    }, (err) => {
+
+			    	console.log(err)
+			    	alert(err)
+
+			    }, () =>{
+			    	alert(peo)
+			    	//alert(peo.split('\n'))
+			    	alert(JSON.stringify(peo['response']).split('\n')[0])
+
+			    })   		   			
+
+	} // Fin onFileChanged
 
 
 }

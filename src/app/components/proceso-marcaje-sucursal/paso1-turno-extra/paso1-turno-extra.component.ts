@@ -27,6 +27,9 @@ export class Paso1TurnoExtraComponent {
 	idParaMarcaje:any;
 	BoleanoTomaRespaldo:boolean=true;
 	datosMarcaje:Marcaje;
+	carnet_validacion:any;
+	device:any;
+	coeficiente_biometrico:any;
   constructor(  public RutasservidorService_: RutasservidorService,
 				private MarcajeServiceService: MarcajeServiceService,
   				private MensajesSwalService_: MensajesSwalService,
@@ -34,7 +37,9 @@ export class Paso1TurnoExtraComponent {
   				public http: HttpClient,
   				private param: ActivatedRoute,
   			    private router : Router) {
-  	
+  		
+  		console.log(localStorage.getItem('carnet_validacion'))
+  		this.carnet_validacion = { 'carnet_validacion': localStorage.getItem('carnet_validacion') }
   	  	this.datosTrabajador = JSON.parse(localStorage.getItem('datosTrabajador'));
 
 		this.id=this.param.snapshot.paramMap.get('id');
@@ -149,51 +154,6 @@ export class Paso1TurnoExtraComponent {
 	} // Fin onFileChanged
 
 
-/*
-  	onFileChanged(event) {
-		    
-		    this.selectedFile = event.target.files[0];
-
-		    const formData = new FormData();
-
-   			formData.append('photo', this.selectedFile);
-		    
-		    this.http.post(this.RutasservidorService_.rutas['recepcionimagenv10']+'?rut='+this.rut, formData, {
-		        reportProgress: true,
-		        observe: 'events'
-		    }).subscribe(event => {
-		    	console.log(event)
-		    	console.log(event['total'])
-		    	this.boleanoLoader=true;
-		    	this.BoleanoTomaRespaldo = false;
-		    	this.cargando = (event['total'] === undefined) ? 1 : event['loaded'] / event['total'];	
-
-		        const accion = new fromMarcaje.ACTUALIZARURLAction(event['body']);
-    			this.store.dispatch( accion );
-    			this.url = event['body'];
-		        
-		      
-		    }, (error) => {
-		    	this.MensajesSwalService_.mensajeStandar({
-												titulo:'Error en envío',
-												texto:'La fotografía no pudo ser procesada. Repite la operación. Si persiste avísanos.',
-												tipo:'error',
-												boton:'Ok'
-		    											});
-		    	this.router.navigate(['./ProcesoMarcajeSucursal']);
-		    }, ()=> {
-		    	console.log(this.url['urlImagen'])
-		    	if(this.url['urlImagen'].search('https') > -1){
-		    		this.boleanoBoton = true;
-		    		this.boleanoLoader=false;
-		    	} 
-		    });
-	} // Fin onFileChanged
-*/
-
-
-
-
 	analisis(){
 				 this.http.get('https://sister.cl/DeteccionFacialServidor/' +this.rut).subscribe(event => {
 				       	
@@ -214,6 +174,64 @@ export class Paso1TurnoExtraComponent {
 
 	} //¨** Fin función analisis
 
+
+
+	carnet_funcion(result) {
+
+            
+            console.log(result);
+            this.url ={ 'urlImagen': result}
+            const accion = new fromMarcaje.ACTUALIZARURLAction(this.url);
+    		this.store.dispatch( accion );
+    		
+
+    		const accion1 = new fromMarcaje.ACTUALIZARCTEAction(0.3);
+		    this.coeficiente_biometrico = 0.3
+    		this.store.dispatch( accion1 );
+
+    		if(result.match(this.rut.slice(0, -1)) == this.rut.slice(0, -1)){
+				
+				this.router.navigate(['./Paso2s/' + 0.3 ]);
+
+    		}else{
+				
+				this.MensajesSwalService_.mensajeStandar({
+												titulo:'Carnet no corresponde',
+												texto:'El carnet escaneado no concuerda con el trabajador que intenta marcar un movimiento.',
+												tipo:'error',
+												boton:'Ok'
+		    											});
+			    this.router.navigate(['./ProcesoMarcajeSucursal']);
+
+    		}
+
+    }
+
+
+	camerasFoundHandler(e){
+            console.log(e);
+            const videoDevices: MediaDeviceInfo[] = [];
+            for (const device of e) {
+                if (device.kind.toString() === 'videoinput') {
+                    videoDevices.push(device);
+                }
+            }
+            if (videoDevices.length > 0){
+                let choosenDev;
+                for (const dev of videoDevices){
+                    if (dev.label.includes('back')){
+                        choosenDev = dev;
+                        break;
+                    }
+                }
+                if (choosenDev) {
+                    this.device = choosenDev;
+                } else {
+                   this.device = videoDevices[0];
+                }
+            }
+
+    }
 
 
 

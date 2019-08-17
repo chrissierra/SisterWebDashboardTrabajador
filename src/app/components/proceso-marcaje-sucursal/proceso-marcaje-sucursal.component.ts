@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PlanillaservicesService } from '../../services/planillaservices.service';
+import { PerfilTrabajadorServiceService } from '../../services/perfil-trabajador-service.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromMarcaje from './../marcaje.actions';
@@ -29,7 +30,8 @@ export class ProcesoMarcajeSucursalComponent {
   public filtro_por_sucursal:string;
   public datos: any;
 
-  constructor(private store: Store<AppState>,
+  constructor(private PerfilTrabajadorServiceService_: PerfilTrabajadorServiceService, 
+              private store: Store<AppState>,
               private planillaServicio_: PlanillaservicesService,
               private router : Router) {
 
@@ -100,35 +102,51 @@ export class ProcesoMarcajeSucursalComponent {
 			//alert("asdf")
       console.log("Empleado desde función", empleado['nombre'] + ' ' + empleado['apellido']);
 
-        let nombreCompleto = empleado['nombre'] + ' ' + empleado['apellido'];
+      localStorage.setItem('informacionPersonalTrabajador', JSON.stringify(empleado));
 
-        const accion = new fromMarcaje.ACTUALIZARNOMBRETRABAJADORAction(nombreCompleto);
-        this.store.dispatch( accion );
-        
-        console.log("Verificando que efectivamente desde sucursal se guarda el ID en estate, el valor de empleado['id'] es: ", empleado['id'])
+      let nombreCompleto = empleado['nombre'] + ' ' + empleado['apellido'];
 
-        const accion1 = new fromMarcaje.ACTUALIZARIDAction(empleado['id']);
-        this.store.dispatch( accion1 );
-        //[routerLink]="['/Paso1s',  empleados.id,  empleados.rut]"
-       this.router.navigate(['./Paso1s/'+empleado.id+'/'+ empleado.rut]);
-
+      const accion = new fromMarcaje.ACTUALIZARNOMBRETRABAJADORAction(nombreCompleto);
+      this.store.dispatch( accion );
       
+      console.log("Verificando que efectivamente desde sucursal se guarda el ID en estate, el valor de empleado['id'] es: ", empleado['id'])
 
-
+      const accion1 = new fromMarcaje.ACTUALIZARIDAction(empleado['id']);
+      this.store.dispatch( accion1 );
+        //[routerLink]="['/Paso1s',  empleados.id,  empleados.rut]"
+      this.router.navigate(['./Paso1s/'+empleado.id+'/'+ empleado.rut]);
+   
   }
 
 
    onChangeSelect(evento, dom_select){
+
      this.empleados = [];
-     console.log(evento)
-     console.log(dom_select.value)
+
      this.filtro_por_sucursal = dom_select.value;
+
      this.datos.map((valor:any[]) => {
+
        if(valor['sucursal_nombre'] === this.filtro_por_sucursal){
-         console.log(valor['sucursal_nombre'])
-         this.empleados.push(valor)
+         
+           console.log(valor)
+
+           //this.PerfilTrabajadorServiceService_.getContrasteFotograficoValidacion(valor['id'])
+           //.subscribe( data => console.log(data) )
+         
+           this.empleados.push(valor)
        }
      })
+
+
+     /*
+      TODO:
+      1- request http para ver si los trabajadores acá seleccionados tienen validada la imagen. Si no está validada que rediriga a otra ventana. 
+      2- En la segunda ventana se debe abrir un canvas para una selfie y enviar como subiendo foto igual que en sister cliente.
+      3- Luego, seguido; enviar para contrastar como si estuviera marcando. 
+
+     */
+
    }
 
 

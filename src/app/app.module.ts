@@ -5,6 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 //import { ImageUploadModule } from "angular2-image-upload";
 
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
+import { NgQrScannerModule } from 'angular2-qrscanner';
+
 // Angular material
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -111,6 +115,8 @@ import { Paso3ViaticosComponent } from './components/viaticos/paso3-viaticos/pas
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { Paso1OfflineComponent } from './components/proceso-marcaje-sucursal/paso1-offline/paso1-offline.component';
 import { TomaFotograficaComponent } from './components/shared/toma-fotografica/toma-fotografica.component';
+import { TomaFotoCarnetRespaldoComponent } from './components/shared/toma-foto-carnet-respaldo/toma-foto-carnet-respaldo.component';
+import { TomaFotoBoletaComponent } from './components/shared/toma-foto-boleta/toma-foto-boleta.component';
 
 @NgModule({
   declarations: [
@@ -155,7 +161,9 @@ import { TomaFotograficaComponent } from './components/shared/toma-fotografica/t
     Paso3ViaticosComponent,
     FooterComponent,
     Paso1OfflineComponent,
-    TomaFotograficaComponent
+    TomaFotograficaComponent,
+    TomaFotoCarnetRespaldoComponent,
+    TomaFotoBoletaComponent
 
   ],
   imports: [
@@ -164,7 +172,7 @@ import { TomaFotograficaComponent } from './components/shared/toma-fotografica/t
     peo,
     DeviceDetectorModule.forRoot(),
     FormsModule,
-   
+    NgQrScannerModule,
     NgxLoadingModule.forRoot({}),
     NgSelectModule,
     ReactiveFormsModule,
@@ -180,6 +188,7 @@ import { TomaFotograficaComponent } from './components/shared/toma-fotografica/t
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    ZXingScannerModule,
     MatDatepickerModule,
     MatIconModule,
     MatNativeDateModule,
